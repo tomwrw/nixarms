@@ -1,0 +1,16 @@
+{{- /* Chalkboard panel in a wooden frame.
+  {{< chalkboard title="Nix jargon, translated" label="Tonight's order" size="lg" grid="true" >}}
+  Markdown here… (put chalk-item shortcodes inside when grid="true")
+  {{< /chalkboard >}}
+*/ -}}
+{{- $lg := eq (.Get "size") "lg" -}}
+<div class="chalkboard{{ if $lg }} chalkboard--lg{{ end }}">
+{{- with .Get "label" }}<p class="chalk-label">{{ . }}</p>{{ end }}
+{{- with .Get "title" }}<h2>{{ . }}</h2>{{ end }}
+{{- with .Get "intro" }}<p style="margin: 6px 0 0">{{ . | markdownify }}</p>{{ end }}
+{{- if eq (.Get "grid") "true" }}
+<div class="chalk-grid">{{ .Inner }}</div>
+{{- else }}
+{{ .Page.RenderString (dict "display" "block") (trim .Inner "\n") }}
+{{- end }}
+</div>

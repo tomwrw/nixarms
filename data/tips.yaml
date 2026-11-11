@@ -1,0 +1,48 @@
+# "One for the road": one tip is shown at random on each visit (first one without JavaScript).
+# Keep each tip to one command and a sentence or two. Check commands work on current NixOS before adding.
+- title: "Try before you buy"
+  code: "nix-shell -p cowsay"
+  text: "Opens a shell with the app available. Type `exit` and it's gone again. Nothing was installed."
+
+- title: "Undo last night"
+  code: "sudo nixos-rebuild switch --rollback"
+  text: "Switches straight back to your previous generation, no reboot needed."
+
+- title: "Test-drive a change"
+  code: "sudo nixos-rebuild test"
+  text: "Applies your config now but leaves it out of the boot menu. Don't like it? Reboot and you're back where you were."
+
+- title: "A whole PC in a window"
+  code: "nixos-rebuild build-vm"
+  text: "Builds a virtual machine from your config. Run `./result/bin/run-*-vm` to try big changes without touching your real system."
+
+- title: "Count your rounds"
+  code: "nixos-rebuild list-generations"
+  text: "Lists every generation with its date, NixOS version and kernel, so you know exactly what you'd be rolling back to."
+
+- title: "Clear the empties"
+  code: "sudo nix-collect-garbage --delete-older-than 14d"
+  text: "Deletes generations older than two weeks and frees the disk space they used. You can't roll back to those any more, so keep a recent good one."
+
+- title: "Let the cellar tidy itself"
+  code: |
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+  lang: nix
+  text: "Add this to your config and NixOS clears old generations every week, so you never have to remember."
+
+- title: "Save space for free"
+  code: "nix.settings.auto-optimise-store = true;"
+  lang: nix
+  text: "Nix spots identical files across packages and stores them once. Add it to your config and rebuild."
+
+- title: "Find the right name"
+  code: "nix search nixpkgs obs"
+  text: "Searches every package from the terminal (needs flakes). Or use search.nixos.org in your browser."
+
+- title: "Run it once"
+  code: "nix run nixpkgs#hello"
+  text: "Downloads and runs an app in one go, without adding it to your config (needs flakes)."

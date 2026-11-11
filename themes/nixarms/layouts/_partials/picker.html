@@ -1,0 +1,27 @@
+{{- /* Pill picker: pills swap a panel in place. Used for "What are you drinking?" and "Which brew?".
+       Call with: partial "picker.html" (dict "items" hugo.Data.paths "id" "path" "label" "Choose where you're coming from")
+       Each item: id, label, title, pitch, points[], cta, url.
+       Without JavaScript the pills are plain links to each item's url; site.js turns them into tabs. */ -}}
+{{- $items := .items }}
+{{- $prefix := .id | default "pick" }}
+<div class="picker" data-picker>
+  <div class="pills" role="group" aria-label="{{ .label | default "Choose an option" }}">
+    {{- range $i, $p := $items }}
+    <a class="pill{{ if eq $i 0 }} is-active{{ end }}" href="{{ $p.url | relURL }}" data-panel="{{ $prefix }}-{{ $p.id }}">{{ $p.label }}</a>
+    {{- end }}
+  </div>
+  {{- range $i, $p := $items }}
+  <div class="picker__panel" id="{{ $prefix }}-{{ $p.id }}"{{ if ne $i 0 }} hidden{{ end }}>
+    <div class="picker__copy">
+      <h3>{{ $p.title }}</h3>
+      <p>{{ $p.pitch | markdownify }}</p>
+      <a class="btn btn--oxblood" href="{{ $p.url | relURL }}">{{ $p.cta }} {{ partial "icon.html" (dict "name" "arrow" "size" 16) }}</a>
+    </div>
+    <ul class="checks">
+      {{- range $p.points }}
+      <li>{{ partial "icon.html" (dict "name" "check" "size" 22 "width" 2.2) }}<span>{{ . | markdownify }}</span></li>
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+</div>

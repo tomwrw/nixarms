@@ -1,0 +1,26 @@
+# On the telly: video channels, shown on /library/ under the written guides.
+# level: On tap (use it all the time), First pint, Second round or Top shelf. Colours live in the level-badge partial.
+# The Library page sorts cards by level (by-level partial); order within a level is the order here.
+# `start` is one video to try first. Check it still exists, and note when a channel stops posting.
+- name: "Vimjoyer"
+  url: "https://www.youtube.com/@vimjoyer"
+  level: "First pint"
+  description: "Short, quick-fire videos on NixOS, flakes, Home Manager and the tools around them. Still posting regularly, so it's the place to see newer tools as they turn up."
+  start:
+    title: "6 Popular NixOS Beginner Mistakes To Avoid"
+    url: "https://www.youtube.com/watch?v=jQzPRYgJw04"
+- name: "LibrePhoenix"
+  url: "https://www.youtube.com/@LibrePhoenix"
+  level: "Second round"
+  description: "Longer walkthroughs on growing a config: splitting it into modules, Home Manager, and running stable and unstable side by side. No new videos since 2024, so some option names have moved on."
+  start:
+    title: "How to Start Adding Modularity to your NixOS Config"
+    url: "https://www.youtube.com/watch?v=bV3hfalcSKs"
+- name: "The Nix Hour"
+  url: "https://www.youtube.com/playlist?list=PLyzwHTVJlRc8yjlx4VR4LU5A5O44og9in"
+  level: "Top shelf"
+  description: "81 live, unscripted Q&A sessions from Tweag, recorded between 2022 and 2024. It's about Nix itself (the language and packaging) more than setting up a desktop."
+- name: "NixCon"
+  url: "https://www.youtube.com/@NixCon"
+  level: "Top shelf"
+  description: "Talks from the yearly Nix conference, including NixCon 2026. Pick by title: some are general, many are aimed at people who already run Nix at work."

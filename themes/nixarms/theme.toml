@@ -1,0 +1,8 @@
+name = "nixarms"
+description = "The Nix Arms theme: a friendly local pub for Nix and NixOS."
+homepage = "https://nixarms.com"
+min_version = "0.146.0"
+
+[author]
+  name = "tomwrw"
+  homepage = "https://github.com/tomwrw"

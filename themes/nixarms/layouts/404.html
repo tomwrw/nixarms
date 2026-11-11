@@ -1,0 +1,21 @@
+{{ define "main" }}
+<section class="band on-dark">
+  <div class="wrap page-band">
+    <p class="eyebrow">Error 404</p>
+    <h1>That one's off</h1>
+    <p class="lede">The page you asked for isn't here. It may have moved, or the link was wrong.</p>
+    <div class="band-actions">
+      <a class="btn btn--brass" href="{{ "/" | relURL }}">Back to the bar</a>
+      <a class="btn btn--ghost-light" href="{{ "/start/" | relURL }}">Start here</a>
+    </div>
+  </div>
+</section>
+<div class="wrap section section--last">
+  <h2 style="margin-bottom: 20px">Or try one of these</h2>
+  <div class="pills">
+    {{- range site.Menus.main }}
+    <a class="pill" href="{{ .URL }}">{{ .Name }}</a>
+    {{- end }}
+  </div>
+</div>
+{{ end }}

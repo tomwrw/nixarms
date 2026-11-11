@@ -1,0 +1,2 @@
+{{- /* {{< chalk-item title="Adobe apps" >}}Short markdown text.{{< /chalk-item >}} - use inside a grid chalkboard */ -}}
+<div class="chalk-item"><h3>{{ .Get "title" }}</h3><p>{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p></div>

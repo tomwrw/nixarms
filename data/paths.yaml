@@ -1,0 +1,44 @@
+# "What are you drinking?" picker: homepage and /start/. Order here = order of the pills.
+- id: windows
+  label: "Leaving Windows"
+  title: "Coming off Windows? You're in good company."
+  pitch: "Think of NixOS as System Restore that actually works, plus an app list you can carry to any PC. The guide also lists what won't come with you."
+  points:
+    - "A graphical installer, so you can get going without a terminal"
+    - "Steam, Discord, browsers and OBS are one line each"
+    - "What to expect with anti-cheat games, Adobe and Office"
+  cta: "Read the Windows guide"
+  url: "/start/windows/"
+
+- id: arch
+  label: "Coming from Arch"
+  title: "You already like control. Now keep it."
+  pitch: "Your carefully tuned setup, as code you can git push. No more archaeology in /etc trying to remember what you changed last year."
+  points:
+    - "Hyprland and sway setups kept in your config"
+    - "The unstable channel feels like a rolling release"
+    - "Overlays and flakes fill the role the AUR played"
+  cta: "Read the Arch guide"
+  url: "/start/arch/"
+
+- id: ubuntu
+  label: "Coming from Ubuntu"
+  title: "Same desktops, fewer surprises."
+  pitch: "GNOME and KDE work just as you know them, but upgrades are all-or-nothing, so a bad one never leaves you stranded halfway."
+  points:
+    - "Stable releases every May and November"
+    - "\"apt install\" becomes one line in a file"
+    - "Try it in a VM first, no commitment"
+  cta: "Read the Ubuntu guide"
+  url: "/start/ubuntu/"
+
+- id: gaming
+  label: "Here for the games"
+  title: "Yes, it games."
+  pitch: "Steam with Proton, Heroic, Lutris and gamemode, switched on in a handful of lines. Your library comes with you, mostly."
+  points:
+    - "AMD works out of the box; NVIDIA is one short block"
+    - "Proton runs a large share of the Steam library"
+    - "Games with kernel anti-cheat still won't run"
+  cta: "Read the gaming guide"
+  url: "/gaming/"

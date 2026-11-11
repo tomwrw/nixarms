@@ -1,0 +1,20 @@
+{{- /* A Regulars config card. Context: a page in content/regulars/ */ -}}
+{{- $slugs := slice }}{{ range .Params.tags }}{{ $slugs = $slugs | append (urlize .) }}{{ end }}
+<article class="card config-card" data-tags="{{ delimit $slugs " " }}">
+  <div class="card-top">
+    <div>
+      <div class="repo">{{ .Params.repo }}</div>
+      <div class="who">{{ .Params.author }}</div>
+    </div>
+    {{- with .Params.level }}{{ partial "level-badge.html" . }}{{ end }}
+  </div>
+  <p>{{ .Summary | plainify }}</p>
+  {{- with .Params.borrow }}<div class="borrow"><strong>Worth borrowing:</strong> {{ . }}</div>{{ end }}
+  <div class="tags">
+    {{- range .GetTerms "tags" }}<a class="badge" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+  </div>
+  <div class="actions">
+    <a href="{{ .RelPermalink }}">Read the notes</a>
+    <a href="https://github.com/{{ .Params.repo }}">View on GitHub →</a>
+  </div>
+</article>

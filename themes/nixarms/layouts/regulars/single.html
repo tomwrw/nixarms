@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="band on-dark">
+  <div class="wrap page-band">
+    <p class="eyebrow">The Regulars · {{ .Params.level }}</p>
+    <h1 class="mono" style="font-family: var(--mono); font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.8rem); overflow-wrap: anywhere">{{ .Params.repo }}</h1>
+    <p class="lede">By {{ .Params.author }}{{ with .Params.hardware }} · {{ . }}{{ end }}</p>
+    <div class="band-actions">
+      <a class="btn btn--brass" href="https://github.com/{{ .Params.repo }}">View on GitHub →</a>
+      <a class="btn btn--ghost-light" href="{{ "/regulars/" | relURL }}">All regulars</a>
+    </div>
+  </div>
+</section>
+<article class="wrap prose">
+  {{- with .Params.borrow }}
+  <div class="panel" style="margin: 0 0 40px; max-width: 780px"><p class="eyebrow">Worth borrowing</p><p style="margin: 0; font-size: 1.15rem">{{ . }}</p></div>
+  {{- end }}
+  {{ .Content }}
+  <p style="max-width: 780px">
+    {{- range .GetTerms "tags" }}<a class="badge" style="margin-right: 6px; text-decoration: none" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+  </p>
+</article>
+{{ end }}

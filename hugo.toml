@@ -1,0 +1,119 @@
+baseURL = "https://nixarms.com/"
+locale = "en-gb"
+title = "The Nix Arms"
+theme = "nixarms"
+enableRobotsTXT = true
+# Keep tag names as written (den, flake-parts) instead of title-casing them.
+capitalizeListTitles = false
+pluralizeListTitles = false
+
+[params]
+  tagline = "Nix on tap"
+  # The homepage <title> and social-share title. Mention NixOS so searches find it.
+  homeTitle = "The Nix Arms - a friendly guide to Nix and NixOS"
+  domain = "nixarms.com"
+  description = "A friendly local for anyone curious about Nix and NixOS: beginner guides, gaming on Linux, and real configs explained in plain English."
+  footerBlurb = "A friendly local for anyone curious about Nix and NixOS. The content is open source. If you spot a mistake, open a pull request and the next round's on me."
+  repo = "https://github.com/tomwrw/nixarms"
+  # Order of filter chips on The Regulars (tags not listed here are hidden from the bar).
+  regularsFilters = ["Beginner", "Gaming", "Hyprland", "Laptop", "Multi-machine", "Servers", "Flakes", "flake-parts", "Dendritic", "den"]
+
+  # Analytics: GoatCounter (cookieless). Set `code` to your GoatCounter site code,
+  # the part before .goatcounter.com (e.g. "nixarms" for nixarms.goatcounter.com).
+  # Leave it empty to turn analytics off. It only loads on production builds,
+  # never under `hugo server`, and the privacy page updates itself to match.
+  [params.goatcounter]
+    code = "nixarms"
+
+  [[params.footerNav]]
+    title = "The bar"
+    [[params.footerNav.links]]
+      name = "Start here"
+      url = "/start/"
+    [[params.footerNav.links]]
+      name = "Gaming"
+      url = "/gaming/"
+    [[params.footerNav.links]]
+      name = "The Regulars"
+      url = "/regulars/"
+    [[params.footerNav.links]]
+      name = "The Brewhouse"
+      url = "/brewhouse/"
+    [[params.footerNav.links]]
+      name = "The Menu"
+      url = "/menu/"
+    [[params.footerNav.links]]
+      name = "The Landlord"
+      url = "/landlord/"
+  [[params.footerNav]]
+    title = "Get involved"
+    [[params.footerNav.links]]
+      name = "Submit a config"
+      url = "/regulars/#submit"
+    [[params.footerNav.links]]
+      name = "Where the regulars drink"
+      url = "/#last-orders"
+    [[params.footerNav.links]]
+      name = "RSS feed"
+      url = "/index.xml"
+    [[params.footerNav.links]]
+      name = "Source on GitHub"
+      url = "https://github.com/tomwrw/nixarms"
+    [[params.footerNav.links]]
+      name = "Credits"
+      url = "https://github.com/tomwrw/nixarms/blob/main/THIRD_PARTY.md"
+    [[params.footerNav.links]]
+      name = "Privacy"
+      url = "/privacy/"
+
+[menus]
+  [[menus.main]]
+    name = "Start here"
+    pageRef = "/start"
+    weight = 10
+  [[menus.main]]
+    name = "Gaming"
+    pageRef = "/gaming"
+    weight = 20
+  [[menus.main]]
+    name = "Regulars"
+    pageRef = "/regulars"
+    weight = 30
+  [[menus.main]]
+    name = "Brewhouse"
+    pageRef = "/brewhouse"
+    weight = 35
+  [[menus.main]]
+    name = "Menu"
+    pageRef = "/menu"
+    weight = 40
+  [[menus.main]]
+    name = "Library"
+    pageRef = "/library"
+    weight = 50
+  [[menus.main]]
+    name = "Landlord"
+    pageRef = "/landlord"
+    weight = 60
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = false
+  [markup.goldmark.parser.attribute]
+    block = true
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = false
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]
+
+[minify]
+  minifyOutput = true

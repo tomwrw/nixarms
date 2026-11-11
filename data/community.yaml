@@ -1,0 +1,13 @@
+# "Where the regulars drink": homepage Last orders section.
+- name: "NixOS Discourse"
+  url: "https://discourse.nixos.org"
+  text: "The official forum. Beginner questions are welcome. Search first, then ask."
+- name: "NixOS on Matrix"
+  url: "https://matrix.to/#/#space:nixos.org"
+  text: "The official chat rooms, for quick questions and a natter."
+- name: "r/NixOS"
+  url: "https://www.reddit.com/r/NixOS/"
+  text: "Community-run subreddit: screenshots, setups and help threads."
+- name: "The Nix Arms on GitHub"
+  url: "https://github.com/tomwrw/nixarms"
+  text: "Fix a typo, add a tip, or submit your config to The Regulars."

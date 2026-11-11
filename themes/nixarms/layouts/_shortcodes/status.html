@@ -1,0 +1,5 @@
+{{- /* {{< status kind="ok|tweak|no" title="On tap" >}}Markdown{{< /status >}} */ -}}
+{{- $kind := .Get "kind" | default "ok" -}}
+{{- $icon := dict "ok" (dict "name" "check" "stroke" "#1F4A39") "tweak" (dict "name" "wrench" "stroke" "#7A5A1C") "no" (dict "name" "x" "stroke" "#8E2F1F") -}}
+{{- $i := index $icon $kind -}}
+<div class="status{{ if ne $kind "ok" }} status--{{ $kind }}{{ end }}"><h3>{{ partial "icon.html" (dict "name" $i.name "stroke" $i.stroke "size" 26 "width" 2.2) }}{{ .Get "title" }}</h3>{{ .Page.RenderString (dict "display" "block") (trim .Inner "\n") }}</div>

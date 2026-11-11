@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+<div class="wrap prose">
+  {{ .Content }}
+  <div class="grid">
+    {{- range .Pages }}
+    <a class="card" href="{{ .RelPermalink }}">
+      <h3>{{ .Title }}</h3>
+      <p>{{ or .Params.lede .Summary | plainify }}</p>
+    </a>
+    {{- end }}
+  </div>
+</div>
+{{ end }}

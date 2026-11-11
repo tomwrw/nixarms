@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- /* Tag pages get their own wording so they don't clash with Brewhouse pages of the same name (den, flakes). */}}
+{{- $name := .Title }}
+{{- if eq .Kind "term" }}{{ $name = printf "Configs tagged %s" .Title }}{{ else if eq .Kind "taxonomy" }}{{ $name = "Config tags" }}{{ end }}
+{{- $title := cond .IsHome (site.Params.homeTitle | default site.Title) (printf "%s - %s" $name site.Title) }}
+{{- $desc := or .Description .Params.lede }}
+{{- if not $desc }}
+  {{- if eq .Kind "term" }}{{ $desc = printf "NixOS configs in The Regulars tagged %s, each with notes for beginners on what's worth borrowing." .Title }}
+  {{- else if eq .Kind "taxonomy" }}{{ $desc = "Every tag used in The Regulars, the NixOS configs explained for beginners on The Nix Arms." }}
+  {{- else if and .IsPage .Summary }}{{ $desc = .Summary | plainify | htmlUnescape | truncate 160 }}
+  {{- else }}{{ $desc = site.Params.description }}{{ end }}
+{{- end }}
+{{- $desc = $desc | plainify | htmlUnescape | strings.TrimSpace }}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
+{{- if eq .Kind "404" }}
+<meta name="robots" content="noindex">
+{{- end }}
+<link rel="canonical" href="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ "social-card.png" | absURL }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ site.Title }} beer-mat logo with the tagline {{ site.Params.tagline }}">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#17352A">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="48x48">
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+<link rel="preload" href="{{ "fonts/fraunces-soft-var.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/work-sans-var.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{- with resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+{{- end }}
+{{- if .IsHome }}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "alternateName" site.Params.tagline "url" site.Home.Permalink "description" site.Params.description "inLanguage" "en-GB" | jsonify | safeJS }}</script>
+{{- end }}
+{{- range .AlternativeOutputFormats }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">
+{{- end }}

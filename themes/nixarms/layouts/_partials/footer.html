@@ -1,0 +1,28 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-main">
+      <img src="{{ "img/brand/nixarms-beermat.svg" | relURL }}" alt="{{ site.Title }} beer-mat logo: {{ site.Title }}, the NixOS logomark between two pints, {{ site.Params.tagline }}, est. gen 1" width="240" height="240" loading="lazy">
+      <div class="footer-about">
+        <p class="serif name">{{ site.Title }}</p>
+        <p>{{ site.Params.footerBlurb }}</p>
+        <p class="addr">{{ site.Params.domain }}</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        {{- range site.Params.footerNav }}
+        <div>
+          <p class="eyebrow">{{ .title }}</p>
+          <ul>
+            {{- range .links }}
+            <li><a href="{{ .url | relURL }}">{{ .name }}</a></li>
+            {{- end }}
+          </ul>
+        </div>
+        {{- end }}
+      </nav>
+    </div>
+    <div class="footer-legal">
+      <p>{{ site.Title }} is a community site and isn't affiliated with the NixOS Foundation. NixOS is a trademark of the NixOS Foundation.</p>
+      <p>NixOS logomark: "NixOS Logo" by Simon Frankau, Tim Cuthbertson and Daniel Baker (NixOS Marketing Team), from <a href="https://github.com/NixOS/branding">nixos/branding</a>, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Used unaltered.</p>
+    </div>
+  </div>
+</footer>

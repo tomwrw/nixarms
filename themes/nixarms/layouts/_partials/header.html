@@ -1,0 +1,20 @@
+<header class="site-header">
+  <nav class="wrap nav" aria-label="Main" data-nav>
+    <a class="brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} home">
+      <img src="{{ "img/brand/nixarms-lockup-on-dark.svg" | relURL }}" alt="{{ site.Title }} - {{ site.Params.tagline }}" width="273" height="56">
+    </a>
+    {{- /* Phone-width toggle. Hidden until site.js enables it, so without JavaScript the links simply show. */}}
+    <button class="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Open site navigation" data-nav-toggle hidden>
+      <svg class="nav-toggle__open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+      <svg class="nav-toggle__close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      {{- $page := . }}
+      {{- range site.Menus.main }}
+      {{- $active := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}
+      <li><a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+      {{- end }}
+      <li><a class="btn btn--brass" href="{{ "/#last-orders" | relURL }}">Pull up a stool</a></li>
+    </ul>
+  </nav>
+</header>

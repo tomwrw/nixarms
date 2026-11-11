@@ -1,0 +1,154 @@
+{{ define "main" }}
+{{- $h := .Params.hero }}
+<!-- HERO -->
+<section class="band on-dark">
+  <div class="wrap hero">
+    <div class="hero__copy">
+      <p class="eyebrow">{{ $h.eyebrow }}</p>
+      <h1>{{ $h.title }}</h1>
+      <p class="lede">{{ $h.lede | markdownify }}</p>
+      <div class="hero__actions">
+        <a class="btn btn--brass" href="#bar">Start here {{ partial "icon.html" (dict "name" "arrow" "size" 18) }}</a>
+        <a class="btn btn--ghost-light" href="#specials">See what's possible</a>
+      </div>
+      <p class="hero__note">{{ $h.note }}</p>
+    </div>
+    <div class="hero__aside">
+      <div class="chalkboard chalkboard--shadow">
+        <p class="chalk-label">{{ $h.boardTitle }}</p>
+        {{ transform.Highlight $h.code "nix" "" }}
+        <div class="chalk-footer"><span>$ sudo nixos-rebuild switch</span><span class="ok">✓ served</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOUSE RULES -->
+<section class="wrap section section--first">
+  <p class="eyebrow">House rules</p>
+  <h2 style="max-width: 720px; margin-bottom: 40px">{{ .Params.rulesTitle }}</h2>
+  <div class="grid">
+    {{- range .Params.rules }}
+    <div class="card">
+      {{ partial "icon.html" (dict "name" .icon "size" 36 "width" 1.8 "stroke" "#1F4A39") }}
+      <h3>{{ .title }}</h3>
+      <p>{{ .text | markdownify }}</p>
+    </div>
+    {{- end }}
+  </div>
+</section>
+
+<!-- PATH PICKER -->
+<section class="wrap section" id="bar">
+  <div class="panel">
+    <p class="eyebrow">At the bar</p>
+    <h2>What are you drinking?</h2>
+    <p class="lede" style="margin-bottom: 28px">Say where you're coming from and you'll get the right guide.</p>
+    {{ partial "picker.html" (dict "items" hugo.Data.paths "id" "path" "label" "Choose where you're coming from") }}
+  </div>
+</section>
+
+<!-- SPECIALS -->
+<section class="wrap section" id="specials">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Tonight's specials</p>
+      <h2>What's on tap</h2>
+    </div>
+    <a class="more" href="{{ "/regulars/" | relURL }}">Example configs →</a>
+  </div>
+  <div class="grid grid--wide">
+    {{- range hugo.Data.specials }}
+    <article class="tile">
+      {{- $tile := . }}
+      {{- with resources.Get (printf "img/specials/%s" .image) }}{{ $img := .Resize "800x webp q82" }}
+      <img src="{{ $img.RelPermalink }}" alt="{{ $tile.alt }}" width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy">
+      {{- else }}{{ errorf "Missing tile image %q (themes/nixarms/assets/img/specials/)" $tile.image }}{{ end }}
+      <div class="tile__body">
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
+      </div>
+    </article>
+    {{- end }}
+  </div>
+</section>
+
+<!-- JARGON -->
+<section class="wrap section">
+  <div class="chalkboard chalkboard--lg">
+    <h2>Nix jargon, translated</h2>
+    <p style="margin: 6px 0 0">Chalked up for newcomers. No computer science degree required.</p>
+    <div class="chalk-grid">
+      {{- range first 6 hugo.Data.jargon }}
+      <div class="chalk-item"><h3>{{ .term }}</h3><p>{{ .meaning | markdownify }}</p></div>
+      {{- end }}
+    </div>
+    <p style="margin: 28px 0 0"><a href="{{ "/menu/" | relURL }}">See the full menu →</a></p>
+  </div>
+</section>
+
+<!-- REGULARS -->
+<section class="wrap section">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Propping up the bar</p>
+      <h2>The Regulars</h2>
+      <p class="lede">Real configs worth reading, each with notes on what to borrow.</p>
+    </div>
+    <a class="more" href="{{ "/regulars/" | relURL }}">All regulars →</a>
+  </div>
+  <div class="config-grid">
+    {{- range first 3 (where (where site.RegularPages "Section" "regulars") "Params.featured" true) }}
+    {{ partial "config-card.html" . }}
+    {{- end }}
+  </div>
+</section>
+
+<!-- LIBRARY -->
+<section class="wrap section" id="library-teaser">
+  <div class="panel">
+    <div class="section-head" style="margin-bottom: 20px">
+      <div>
+        <p class="eyebrow">The library</p>
+        <h2>When you're ready for more</h2>
+      </div>
+      <a class="more" href="{{ "/library/" | relURL }}">The whole library →</a>
+    </div>
+    <ul class="link-grid">
+      {{- range first 4 hugo.Data.library }}
+      <li><a href="{{ .url }}">{{ .name }}</a><span>{{ .short }}</span></li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+
+<!-- LAST ORDERS -->
+<section class="wrap section section--last" id="last-orders">
+  <p class="eyebrow">Last orders</p>
+  <h2 style="margin-bottom: 32px">Before you head home</h2>
+  <div class="last-orders">
+    <div class="chalkboard tip" data-tips>
+      <p class="chalk-label">One for the road</p>
+      {{- range $i, $t := hugo.Data.tips }}
+      <div class="tip__item" data-tip{{ if ne $i 0 }} hidden{{ end }}>
+        <h3>{{ $t.title }}</h3>
+        {{ transform.Highlight $t.code ($t.lang | default "sh") "" }}
+        <p>{{ $t.text | markdownify }}</p>
+      </div>
+      {{- end }}
+      <button type="button" class="btn btn--ghost-light tip__next" data-tip-next hidden>Another round</button>
+    </div>
+    <div class="panel panel--green on-dark regulars-drink">
+      <p class="eyebrow eyebrow--brass">Pull up a stool</p>
+      <h3 class="serif">Where the regulars drink</h3>
+      <p>Questions, setups and the odd friendly argument. Come and say hello.</p>
+      <ul class="drink-list">
+        {{- range hugo.Data.community }}
+        <li><a href="{{ .url }}">{{ .name }}</a><span>{{ .text }}</span></li>
+        {{- end }}
+      </ul>
+      <p class="rss">{{ partial "icon.html" (dict "name" "rss" "size" 18) }}<span>New guides and Regulars in your feed reader: <a href="{{ "index.xml" | relURL }}">RSS feed</a></span></p>
+    </div>
+  </div>
+</section>
+{{ end }}

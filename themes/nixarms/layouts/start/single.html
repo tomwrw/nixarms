@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+<article class="wrap prose">
+{{ .Content }}
+  {{- /* Previous / next follow the order of data/paths.yaml (the "What are you drinking?" picker),
+         so the last guide here leads on to the Gaming page. The ends link back to Start here. */}}
+  {{- $items := hugo.Data.paths }}
+  {{- $here := .RelPermalink }}
+  {{- $i := -1 }}
+  {{- range $k, $p := $items }}{{ if eq (relURL $p.url) $here }}{{ $i = $k }}{{ end }}{{ end }}
+  {{- if ge $i 0 }}
+  {{- $start := site.GetPage "/start" }}
+  <nav class="step-nav" aria-label="Start here guides">
+    {{- if gt $i 0 }}{{ with index $items (sub $i 1) }}<a class="card" href="{{ .url | relURL }}"><span class="eyebrow">← Previous</span><span class="serif">{{ .label }}</span></a>{{ end }}
+    {{- else }}<a class="card" href="{{ $start.RelPermalink }}"><span class="eyebrow">← Back to</span><span class="serif">{{ $start.Params.eyebrow }}</span></a>{{ end }}
+    {{- if lt (add $i 1) (len $items) }}{{ with index $items (add $i 1) }}<a class="card step-nav__next" href="{{ .url | relURL }}"><span class="eyebrow">Next →</span><span class="serif">{{ .label }}</span></a>{{ end }}
+    {{- else }}<a class="card step-nav__next" href="{{ $start.RelPermalink }}"><span class="eyebrow">Back to →</span><span class="serif">{{ $start.Params.eyebrow }}</span></a>{{ end }}
+  </nav>
+  {{- end }}
+</article>
+{{ end }}

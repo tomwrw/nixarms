@@ -1,0 +1,7 @@
+{{- /* Returns a list of items (each with a `level`) ordered First pint, Second round, On tap, Top shelf.
+       Items keep their data-file order within a level. Anything with another level goes last, so nothing is dropped. */ -}}
+{{- $order := slice "First pint" "Second round" "On tap" "Top shelf" }}
+{{- $sorted := slice }}
+{{- range $order }}{{ $sorted = $sorted | append (where $ "level" .) }}{{ end }}
+{{- $sorted = $sorted | append (where $ "level" "not in" $order) }}
+{{- return $sorted }}

@@ -1,0 +1,22 @@
+# Hugo
+/public/
+/resources/_gen/
+.hugo_build.lock
+
+# Nix
+result
+result-*
+.direnv/
+
+# Brand tools
+/tools/brand/.fonts/
+__pycache__/
+
+# Editors / OS
+.DS_Store
+.vscode/
+*.swp
+
+# Local assistant notes (not published)
+CLAUDE.md
+.claude/

@@ -1,0 +1,68 @@
+{{ define "main" }}
+{{- if .Params.step }}
+{{- $steps := (where .CurrentSection.Pages "Params.step" "!=" nil).ByParam "step" }}
+<section class="band on-dark">
+  <div class="wrap page-band">
+    <p class="eyebrow">The Brewhouse · Step {{ .Params.step }} of {{ len $steps }} · {{ .Params.style }}</p>
+    <h1>{{ .Title }}</h1>
+    <p class="lede">{{ .Params.lede | markdownify }}</p>
+  </div>
+</section>
+
+<article class="wrap prose">
+  <div class="brew-facts">
+    <div class="panel">
+      <p class="eyebrow">Who it's for</p>
+      <p>{{ .Params.forWho | markdownify }}</p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">Move up when</p>
+      <p>{{ .Params.moveOn | markdownify }}</p>
+    </div>
+  </div>
+
+  {{ .Content }}
+
+  <div class="pros-cons">
+    <div class="status">
+      <h3>{{ partial "icon.html" (dict "name" "check" "stroke" "#1F4A39" "size" 26 "width" 2.2) }}Why people like it</h3>
+      <ul>{{ range .Params.strengths }}<li>{{ . | markdownify }}</li>{{ end }}</ul>
+    </div>
+    <div class="status status--tweak">
+      <h3>{{ partial "icon.html" (dict "name" "wrench" "stroke" "#7A5A1C" "size" 26) }}What it costs you</h3>
+      <ul>{{ range .Params.tradeoffs }}<li>{{ . | markdownify }}</li>{{ end }}</ul>
+    </div>
+  </div>
+
+  <h2>Regulars brewed this way</h2>
+  {{- $term := "" }}{{ with .Params.regularsTag }}{{ $term = site.GetPage (printf "/tags/%s" (urlize .)) }}{{ end }}
+  {{- if and $term $term.Pages }}
+  <div class="config-grid" style="margin-top: 20px">
+    {{- range $term.Pages }}{{ partial "config-card.html" . }}{{ end }}
+  </div>
+  {{- else }}
+  <p>None of The Regulars are brewed this way yet. Got one? <a href="{{ "/regulars/#submit" | relURL }}">Submit your config</a>.</p>
+  {{- end }}
+
+  {{- with .Params.docs }}
+  <h2>Further reading</h2>
+  <ul>{{ range . }}<li><a href="{{ .url }}">{{ .name }}</a>{{ with .note }} - {{ . }}{{ end }}</li>{{ end }}</ul>
+  {{- end }}
+
+  <p class="checked">Last checked against the projects' own docs: {{ (time .Params.checked).Format "2 January 2006" }}. These tools move quickly; spotted something out of date? <a href="{{ site.Params.repo }}">Open a pull request</a>.</p>
+
+  <nav class="step-nav" aria-label="Brewhouse steps">
+    {{- $n := int .Params.step }}
+    {{- $prev := index (where $steps "Params.step" (sub $n 1)) 0 }}
+    {{- $next := index (where $steps "Params.step" (add $n 1)) 0 }}
+    {{- with $prev }}<a class="card" href="{{ .RelPermalink }}"><span class="eyebrow">← Step {{ .Params.step }}</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card" href="{{ "/brewhouse/" | relURL }}"><span class="eyebrow">← Back to</span><span class="serif">The Brewhouse</span></a>{{ end }}
+    {{- with $next }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Step {{ .Params.step }} →</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card step-nav__next" href="{{ "/brewhouse/" | relURL }}"><span class="eyebrow">Back to →</span><span class="serif">The Brewhouse</span></a>{{ end }}
+  </nav>
+</article>
+{{- else }}
+{{ partial "page-band.html" . }}
+<article class="wrap prose">
+{{ .Content }}
+</article>
+{{- end }}
+{{ end }}

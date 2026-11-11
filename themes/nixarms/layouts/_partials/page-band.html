@@ -1,0 +1,13 @@
+{{- /* Green title band at the top of inner pages. Front matter: eyebrow, title, lede, actions [{label,url,style}] */ -}}
+<section class="band{{ with .Params.band }} band--{{ . }}{{ end }} on-dark">
+  <div class="wrap page-band">
+    {{- with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.lede }}<p class="lede">{{ . | markdownify }}</p>{{ end }}
+    {{- with .Params.actions }}
+    <div class="band-actions">
+      {{- range . }}<a class="btn {{ .style | default "btn--brass" }}" href="{{ if strings.HasPrefix .url "#" }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}">{{ .label }}</a>{{ end }}
+    </div>
+    {{- end }}
+  </div>
+</section>

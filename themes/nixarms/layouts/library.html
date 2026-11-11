@@ -1,0 +1,38 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+<div class="wrap prose">
+  {{ .Content }}
+  <section class="shelf" id="bookshelf" aria-labelledby="bookshelf-title">
+    <p class="eyebrow">The bookshelf</p>
+    <h2 id="bookshelf-title">If you'd rather read</h2>
+    <p>Pull up a chair by the fire. These are the official docs, the community guides I'd recommend, and the sites you'll keep open every day.</p>
+    <div class="grid grid--wide">
+      {{- range partial "by-level.html" hugo.Data.library }}
+      <a class="card" href="{{ .url }}">
+        {{ partial "level-badge.html" .level }}
+        <h3>{{ .name }}</h3>
+        <p>{{ .description }}</p>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+
+  <section class="shelf" id="telly" aria-labelledby="telly-title">
+    <p class="eyebrow">On the telly</p>
+    <h2 id="telly-title">If you'd rather watch</h2>
+    <p>Some things click faster when you see someone do them. These channels are worth your time. Videos go out of date quicker than docs, so if a setting from a video doesn't work, look it up on <a href="https://search.nixos.org">search.nixos.org</a>: it has probably been renamed.</p>
+    <div class="grid grid--wide">
+      {{- range partial "by-level.html" hugo.Data.telly }}
+      <article class="card telly-card">
+        {{ partial "level-badge.html" .level }}
+        <h3><a href="{{ .url }}">{{ .name }}</a></h3>
+        <p>{{ .description }}</p>
+        {{- with .start }}
+        <p class="start">Start with: <a href="{{ .url }}">{{ .title }}</a></p>
+        {{- end }}
+      </article>
+      {{- end }}
+    </div>
+  </section>
+</div>
+{{ end }}

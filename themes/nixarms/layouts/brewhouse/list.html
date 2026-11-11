@@ -1,0 +1,91 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+{{- $steps := (where .Pages "Params.step" "!=" nil).ByParam "step" }}
+<div class="wrap prose">
+
+  <div class="first-day panel">
+    <p class="eyebrow">Before you read on</p>
+    <p class="first-day__line">{{ .Params.firstDay | markdownify }}</p>
+  </div>
+
+  {{ .Content }}
+
+  <!-- THE LADDER -->
+  <h2 id="the-ladder">The ladder, simplest first</h2>
+  <ol class="ladder">
+    {{- range $steps }}
+    <li>
+      <a class="ladder__step card" href="{{ .RelPermalink }}">
+        <span class="round__n" aria-hidden="true">{{ .Params.step }}</span>
+        <span class="ladder__body">
+          <span class="ladder__style">{{ .Params.style }}</span>
+          <span class="ladder__name">{{ .Title }}</span>
+          <span class="ladder__plain">{{ .Params.plain }}</span>
+        </span>
+        <span class="ladder__more" aria-hidden="true">{{ partial "icon.html" (dict "name" "arrow" "size" 20) }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ol>
+
+  <!-- TASTING BOARD -->
+  <div class="chalkboard chalkboard--lg tasting-board">
+    <h2>The tasting board</h2>
+    <p style="margin: 6px 0 0">Five ways to brew the same pint, side by side.</p>
+    <div class="tasting-wrap">
+      <table class="tasting">
+        <thead>
+          <tr>
+            <th scope="col">Method</th>
+            <th scope="col">Good first brew?</th>
+            <th scope="col">Needs flakes?</th>
+            <th scope="col">Several machines</th>
+            <th scope="col">Learning curve</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{- range $steps }}
+          <tr>
+            <th scope="row"><a href="{{ .RelPermalink }}">{{ .Title }}</a></th>
+            <td>{{ .Params.board.beginner }}</td>
+            <td>{{ .Params.board.flakes }}</td>
+            <td>{{ .Params.board.machines }}</td>
+            <td>{{ .Params.board.curve }}</td>
+          </tr>
+          {{- end }}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- WHICH BREW? -->
+  <h2 id="which-brew">Which brew?</h2>
+  <p>Pick the one that sounds most like you.</p>
+  <div class="panel" style="margin-top: 20px">
+    {{ partial "picker.html" (dict "items" hugo.Data.brews "id" "brew" "label" "Choose the situation that sounds most like you") }}
+  </div>
+
+  <!-- HOME MANAGER SIDEBAR -->
+  {{- with .Params.homeManager }}
+  <aside class="panel side-tap" aria-labelledby="home-manager">
+    <p class="eyebrow">A separate tap</p>
+    <h2 id="home-manager">{{ .title }}</h2>
+    {{ .text | $.Page.RenderString (dict "display" "block") }}
+  </aside>
+  {{- end }}
+
+  <!-- LANDLORD'S TASTING NOTES (shown once Tom publishes it) -->
+  {{- with site.GetPage "/brewhouse/tasting-notes" }}
+  {{- if not .Draft }}
+  <div class="callout on-dark">
+    <div style="flex: 1 1 420px; min-width: 0">
+      <p class="eyebrow">The landlord's tasting notes</p>
+      <h2>{{ .Title }}</h2>
+      <p>{{ or .Params.lede .Summary | plainify }}</p>
+    </div>
+    <a class="btn btn--brass" href="{{ .RelPermalink }}">Read the notes →</a>
+  </div>
+  {{- end }}
+  {{- end }}
+</div>
+{{ end }}

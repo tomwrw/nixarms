@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+<div class="wrap prose">
+  <div class="panel" style="margin-top: 0">
+    {{ partial "picker.html" (dict "items" hugo.Data.paths "id" "path" "label" "Choose where you're coming from") }}
+  </div>
+  {{ .Content }}
+</div>
+{{ end }}

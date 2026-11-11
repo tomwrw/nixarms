@@ -1,0 +1,14 @@
+{{ define "main" }}
+<section class="band on-dark">
+  <div class="wrap page-band">
+    <p class="eyebrow">The Regulars</p>
+    <h1>Configs tagged “{{ .Title }}”</h1>
+    <div class="band-actions"><a class="btn btn--ghost-light" href="{{ "/regulars/" | relURL }}">All regulars</a></div>
+  </div>
+</section>
+<section class="wrap section section--last">
+  <div class="config-grid">
+    {{- range .Pages }}{{ partial "config-card.html" . }}{{ end }}
+  </div>
+</section>
+{{ end }}

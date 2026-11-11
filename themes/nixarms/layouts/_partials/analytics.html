@@ -1,0 +1,9 @@
+{{- /* GoatCounter (cookieless). Loads only when:
+       - params.goatcounter.code is set in hugo.toml, and
+       - the site is built for production (`nix build` or `hugo`), never under `hugo server`.
+       To stop counting your own visits, open https://nixarms.com/#toggle-goatcounter once in each browser. */ -}}
+{{- with site.Params.goatcounter }}
+{{- if and .code hugo.IsProduction }}
+<script data-goatcounter="https://{{ .code }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{{- end }}
+{{- end }}

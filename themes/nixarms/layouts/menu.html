@@ -1,0 +1,13 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+<div class="wrap prose">
+  {{ .Content }}
+  <div class="chalkboard chalkboard--lg">
+    <div class="chalk-grid" style="margin-top: 0">
+      {{- range hugo.Data.jargon }}
+      <div class="chalk-item" id="{{ .term | urlize }}"><h3>{{ .term }}</h3><p>{{ .meaning | markdownify }}</p></div>
+      {{- end }}
+    </div>
+  </div>
+</div>
+{{ end }}

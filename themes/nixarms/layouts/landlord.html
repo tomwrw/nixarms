@@ -1,0 +1,31 @@
+{{ define "main" }}
+{{ partial "page-band.html" . }}
+<div class="wrap section section--last">
+  <div class="landlord">
+    {{- with .Params.photo }}
+    {{- with $.Resources.Get .src }}
+    {{- $img := .Fill "400x500 Center webp q82" }}
+    {{- $img2x := .Fill "800x1000 Center webp q80" }}
+    <figure class="portrait">
+      <div class="portrait__frame">
+        <img src="{{ $img.RelPermalink }}" srcset="{{ $img.RelPermalink }} 400w, {{ $img2x.RelPermalink }} 800w" sizes="(max-width: 480px) 85vw, 360px" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.photo.alt }}">
+      </div>
+      {{- with $.Params.photo.caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+    </figure>
+    {{- end }}
+    {{- end }}
+    <div class="landlord__copy prose-flow">
+      {{ .Content }}
+      {{- with .Params.findMe }}
+      <h2>Where to find me</h2>
+      <ul class="drink-list drink-list--light">
+        {{- range . }}
+        <li><a href="{{ .url }}">{{ .name }}</a><span>{{ .text }}</span></li>
+        {{- end }}
+      </ul>
+      {{- end }}
+      <p class="landlord__stool"><a class="btn btn--green" href="{{ "/#last-orders" | relURL }}">Pull up a stool</a></p>
+    </div>
+  </div>
+</div>
+{{ end }}

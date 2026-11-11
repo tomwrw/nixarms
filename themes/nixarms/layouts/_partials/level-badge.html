@@ -1,0 +1,4 @@
+{{- /* One level badge. Context: the level name. The same set is used on the Library (docs and telly) and The Regulars:
+       On tap (use it all the time), First pint, Second round, Top shelf. */ -}}
+{{- $classes := dict "On tap" "badge--tap" "First pint" "" "Second round" "badge--amber" "Top shelf" "badge--plum" }}
+<span class="badge {{ index $classes . | default "" }}">{{ . }}</span>
