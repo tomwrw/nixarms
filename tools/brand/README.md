@@ -7,7 +7,6 @@ Scripts that generate The Nix Arms brand assets. Run them from `nix develop`, wh
 | `build_brand.py` | Builds the beer mat (colour and mono), the pint icon, favicons and the header lockups into `brand/`. Text is converted to outlines and centred on the actual letter shapes. It also copies the web SVGs into the theme. Prints a spacing report. |
 | `wood_frame.py` | The 9-slice wooden chalkboard frame → `brand/wood-frame.svg` and the theme. |
 | `build_webfonts.py` | Latin-subset variable woff2 fonts → `themes/nixarms/static/fonts/`. |
-| `render_tiles.py` | The illustrated "What's on tap" tiles → `themes/nixarms/assets/img/specials/`. Needs Work Sans and JetBrains Mono installed as system fonts, because `rsvg-convert` uses fontconfig. |
 
 ```sh
 cd tools/brand

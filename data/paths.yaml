@@ -15,7 +15,7 @@
   title: "You already like control. Now keep it."
   pitch: "Your carefully tuned setup, as code you can git push. No more archaeology in /etc trying to remember what you changed last year."
   points:
-    - "Hyprland and sway setups kept in your config"
+    - "niri and sway setups kept in your config"
     - "The unstable channel feels like a rolling release"
     - "Overlays and flakes fill the role the AUR played"
   cta: "Read the Arch guide"

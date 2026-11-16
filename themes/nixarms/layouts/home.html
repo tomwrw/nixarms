@@ -61,19 +61,19 @@
     </div>
     <a class="more" href="{{ "/regulars/" | relURL }}">Example configs →</a>
   </div>
-  <div class="grid grid--wide">
-    {{- range hugo.Data.specials }}
-    <article class="tile">
-      {{- $tile := . }}
-      {{- with resources.Get (printf "img/specials/%s" .image) }}{{ $img := .Resize "800x webp q82" }}
-      <img src="{{ $img.RelPermalink }}" alt="{{ $tile.alt }}" width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy">
-      {{- else }}{{ errorf "Missing tile image %q (themes/nixarms/assets/img/specials/)" $tile.image }}{{ end }}
-      <div class="tile__body">
-        <h3>{{ .title }}</h3>
-        <p>{{ .text }}</p>
-      </div>
-    </article>
-    {{- end }}
+  {{- /* A tap list on a chalkboard: each special with the one line of config or command that pours it. */}}
+  <div class="chalkboard chalkboard--lg tap-list">
+    <ul>
+      {{- range hugo.Data.specials }}
+      <li class="tap">
+        <div class="tap__name">
+          <h3>{{ .title }}</h3>
+          <p>{{ .text }}</p>
+        </div>
+        <code class="tap__pour">{{ .pour }}</code>
+      </li>
+      {{- end }}
+    </ul>
   </div>
 </section>
 

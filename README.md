@@ -37,7 +37,7 @@ content/              Markdown pages
   menu.md, library.md
 data/
   paths.yaml          "What are you drinking?" picker
-  specials.yaml       "What's on tap" tiles
+  specials.yaml       "What's on tap" tap list (homepage)
   jargon.yaml         The Menu (glossary)
   tips.yaml           "One for the road" tips (homepage, one at random)
   community.yaml      "Where the regulars drink" links (homepage)
@@ -76,14 +76,14 @@ Copy any file in `content/regulars/`, fill in the front matter (`repo`, `author`
 ## Licences
 
 - **Code** (the theme's templates, CSS and JavaScript, `flake.nix`, the workflow, and the scripts in `tools/`): [MIT](LICENSE).
-- **Written content** (everything in `content/` and `data/`) and the homepage tile images drawn for this site: [CC BY 4.0](LICENSE-content). Reuse it freely; credit "The Nix Arms" with a link to [nixarms.com](https://nixarms.com).
+- **Written content** (everything in `content/` and `data/`): [CC BY 4.0](LICENSE-content). Reuse it freely; credit "The Nix Arms" with a link to [nixarms.com](https://nixarms.com).
 
 Not covered by either licence:
 
 - **The brand.** The name "The Nix Arms", the beer-mat logo, the pint icon, the lockups, the favicons, the social card and the wooden frame (`brand/`, `themes/nixarms/static/img/brand/`, the icons in `static/`). All rights reserved. Linking to the site with them is fine; please don't use them for your own project.
 - **The NixOS logomark** inside the beer mat stays under its own [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence (see Credits).
 - **The Landlord's photo** (`content/landlord/landlord.jpg`). All rights reserved.
-- **Third-party material** keeps its own licence: the two screenshots and the fonts. See [THIRD_PARTY.md](THIRD_PARTY.md).
+- **Third-party material** keeps its own licence: the fonts. See [THIRD_PARTY.md](THIRD_PARTY.md).
 
 ## Credits
 
@@ -91,6 +91,4 @@ Full notices and licence texts are in [THIRD_PARTY.md](THIRD_PARTY.md).
 
 - NixOS logomark: "NixOS Logo" by Simon Frankau, Tim Cuthbertson and Daniel Baker (NixOS Marketing Team), from [nixos/branding](https://github.com/NixOS/branding), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Used unaltered.
 - Fonts: Fraunces, Work Sans and JetBrains Mono, all under the SIL Open Font License (`themes/nixarms/static/fonts/`).
-- Screenshots: [Frost-Phoenix/nixos-config](https://github.com/Frost-Phoenix/nixos-config) (MIT) and [gethomepage/homepage](https://github.com/gethomepage/homepage) (GPL-3.0).
-
 The Nix Arms is a community site and isn't affiliated with the NixOS Foundation.

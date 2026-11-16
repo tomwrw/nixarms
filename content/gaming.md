@@ -1,6 +1,6 @@
 ---
 title: "Gaming on NixOS: get a round in."
-eyebrow: "The games room"
+eyebrow: "The Games Lounge"
 date: 2026-11-11
 band: dark
 lede: "Steam, Proton, Heroic and Lutris are all switched on from your config. Every change is a save point, so if a driver update hurts your frame rate you can boot the previous setup."

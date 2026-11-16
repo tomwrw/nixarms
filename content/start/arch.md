@@ -22,23 +22,25 @@ You already know Linux, so there's little new to learn about *what* to configure
 | Rolling release | The `nixos-unstable` channel | Still rolling, but any update can be rolled back from the boot menu. |
 | The Arch Wiki | [search.nixos.org](https://search.nixos.org) options + the [NixOS Wiki](https://wiki.nixos.org) | The Arch Wiki is still great for concepts. |
 
-## Hyprland, as an example
+## niri, as an example
 
-Your Hyprland setup becomes part of the config, so it survives reinstalls:
+Your [niri](https://github.com/YaLTeR/niri) setup becomes part of the config, so it survives reinstalls:
 
 ```nix
 { pkgs, ... }: {
-  programs.hyprland.enable = true;
+  programs.niri.enable = true;
   environment.systemPackages = with pkgs; [
-    waybar wofi kitty swaynotificationcenter
+    alacritty fuzzel waybar swaylock xwayland-satellite
   ];
 }
 ```
 
-Put the Hyprland, Waybar and terminal settings in [Home Manager](https://github.com/nix-community/home-manager) and the whole desktop can be rebuilt from the repo.
+Those are the apps niri's default config reaches for: alacritty on Super+T, fuzzel on Super+D, waybar at start-up and swaylock on Super+Alt+L. xwayland-satellite lets niri run older X11 apps.
+
+Keep niri's `config.kdl` and your bar's settings in [Home Manager](https://github.com/nix-community/home-manager), or write them as Nix with [niri-flake](https://github.com/sodiboo/niri-flake), and the whole desktop can be rebuilt from the repo.
 
 ## Where to go next
 
-- Read a few configs in [The Regulars](/regulars/). **Misterio77/nix-starter-configs** shows a clean flake layout, and **fufexan/dotfiles** is a full Hyprland setup.
+- Read a few configs in [The Regulars](/regulars/). **Misterio77/nix-starter-configs** shows a clean flake layout, and **sodiboo/system** is a full niri desktop, written as Nix.
 - The [NixOS & Flakes Book](https://nixos-and-flakes.thiscute.world) is written for people who already know Linux.
 - [The Brewhouse](/brewhouse/) compares the ways people organise a config, from one file to den.

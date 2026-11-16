@@ -140,13 +140,27 @@ code, pre, kbd { font-family: var(--mono); font-variant-ligatures: none; }
 .brand { display: flex; align-items: center; }
 .brand img { display: block; width: 273px; height: 56px; }
 .nav-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; list-style: none; margin: 0; padding: 0; font-size: 15px; font-weight: 500; }
+/* Each link is a pub name with a plain-English line under it (menus.main params.sub in hugo.toml).
+   When they don't all fit beside the logo, the links drop to a row of their own underneath. */
 .nav-links a:not(.btn) {
-  color: var(--cream); text-decoration: none; padding: 12px 0;
-  border-bottom: 2px solid transparent; display: inline-block;
+  color: var(--cream); text-decoration: none; padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  display: flex; flex-direction: column; gap: 2px; line-height: 1.25;
 }
+.nav-sub { font-size: 12.5px; font-weight: 400; color: var(--on-green-muted); }
 .nav-links a:not(.btn):hover { color: var(--brass); }
+.nav-links a:not(.btn):hover .nav-sub { color: var(--on-green); }
 .nav-links a[aria-current="page"] { color: var(--brass); border-bottom-color: var(--brass); }
-.nav-links .btn { padding: 12px 18px; font-size: 15px; border-radius: 6px; }
+.nav-links .btn, .nav-cta { padding: 12px 18px; font-size: 15px; border-radius: 6px; }
+.nav-cta { display: none; }
+/* Desktop: a two-row masthead. The logo and "Pull up a stool" share the top row; the links spread
+   across the row below, under a thin rule. The copy of the button in the link list is for phones. */
+@media (min-width: 1080px) {
+  .nav { row-gap: 8px; }
+  .nav-cta { display: inline-flex; }
+  .nav-links { flex: 1 1 100%; justify-content: space-between; border-top: 1px solid var(--green-line); padding-top: 4px; }
+  .nav-links__cta { display: none; }
+}
 @media (max-width: 640px) {
   .brand img { width: 215px; height: 44px; }
   .nav-links { gap: 0 18px; }
@@ -273,12 +287,19 @@ a.badge:hover { background: #C6DCCB; color: var(--green-deep); }
 .checks li { display: flex; gap: 12px; align-items: flex-start; font-size: 1.05rem; line-height: 1.5; }
 .checks svg { flex: none; margin-top: 2px; stroke: var(--green); }
 
-/* ---------- Specials tiles ---------- */
-.tile { background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
-.tile img { display: block; width: 100%; height: 200px; object-fit: cover; object-position: top left; }
-.tile__body { padding: 22px; display: flex; flex-direction: column; gap: 8px; }
-.tile__body h3 { font-family: var(--sans); font-weight: 600; font-variation-settings: normal; font-size: 1.25rem; }
-.tile__body p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+/* ---------- Specials: "What's on tap" (data/specials.yaml) ---------- */
+/* One chalkboard laid out as a tap list, each special with the one line that pours it. */
+.tap-list ul { list-style: none; margin: 0; padding: 0; }
+.tap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 32px; padding: 20px 0; border-bottom: 1px dashed var(--chalk-line); }
+.tap:first-child { padding-top: 0; }
+.tap:last-child { border-bottom: 0; padding-bottom: 0; }
+.tap__name { flex: 1 1 340px; min-width: 0; }
+.tap__name h3 { color: var(--cream); font-size: 1.4rem; }
+.tap__name p { margin: 6px 0 0; font-size: 16px; line-height: 1.5; }
+.chalkboard .tap__pour { flex: 0 1 auto; background: rgba(0, 0, 0, 0.22); color: #F0C674; padding: 8px 14px; border-radius: 6px; font-size: 14px; white-space: nowrap; max-width: 100%; }
+@media (max-width: 640px) {
+  .chalkboard .tap__pour { white-space: normal; overflow-wrap: anywhere; font-size: 13px; }
+}
 
 /* ---------- Regulars ---------- */
 .config-card .repo { font-family: var(--mono); font-size: 16px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
@@ -567,13 +588,9 @@ a.badge:hover { background: #C6DCCB; color: var(--green-deep); }
     display: flex; flex-direction: column; align-items: stretch; gap: 0;
     width: 100%; padding: 8px 0 6px; border-top: 1px solid var(--green-line);
   }
-  .nav--js.is-open .nav-links a:not(.btn) { display: block; padding: 13px 0; border-bottom: 1px solid var(--green-line); font-size: 17px; }
+  .nav--js.is-open .nav-links a:not(.btn) { padding: 12px 0; border-bottom: 1px solid var(--green-line); font-size: 17px; }
+  .nav--js.is-open .nav-sub { font-size: 14px; }
   .nav--js.is-open .nav-links a[aria-current="page"] { border-bottom-color: var(--green-line); box-shadow: inset 4px 0 0 var(--brass); padding-left: 14px; }
   .nav--js.is-open .nav-links li:last-child { padding-top: 16px; }
   .nav--js.is-open .nav-links .btn { width: 100%; justify-content: center; padding: 14px 18px; font-size: 16px; }
-}
-/* Laptop widths: tighten the header so all links fit on one row. */
-@media (min-width: 1080px) and (max-width: 1279px) {
-  .nav-links { gap: 4px 18px; }
-  .brand img { width: 240px; height: 49px; }
 }
