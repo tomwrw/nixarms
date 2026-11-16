@@ -82,7 +82,8 @@ h1 { font-size: clamp(2.4rem, 5vw, 3.75rem); line-height: 1.05; }
 h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
 h3 { font-size: 1.35rem; line-height: 1.25; }
 
-code, pre, kbd { font-family: var(--mono); }
+/* No ligatures in code: JetBrains Mono would join `--` into one long dash, and readers retype these commands. */
+code, pre, kbd { font-family: var(--mono); font-variant-ligatures: none; }
 :not(pre) > code {
   background: #EADFC9;
   padding: 0.1em 0.35em;
@@ -199,6 +200,7 @@ pre {
   background: var(--chalk-bg); color: var(--chalk-ink);
   padding: 20px 22px; border-radius: 8px; overflow-x: auto;
   font-size: 14.5px; line-height: 1.75;
+  scrollbar-color: var(--chalk-line) transparent; scrollbar-width: thin;
 }
 .highlight { margin: 1.25em 0; }
 .chroma { color: var(--chalk-ink); }
@@ -235,6 +237,8 @@ a.card:hover { border-color: var(--rule-strong); }
 .badge--amber { background: #F3E0C0; color: #5A3A22; }
 .badge--plum { background: #E7DDF0; color: #3E2A55; }
 .badge--tap { background: var(--green); color: var(--cream); }
+a.badge { text-decoration: none; }
+a.badge:hover { background: #C6DCCB; color: var(--green-deep); }
 .mono { font-family: var(--mono); }
 
 /* ---------- Library: The bookshelf and On the telly ---------- */
@@ -277,7 +281,7 @@ a.card:hover { border-color: var(--rule-strong); }
 .tile__body p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
 
 /* ---------- Regulars ---------- */
-.config-card .repo { font-family: var(--mono); font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+.config-card .repo { font-family: var(--mono); font-size: 16px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
 .config-card .who { font-size: 14px; color: var(--muted); }
 .config-card .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .config-card .borrow { background: #F3ECDD; border-radius: 8px; padding: 12px 14px; font-size: 15px; line-height: 1.5; color: var(--ink); }
@@ -340,7 +344,7 @@ a.card:hover { border-color: var(--rule-strong); }
 .callout .eyebrow { color: var(--brass); }
 
 /* ---------- Library teaser ---------- */
-.link-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px 40px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.link-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px 40px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .link-grid li { display: flex; flex-direction: column; gap: 2px; font-size: 16px; }
 .link-grid a { font-weight: 600; }
 .link-grid span { color: var(--muted); }
@@ -410,6 +414,11 @@ a.card:hover { border-color: var(--rule-strong); }
 }
 .copy-btn:hover { border-color: var(--brass); color: var(--brass); }
 .chalkboard .copy-btn { top: 0; right: 0; }
+/* Phones: the button gets a strip of its own, so it never covers the start of a long command. */
+@media (max-width: 640px) {
+  .has-copy pre, .chalkboard.tip .has-copy pre { padding-top: 50px; }
+  .hero__aside .has-copy pre { padding-top: 0; } /* the hero board has no Copy button */
+}
 
 /* ---------- Fixes found in visual review ---------- */
 .badge { white-space: nowrap; }
@@ -422,7 +431,8 @@ a.card:hover { border-color: var(--rule-strong); }
 .hero__aside .copy-btn { display: none; }
 
 /* ---------- The Brewhouse ---------- */
-.first-day { margin: 0 0 40px; max-width: 780px; border-left: 6px solid var(--brass); }
+/* Highlighted boxes all carry their accent as a strip across the top, as the status cards do. */
+.first-day { margin: 0 0 40px; max-width: 780px; border-top: 6px solid var(--brass); }
 .first-day__line { margin: 0; font-size: 1.2rem; line-height: 1.55; color: var(--ink); }
 
 .prose > ol.ladder { list-style: none; padding: 0; margin: 24px 0 56px; max-width: 900px; display: flex; flex-direction: column; gap: 14px; }
@@ -444,10 +454,12 @@ a.card:hover { border-color: var(--rule-strong); }
 .prose .tasting tbody th a:hover { color: var(--brass); }
 .prose .tasting td:last-child { color: var(--chalk-ink); }
 
-.side-tap { margin: 56px 0; max-width: 780px; border-top: 6px solid var(--green); }
-.side-tap h2 { font-size: 1.9rem; margin-bottom: 12px; }
-.side-tap p { color: var(--muted); }
-.side-tap p:last-child { margin-bottom: 0; }
+/* An aside: its heading sits above the box, like every section heading; the box gets the top accent. */
+.side-tap { margin: 64px 0; max-width: 780px; }
+.side-tap > .panel { border-top: 6px solid var(--green); }
+.side-tap > .panel p { color: var(--muted); }
+.side-tap > .panel > :first-child { margin-top: 0; }
+.side-tap > .panel > :last-child { margin-bottom: 0; }
 
 .brew-facts { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin: 0 0 48px; max-width: 900px; }
 .brew-facts .panel { padding: 26px 28px; }
@@ -483,7 +495,7 @@ a.card:hover { border-color: var(--rule-strong); }
 .files-table td:first-child { width: 1%; white-space: nowrap; }
 .kit-card .more, .route-card .more { margin-top: auto; padding-top: 4px; font-weight: 600; font-size: 15px; color: var(--oxblood); }
 .route-card:hover .more { color: var(--oxblood-dark); }
-.prose > h3[id] { margin-top: 48px; scroll-margin-top: 16px; }
+.prose > h3.route-head { margin-top: 48px; scroll-margin-top: 16px; }
 .prose > ul.try-notes { margin: 8px 0 0; color: var(--muted); font-size: 16px; }
 .mind-the-step { margin: 64px 0 !important; }
 .mind-the-step__group { margin-top: 36px; font-family: var(--sans); font-variation-settings: normal; font-size: 13px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }

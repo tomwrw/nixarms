@@ -77,7 +77,7 @@
 
   {{- range slice (dict "id" "quick-look" "route" $d.try.quickLook) (dict "id" "dress-rehearsal" "route" $d.try.rehearsal) }}
   {{- $title := index (where $d.try.routes "id" .id) 0 }}
-  <h3 id="{{ .id }}">{{ $title.title }}</h3>
+  <h3 class="route-head" id="{{ .id }}">{{ $title.title }}</h3>
   <p>{{ partial "starter-md.html" (dict "page" $ "text" .route.intro "plain" $plain) }}</p>
   {{ partial "starter-rounds.html" (dict "page" $ "steps" .route.steps "plain" $plain) }}
   <ul class="try-notes">
@@ -116,13 +116,19 @@
 
   {{- $n := int .Params.step }}
   {{- $nextMethod := index (where (where $method.CurrentSection.Pages "Params.step" "!=" nil) "Params.step" (add $n 1)) 0 }}
-  <aside class="panel side-tap" aria-labelledby="move-up">
-    <p class="eyebrow">{{ if $nextMethod }}The next step up{{ else }}The top of the ladder{{ end }}</p>
-    <h2 id="move-up">{{ if $nextMethod }}Move up when…{{ else }}Where next{{ end }}</h2>
-    <p>{{ $method.Params.moveOn | markdownify }}</p>
-    {{- with $nextMethod }}
-    <p><a href="{{ .RelPermalink }}">Read about {{ .Title }} →</a></p>
-    {{- end }}
+  <aside class="side-tap" aria-labelledby="move-up">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">{{ if $nextMethod }}The next step up{{ else }}The top of the ladder{{ end }}</p>
+        <h2 id="move-up">{{ if $nextMethod }}Move up when…{{ else }}Where next{{ end }}</h2>
+      </div>
+    </div>
+    <div class="panel">
+      <p>{{ $method.Params.moveOn | markdownify }}</p>
+      {{- with $nextMethod }}
+      <p><a href="{{ .RelPermalink }}">Read about {{ .Title }} →</a></p>
+      {{- end }}
+    </div>
   </aside>
 
   <p class="checked">Last checked against <a href="{{ $d.repo }}">nixarms-brewhouse</a> on NixOS 26.05: {{ (time .Params.checked).Format "2 January 2006" }}. Spotted something out of date? <a href="{{ $d.repo }}/issues">Open an issue</a>.</p>

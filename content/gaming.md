@@ -16,6 +16,9 @@ This is a full gaming setup in one file. Save it as `gaming.nix`, import it from
 
 ```nix
 { pkgs, ... }: {
+  # Steam isn't free software, so NixOS needs your say-so first.
+  nixpkgs.config.allowUnfree = true;
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -61,13 +64,22 @@ Games whose kernel-level anti-cheat blocks Linux. That's the publisher's decisio
 
 **AMD and Intel:** drivers are open source and built into the kernel. `hardware.graphics.enable = true;` in the setup above is all you need.
 
-**NVIDIA:** add three lines for the proprietary driver. Recent cards (RTX 20-series and newer) can use NVIDIA's open kernel module:
+**NVIDIA:** add a few lines for the proprietary driver. Cards from the GTX 16 and RTX 20 series onwards use NVIDIA's open kernel module:
 
 ```nix
 services.xserver.videoDrivers = [ "nvidia" ];
 hardware.nvidia.modesetting.enable = true;
 hardware.nvidia.open = true;
 ```
+
+Older cards (the GTX 900 and 1000 series) aren't supported by NVIDIA's newest driver, which NixOS 26.05 uses by default. They need the 580 driver, the last to support them, and the closed kernel module:
+
+```nix
+hardware.nvidia.open = false;
+hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+```
+
+That second line uses `config`, so your file needs to start with `{ config, pkgs, ... }:`.
 
 ## Launchers
 

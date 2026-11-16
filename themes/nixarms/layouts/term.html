@@ -6,9 +6,9 @@
     <div class="band-actions"><a class="btn btn--ghost-light" href="{{ "/regulars/" | relURL }}">All regulars</a></div>
   </div>
 </section>
-<section class="wrap section section--last">
+<div class="wrap section section--last">
   <div class="config-grid">
     {{- range .Pages }}{{ partial "config-card.html" . }}{{ end }}
   </div>
-</section>
+</div>
 {{ end }}

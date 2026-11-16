@@ -29,11 +29,22 @@
     });
   }
 
+  // Links given role="button" should also respond to Space, as real buttons do.
+  var spaceClicks = function (el) {
+    el.addEventListener("keydown", function (e) {
+      if (e.key === " ") {
+        e.preventDefault();
+        el.click();
+      }
+    });
+  };
+
   // Path picker: pills become tabs that swap the panel in place.
   document.querySelectorAll("[data-picker]").forEach(function (picker) {
     var pills = picker.querySelectorAll(".pill[data-panel]");
     pills.forEach(function (pill) {
       pill.setAttribute("role", "button");
+      spaceClicks(pill);
       pill.setAttribute("aria-pressed", pill.classList.contains("is-active") ? "true" : "false");
       pill.addEventListener("click", function (e) {
         e.preventDefault();
@@ -57,6 +68,7 @@
     var cards = grid.querySelectorAll("[data-tags]");
     chips.forEach(function (chip) {
       chip.setAttribute("role", "button");
+      spaceClicks(chip);
       chip.setAttribute("aria-pressed", chip.classList.contains("is-active") ? "true" : "false");
       chip.addEventListener("click", function (e) {
         e.preventDefault();

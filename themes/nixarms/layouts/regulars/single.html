@@ -10,13 +10,13 @@
     </div>
   </div>
 </section>
-<article class="wrap prose">
+<div class="wrap prose">
   {{- with .Params.borrow }}
   <div class="panel" style="margin: 0 0 40px; max-width: 780px"><p class="eyebrow">Worth borrowing</p><p style="margin: 0; font-size: 1.15rem">{{ . }}</p></div>
   {{- end }}
   {{ .Content }}
   <p style="max-width: 780px">
-    {{- range .GetTerms "tags" }}<a class="badge" style="margin-right: 6px; text-decoration: none" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+    {{- range .GetTerms "tags" }}<a class="badge" style="margin-right: 6px" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
   </p>
-</article>
+</div>
 {{ end }}

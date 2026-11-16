@@ -26,12 +26,13 @@ The site works fully offline: fonts and images are self-hosted. The only externa
 
 ## Where things live
 
-```
+```text
 content/              Markdown pages
   _index.md           homepage copy (front matter)
   start/              "Start here" guides: windows, arch, ubuntu
   gaming.md
   brewhouse/          config styles, simplest first: vanilla, flakes, flake-parts, dendritic, den
+    starters/         a hands-on guide to each style's starter configs (nixarms-brewhouse)
   regulars/           one file per featured config
   menu.md, library.md
 data/
@@ -41,6 +42,7 @@ data/
   tips.yaml           "One for the road" tips (homepage, one at random)
   community.yaml      "Where the regulars drink" links (homepage)
   brews.yaml          "Which brew?" helper (The Brewhouse)
+  starters.yaml       copy shared by every starter guide: trying a starter, the gotchas
   library.yaml        The Library: the bookshelf (docs)
   telly.yaml          The Library: on the telly (videos)
 themes/nixarms/       the theme: layouts, shortcodes, CSS, JS, fonts, images

@@ -3,7 +3,7 @@
 <article class="card config-card" data-tags="{{ delimit $slugs " " }}">
   <div class="card-top">
     <div>
-      <div class="repo">{{ .Params.repo }}</div>
+      <h3 class="repo">{{ .Params.repo }}</h3>
       <div class="who">{{ .Params.author }}</div>
     </div>
     {{- with .Params.level }}{{ partial "level-badge.html" . }}{{ end }}

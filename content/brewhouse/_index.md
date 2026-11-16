@@ -11,9 +11,11 @@ homeManager:
   text: |
     Home Manager isn't a step on the ladder, because it works with all of them. It does for *your user* what NixOS does for the system: your apps, shell, editor settings and dotfiles, written down and rolled back the same way.
 
-    Most people add it once they're comfortable with the system side. It can run as part of your NixOS config or on its own, even on another Linux distro or a Mac. Start with the [Home Manager manual](https://nix-community.github.io/home-manager/).
+    It's easiest to add once you're comfortable with the system side. It can run as part of your NixOS config or on its own, even on another Linux distro or a Mac. Start with the [Home Manager manual](https://nix-community.github.io/home-manager/).
 ---
 
 ## One example, five ways
 
 Each page below turns on Steam, so you can compare the methods on the same job. The Steam line is identical every time. What differs is the structure around it, and how well that structure copes as you add machines and users.
+
+The examples are cut down to show the structure. Steam isn't free software, so a real config also needs `nixpkgs.config.allowUnfree = true;`. The [starter configs](/brewhouse/starters/) are complete, and include it.

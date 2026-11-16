@@ -58,7 +58,7 @@
 
   {{- with .Params.docs }}
   <h2>Further reading</h2>
-  <ul>{{ range . }}<li><a href="{{ .url }}">{{ .name }}</a>{{ with .note }} - {{ . }}{{ end }}</li>{{ end }}</ul>
+  <ul>{{ range . }}<li><a href="{{ .url }}">{{ .name }}</a>{{ with .note }} ({{ . }}){{ end }}</li>{{ end }}</ul>
   {{- end }}
 
   <p class="checked">Last checked against the projects' own docs: {{ (time .Params.checked).Format "2 January 2006" }}. These tools move quickly; spotted something out of date? <a href="{{ site.Params.repo }}">Open a pull request</a>.</p>

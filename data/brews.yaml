@@ -17,7 +17,7 @@
   points:
     - "A `flake.lock` records every ingredient"
     - "Easy to keep your config in git"
-    - "Most configs you'll read already use flakes"
+    - "Every config in The Regulars uses flakes"
   cta: "Read about flakes"
   url: "/brewhouse/flakes/"
 

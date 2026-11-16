@@ -1,7 +1,7 @@
 ---
 date: 2026-11-11
-title: "Misterio77/nix-config"
-repo: "Misterio77/nix-config"
+title: "Misterio77/Foundry"
+repo: "Misterio77/Foundry"
 author: "Gabriel Fontes"
 level: "Second round"
 weight: 30
@@ -9,7 +9,7 @@ tags: ["Multi-machine", "Servers", "Flakes"]
 borrow: "How it splits system settings from per-user Home Manager settings."
 ---
 
-A widely copied personal config, with a clean separation of hosts, users and shared modules.
+Gabriel Fontes's own config (it used to be called nix-config), with a clean separation of hosts, users and shared modules.
 
 <!--more-->
 

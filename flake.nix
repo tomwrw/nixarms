@@ -64,6 +64,8 @@
         };
       });
 
-      formatter = forAllSystems (pkgs: pkgs.nixfmt);
+      # nixfmt-tree formats every .nix file when `nix fmt` runs with no arguments;
+      # plain nixfmt would sit waiting for input instead.
+      formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
     };
 }

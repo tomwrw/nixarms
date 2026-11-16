@@ -26,4 +26,4 @@
 - term: "nix-shell / nix shell"
   meaning: "A temporary room with extra tools in it. Leave the room and the tools are gone."
 - term: "Garbage collection"
-  meaning: "Clearing the empties: `nix-collect-garbage` removes old generations and packages nothing uses any more."
+  meaning: "Clearing the empties: `nix-collect-garbage` removes packages nothing uses any more. `sudo nix-collect-garbage -d` clears out your old generations too."

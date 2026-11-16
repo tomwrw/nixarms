@@ -8,7 +8,7 @@ description: "How The Nix Arms handles visitor data: no cookies, no accounts, an
 
 ## Cookies and accounts
 
-The site doesn't set cookies, doesn't store anything in your browser, and has no accounts, logins or forms.
+The site doesn't set cookies and has no accounts, logins or forms. It only stores something in your browser if you ask it to stop counting your visits (see below).
 
 ## Visit counting
 

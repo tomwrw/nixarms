@@ -40,10 +40,14 @@
 
 <!-- PATH PICKER -->
 <section class="wrap section" id="bar">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">At the bar</p>
+      <h2>What are you drinking?</h2>
+      <p class="lede">Say where you're coming from and you'll get the right guide.</p>
+    </div>
+  </div>
   <div class="panel">
-    <p class="eyebrow">At the bar</p>
-    <h2>What are you drinking?</h2>
-    <p class="lede" style="margin-bottom: 28px">Say where you're coming from and you'll get the right guide.</p>
     {{ partial "picker.html" (dict "items" hugo.Data.paths "id" "path" "label" "Choose where you're coming from") }}
   </div>
 </section>
@@ -106,14 +110,14 @@
 
 <!-- LIBRARY -->
 <section class="wrap section" id="library-teaser">
-  <div class="panel">
-    <div class="section-head" style="margin-bottom: 20px">
-      <div>
-        <p class="eyebrow">The library</p>
-        <h2>When you're ready for more</h2>
-      </div>
-      <a class="more" href="{{ "/library/" | relURL }}">The whole library →</a>
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">The library</p>
+      <h2>When you're ready for more</h2>
     </div>
+    <a class="more" href="{{ "/library/" | relURL }}">The whole library →</a>
+  </div>
+  <div class="panel">
     <ul class="link-grid">
       {{- range first 4 hugo.Data.library }}
       <li><a href="{{ .url }}">{{ .name }}</a><span>{{ .short }}</span></li>

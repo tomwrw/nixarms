@@ -3,7 +3,7 @@
   url: "https://discourse.nixos.org"
   text: "The official forum. Beginner questions are welcome. Search first, then ask."
 - name: "NixOS on Matrix"
-  url: "https://matrix.to/#/#space:nixos.org"
+  url: "https://matrix.to/#/%23space:nixos.org"
   text: "The official chat rooms, for quick questions and a natter."
 - name: "r/NixOS"
   url: "https://www.reddit.com/r/NixOS/"

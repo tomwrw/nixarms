@@ -13,6 +13,8 @@ hero:
     { pkgs, ... }: {
       networking.hostName = "the-snug";
       services.desktopManager.plasma6.enable = true;
+      services.displayManager.sddm.enable = true;
+      nixpkgs.config.allowUnfree = true;
       programs.steam.enable = true;
       programs.gamemode.enable = true;
       environment.systemPackages = with pkgs; [

@@ -6,7 +6,7 @@ description: "Real NixOS configs, each with notes for beginners on what to borro
 ---
 
 {{< chalkboard title="How to read someone's config" size="lg" >}}
-1. Start at `flake.nix`. It lists every machine ("host") the repo builds.
+1. Start at `flake.nix`. It usually lists every machine ("host") the repo builds. In a dendritic or den config, the hosts live in `modules/hosts/` instead.
 2. Pick one host and follow its imports. That's the whole recipe for that machine.
 3. Borrow one module at a time. Copy, rebuild, check it works, then take the next.
 {{< /chalkboard >}}

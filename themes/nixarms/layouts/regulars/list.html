@@ -4,7 +4,7 @@
 {{- $tags := slice }}
 {{- range $pages }}{{ range .Params.tags }}{{ if not (in $tags .) }}{{ $tags = $tags | append . }}{{ end }}{{ end }}{{ end }}
 {{- $order := site.Params.regularsFilters | default (sort $tags) }}
-<section class="wrap section" style="padding-bottom: 24px">
+<div class="wrap section" style="padding-bottom: 24px">
   <div class="filter-bar" data-filter>
     <div class="pills" role="group" aria-label="Filter configs">
       <a class="pill is-active" href="{{ .RelPermalink }}" data-tag="all">All</a>
@@ -17,7 +17,7 @@
   <div class="config-grid" data-filter-grid>
     {{- range $pages }}{{ partial "config-card.html" . }}{{ end }}
   </div>
-</section>
+</div>
 <div class="wrap prose" style="padding-top: 24px">
   {{ .Content }}
 </div>

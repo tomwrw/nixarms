@@ -40,9 +40,10 @@ Round 1 below runs NixOS in a virtual machine, which touches none of this. Start
 {{< round title="Roll back, to see that you can" time="10 min" last="true" >}}Delete one app from the list and rebuild, so it disappears. Then reboot and pick the previous generation from the boot menu. The app is back. That's the safety net you'll rely on later.{{< /round >}}
 {{< /rounds >}}
 
-Adding your apps looks like this. It's a few lines added to the file the installer created:
+Adding your apps looks like this. It's a few lines added to the file the installer created. Discord isn't free software, so it needs the first line too (the installer adds it if you ticked **Allow unfree software**):
 
 ```nix
+nixpkgs.config.allowUnfree = true;
 environment.systemPackages = with pkgs; [
   firefox
   discord
@@ -55,7 +56,7 @@ environment.systemPackages = with pkgs; [
 {{< chalk-item title="Adobe apps" >}}No Photoshop or Premiere. Try GIMP, Krita, Darktable, or DaVinci Resolve for video.{{< /chalk-item >}}
 {{< chalk-item title="Some online games" >}}Kernel anti-cheat titles won't run. [Check the gaming page](/gaming/).{{< /chalk-item >}}
 {{< chalk-item title="Microsoft Office" >}}The web versions work in a browser. LibreOffice and OnlyOffice cover the rest.{{< /chalk-item >}}
-{{< chalk-item title="RGB & peripheral apps" >}}Vendor tools rarely support Linux. OpenRGB and Piper handle most lights and mice.{{< /chalk-item >}}
+{{< chalk-item title="RGB & peripheral apps" >}}Vendor tools rarely support Linux. OpenRGB and Piper handle many lights and mice.{{< /chalk-item >}}
 {{< /chalkboard >}}
 
 ## Keeping Windows as well

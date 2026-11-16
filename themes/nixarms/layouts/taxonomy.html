@@ -5,11 +5,11 @@
     <h1>Browse by tag</h1>
   </div>
 </section>
-<section class="wrap section section--last">
+<div class="wrap section section--last">
   <div class="pills">
     {{- range .Data.Terms.Alphabetical }}
     <a class="pill" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} ({{ .Count }})</a>
     {{- end }}
   </div>
-</section>
+</div>
 {{ end }}
