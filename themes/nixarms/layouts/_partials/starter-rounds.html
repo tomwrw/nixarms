@@ -1,0 +1,9 @@
+{{- /* Numbered steps from data/starters.yaml, drawn like the rounds shortcode.
+       partial "starter-rounds.html" (dict "page" $ "steps" $d.try.quickLook.steps "plain" "vanilla")
+       Each step: title, text (Markdown), optional time and last. */ -}}
+{{- $page := .page }}{{ $plain := .plain }}
+<ol class="rounds">
+  {{- range $i, $s := .steps }}
+  <li class="round{{ if $s.last }} round--last{{ end }}"><span class="round__n" aria-hidden="true">{{ add $i 1 }}</span><div class="round__body"><h4>{{ $s.title }}</h4><div class="round__text">{{ partial "starter-md.html" (dict "page" $page "text" $s.text "plain" $plain "block" true) }}</div></div>{{ with $s.time }}<span class="round__time">{{ . }}</span>{{ end }}</li>
+  {{- end }}
+</ol>

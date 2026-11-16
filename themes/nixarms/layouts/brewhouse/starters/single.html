@@ -1,0 +1,138 @@
+{{ define "main" }}
+{{- /* A starter guide: one per Brewhouse method, covering both starters (<starter> and <starter>-hm).
+       Every guide has the same shape. This template draws the shared parts from data/starters.yaml
+       and the guide's front matter; the guide's own Markdown supplies "Make it yours",
+       "Your first change" and "Keeping it up to date".
+       Front matter: title, starter, step, weight, flake (bool), lede, description, files[{path, what, hm}],
+       filesNote, gotchas[{title, text}], checked. */ -}}
+{{- $d := hugo.Data.starters }}
+{{- $plain := .Params.starter }}
+{{- $hm := printf "%s-hm" $plain }}
+{{- $method := site.GetPage (printf "/brewhouse/%s" $plain) }}
+{{- $guides := (where .CurrentSection.Pages "Params.step" "!=" nil).ByParam "step" }}
+{{- $tree := printf "%s/tree/main/templates" $d.repo }}
+<section class="band on-dark">
+  <div class="wrap page-band">
+    <p class="eyebrow">The Brewhouse · Starter guide · Step {{ .Params.step }} of {{ len $guides }}</p>
+    <h1>{{ .Title }}</h1>
+    <p class="lede">{{ .Params.lede | markdownify }}</p>
+  </div>
+</section>
+
+<article class="wrap prose">
+  <div class="brew-facts">
+    <div class="panel">
+      <p class="eyebrow">What it builds</p>
+      <p>{{ partial "starter-md.html" (dict "page" . "text" $d.builds "plain" $plain) }}</p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">New to this method?</p>
+      <p>Read <a href="{{ $method.RelPermalink }}">{{ $method.Title }}</a> first: what it is, who it's for and when to move up. This guide is the hands-on half.</p>
+    </div>
+  </div>
+
+  <h2 id="two-starters">Two starters on this tap</h2>
+  <p>{{ partial "starter-md.html" (dict "page" . "text" $d.kits.intro "plain" $plain) }}</p>
+  <div class="grid kit-grid">
+    {{- range slice (dict "name" $plain "kit" $d.kits.plain) (dict "name" $hm "kit" $d.kits.hm) }}
+    <div class="card kit-card">
+      <p class="eyebrow">{{ .kit.label }}</p>
+      <h3 class="kit-name">{{ .name }}</h3>
+      <p>{{ .kit.text | markdownify }}</p>
+      <a class="more" href="{{ $tree }}/{{ .name }}">See its files on GitHub →</a>
+    </div>
+    {{- end }}
+  </div>
+
+  <h2 id="whats-in-the-box">What's in the box</h2>
+  <div class="table-wrap">
+    <table class="files-table">
+      <thead><tr><th scope="col">File</th><th scope="col">What it does</th></tr></thead>
+      <tbody>
+        {{- range .Params.files }}
+        <tr>
+          <td><code>{{ .path }}</code>{{ if .hm }} <span class="badge badge--amber">{{ $hm }} only</span>{{ end }}</td>
+          <td>{{ .what | markdownify }}</td>
+        </tr>
+        {{- end }}
+      </tbody>
+    </table>
+  </div>
+  {{- with .Params.filesNote }}
+  <p>{{ . | markdownify }}</p>
+  {{- end }}
+
+  <h2 id="try-it">Try it first</h2>
+  <p>{{ $d.try.intro }}</p>
+  <div class="grid route-grid">
+    {{- range $d.try.routes }}
+    <a class="card route-card" href="#{{ .id }}">
+      <p class="eyebrow">{{ .where }}</p>
+      <h3>{{ .title }}</h3>
+      <p>{{ .text | markdownify }}</p>
+      <span class="more">Show me the steps ↓</span>
+    </a>
+    {{- end }}
+  </div>
+
+  {{- range slice (dict "id" "quick-look" "route" $d.try.quickLook) (dict "id" "dress-rehearsal" "route" $d.try.rehearsal) }}
+  {{- $title := index (where $d.try.routes "id" .id) 0 }}
+  <h3 id="{{ .id }}">{{ $title.title }}</h3>
+  <p>{{ partial "starter-md.html" (dict "page" $ "text" .route.intro "plain" $plain) }}</p>
+  {{ partial "starter-rounds.html" (dict "page" $ "steps" .route.steps "plain" $plain) }}
+  <ul class="try-notes">
+    {{- range .route.notes }}<li>{{ partial "starter-md.html" (dict "page" $ "text" . "plain" $plain) }}</li>{{ end }}
+  </ul>
+  {{- end }}
+
+  <div class="chalkboard chalkboard--lg mind-the-step" id="mind-the-step">
+    <p class="chalk-label">Before you pour</p>
+    <h2>Mind the step</h2>
+    <p style="margin: 6px 0 0">{{ $d.gotchas.intro }}</p>
+    {{- $groups := slice (dict "label" "With this starter" "items" (.Params.gotchas | default slice)) }}
+    {{- if .Params.flake }}{{ $groups = $groups | append (dict "label" "With any flake" "items" $d.gotchas.flakes) }}{{ end }}
+    {{- $groups = $groups | append (dict "label" "Whichever you pour" "items" $d.gotchas.everyone) }}
+    {{- $groups = $groups | append (dict "label" (printf "With Home Manager (%s)" $hm) "items" $d.gotchas.homeManager) }}
+    {{- range $groups }}
+    {{- if .items }}
+    <h3 class="mind-the-step__group">{{ .label }}</h3>
+    <div class="chalk-grid">
+      {{- range .items }}
+      <div class="chalk-item"><h4>{{ .title | markdownify }}</h4><p>{{ partial "starter-md.html" (dict "page" $ "text" .text "plain" $plain) }}</p></div>
+      {{- end }}
+    </div>
+    {{- end }}
+    {{- end }}
+  </div>
+
+  {{ .Content }}
+
+  <h2 id="gone-wrong">If something goes wrong</h2>
+  <div class="status-grid">
+    {{- range $d.goneWrong }}
+    <div class="status"><h3>{{ partial "icon.html" (dict "name" "check" "stroke" "#1F4A39" "size" 26 "width" 2.2) }}{{ .title }}</h3><p>{{ partial "starter-md.html" (dict "page" $ "text" .text "plain" $plain) }}</p></div>
+    {{- end }}
+  </div>
+
+  {{- $n := int .Params.step }}
+  {{- $nextMethod := index (where (where $method.CurrentSection.Pages "Params.step" "!=" nil) "Params.step" (add $n 1)) 0 }}
+  <aside class="panel side-tap" aria-labelledby="move-up">
+    <p class="eyebrow">{{ if $nextMethod }}The next step up{{ else }}The top of the ladder{{ end }}</p>
+    <h2 id="move-up">{{ if $nextMethod }}Move up when…{{ else }}Where next{{ end }}</h2>
+    <p>{{ $method.Params.moveOn | markdownify }}</p>
+    {{- with $nextMethod }}
+    <p><a href="{{ .RelPermalink }}">Read about {{ .Title }} →</a></p>
+    {{- end }}
+  </aside>
+
+  <p class="checked">Last checked against <a href="{{ $d.repo }}">nixarms-brewhouse</a> on NixOS 26.05: {{ (time .Params.checked).Format "2 January 2006" }}. Spotted something out of date? <a href="{{ $d.repo }}/issues">Open an issue</a>.</p>
+
+  <nav class="step-nav" aria-label="Starter guides">
+    {{- $prev := index (where $guides "Params.step" (sub $n 1)) 0 }}
+    {{- $next := index (where $guides "Params.step" (add $n 1)) 0 }}
+    {{- $all := .CurrentSection }}
+    {{- with $prev }}<a class="card" href="{{ .RelPermalink }}"><span class="eyebrow">← Step {{ .Params.step }}</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card" href="{{ $all.RelPermalink }}"><span class="eyebrow">← Back to</span><span class="serif">{{ $all.Title }}</span></a>{{ end }}
+    {{- with $next }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Step {{ .Params.step }} →</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card step-nav__next" href="{{ $all.RelPermalink }}"><span class="eyebrow">Back to →</span><span class="serif">{{ $all.Title }}</span></a>{{ end }}
+  </nav>
+</article>
+{{ end }}

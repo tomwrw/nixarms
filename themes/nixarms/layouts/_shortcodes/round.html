@@ -1,3 +1,4 @@
-{{- /* One step inside {{< rounds >}}. Params: title, time, last="true" for the final (oxblood) step. */ -}}
+{{- /* One step inside {{< rounds >}}. Params: title, time, last="true" for the final (oxblood) step.
+       The text is Markdown and can run to several paragraphs, lists and code blocks. */ -}}
 {{- $n := add .Ordinal 1 -}}
-<li class="round{{ if eq (.Get "last") "true" }} round--last{{ end }}"><span class="round__n" aria-hidden="true">{{ $n }}</span><div class="round__body"><h3>{{ .Get "title" }}</h3><p>{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p></div>{{ with .Get "time" }}<span class="round__time">{{ . }}</span>{{ end }}</li>
+<li class="round{{ if eq (.Get "last") "true" }} round--last{{ end }}"><span class="round__n" aria-hidden="true">{{ $n }}</span><div class="round__body"><h3>{{ .Get "title" }}</h3><div class="round__text">{{ .InnerDeindent | strings.TrimSpace | .Page.RenderString (dict "display" "block") }}</div></div>{{ with .Get "time" }}<span class="round__time">{{ . }}</span>{{ end }}</li>

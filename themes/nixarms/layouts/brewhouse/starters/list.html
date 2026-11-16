@@ -1,0 +1,80 @@
+{{ define "main" }}
+{{- /* /brewhouse/starters/: the five starter guides, and the ten starters they cover.
+       Copy shared with the guides comes from data/starters.yaml. */ -}}
+{{ partial "page-band.html" . }}
+{{- $d := hugo.Data.starters }}
+{{- $guides := (where .Pages "Params.step" "!=" nil).ByParam "step" }}
+{{- $tree := printf "%s/tree/main/templates" $d.repo }}
+<div class="wrap prose">
+
+  {{- with .Params.firstDay }}
+  <div class="first-day panel">
+    <p class="eyebrow">Before you read on</p>
+    <p class="first-day__line">{{ . | markdownify }}</p>
+  </div>
+  {{- end }}
+
+  {{ .Content }}
+
+  <h2 id="the-guides">The five guides, simplest first</h2>
+  <ol class="ladder">
+    {{- range $guides }}
+    {{- $method := site.GetPage (printf "/brewhouse/%s" .Params.starter) }}
+    <li>
+      <a class="ladder__step card" href="{{ .RelPermalink }}">
+        <span class="round__n" aria-hidden="true">{{ .Params.step }}</span>
+        <span class="ladder__body">
+          <span class="ladder__style">{{ $method.Title }}</span>
+          <span class="ladder__name">{{ .Title }}</span>
+          <span class="ladder__plain">{{ $method.Params.plain }}</span>
+        </span>
+        <span class="ladder__more" aria-hidden="true">{{ partial "icon.html" (dict "name" "arrow" "size" 20) }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ol>
+
+  <h2 id="all-ten">All ten starters</h2>
+  <p>{{ partial "starter-md.html" (dict "page" . "text" $d.builds "plain" "") }}</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Step</th><th scope="col">Method</th><th scope="col">{{ $d.kits.plain.label }}</th><th scope="col">{{ $d.kits.hm.label }}</th></tr></thead>
+      <tbody>
+        {{- range $guides }}
+        {{- $method := site.GetPage (printf "/brewhouse/%s" .Params.starter) }}
+        <tr>
+          <td>{{ .Params.step }}</td>
+          <td><a href="{{ .RelPermalink }}">{{ $method.Title }}</a></td>
+          <td><a href="{{ $tree }}/{{ .Params.starter }}"><code>{{ .Params.starter }}</code></a></td>
+          <td><a href="{{ $tree }}/{{ .Params.starter }}-hm"><code>{{ .Params.starter }}-hm</code></a></td>
+        </tr>
+        {{- end }}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="try-one">Two ways to try one</h2>
+  <p>{{ $d.try.intro }} Every guide has the full steps for both.</p>
+  <div class="grid route-grid">
+    {{- with index $guides 0 }}{{ $first := . }}
+    {{- range $d.try.routes }}
+    <a class="card route-card" href="{{ $first.RelPermalink }}#{{ .id }}">
+      <p class="eyebrow">{{ .where }}</p>
+      <h3>{{ .title }}</h3>
+      <p>{{ .text | markdownify }}</p>
+      <span class="more">Steps in the {{ $first.Params.starter }} guide →</span>
+    </a>
+    {{- end }}
+    {{- end }}
+  </div>
+
+  <div class="callout on-dark">
+    <div style="flex: 1 1 420px; min-width: 0">
+      <p class="eyebrow">The brewhouse itself</p>
+      <h2>nixarms-brewhouse</h2>
+      <p>All ten starters, checked on every change, with a weekly job that tries the newest versions. Take what's useful: the code is MIT.</p>
+    </div>
+    <a class="btn btn--brass" href="{{ $d.repo }}">See it on GitHub →</a>
+  </div>
+</div>
+{{ end }}

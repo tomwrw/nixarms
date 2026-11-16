@@ -34,6 +34,18 @@
     </div>
   </div>
 
+  {{- /* The hands-on guide for this method, if there is one (content/brewhouse/starters/<this page's name>.md). */}}
+  {{- with site.GetPage (printf "/brewhouse/starters/%s" .File.ContentBaseName) }}
+  <div class="callout on-dark">
+    <div style="flex: 1 1 420px; min-width: 0">
+      <p class="eyebrow">The starter guide</p>
+      <h2>{{ .Title }}</h2>
+      <p>A ready-made config in this style, with and without Home Manager. Try it in a throwaway VM first, then make it yours.</p>
+    </div>
+    <a class="btn btn--brass" href="{{ .RelPermalink }}">Read the guide →</a>
+  </div>
+  {{- end }}
+
   <h2>Regulars brewed this way</h2>
   {{- $term := "" }}{{ with .Params.regularsTag }}{{ $term = site.GetPage (printf "/tags/%s" (urlize .)) }}{{ end }}
   {{- if and $term $term.Pages }}

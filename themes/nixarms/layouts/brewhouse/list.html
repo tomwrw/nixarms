@@ -65,6 +65,18 @@
     {{ partial "picker.html" (dict "items" hugo.Data.brews "id" "brew" "label" "Choose the situation that sounds most like you") }}
   </div>
 
+  <!-- STARTER GUIDES -->
+  {{- with site.GetPage "/brewhouse/starters" }}
+  <div class="callout on-dark">
+    <div style="flex: 1 1 420px; min-width: 0">
+      <p class="eyebrow">Pour your own</p>
+      <h2>{{ .Title }}</h2>
+      <p>Every method above as a ready-made config, with and without Home Manager. Taste one in a throwaway VM, then make it yours.</p>
+    </div>
+    <a class="btn btn--brass" href="{{ .RelPermalink }}">See the starters →</a>
+  </div>
+  {{- end }}
+
   <!-- HOME MANAGER SIDEBAR -->
   {{- with .Params.homeManager }}
   <aside class="panel side-tap" aria-labelledby="home-manager">

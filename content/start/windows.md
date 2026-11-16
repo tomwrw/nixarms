@@ -33,7 +33,7 @@ Round 1 below runs NixOS in a virtual machine, which touches none of this. Start
 ## Your first evening
 
 {{< rounds >}}
-{{< round title="Try it in a virtual machine" time="20 min" >}}Install [VirtualBox](https://www.virtualbox.org) on Windows and run NixOS inside it. Nothing on your computer changes, so break it as much as you like.{{< /round >}}
+{{< round title="Try it in a virtual machine" time="20 min" >}}Install [VirtualBox](https://www.virtualbox.org) on Windows and run NixOS inside it. Nothing on your computer changes, so break it as much as you like. The [dress rehearsal](/brewhouse/starters/vanilla/#dress-rehearsal) walks you through the settings.{{< /round >}}
 {{< round title="Install with the graphical installer" time="30 min" >}}Download the graphical ISO from [nixos.org](https://nixos.org/download/), flash it to a USB stick, boot from it and click through. Pick **KDE Plasma** if you want something that feels like Windows. Check the disk step twice (see the warning above).{{< /round >}}
 {{< round title="Open your config and add your apps" time="15 min" >}}Find your apps on [search.nixos.org](https://search.nixos.org) and add their names to the `environment.systemPackages` list in `/etc/nixos/configuration.nix`.{{< /round >}}
 {{< round title="Rebuild" time="5 min" >}}Run `sudo nixos-rebuild switch`. When it finishes, your apps are in the menu.{{< /round >}}

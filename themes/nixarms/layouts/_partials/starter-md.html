@@ -1,0 +1,8 @@
+{{- /* Renders shared starter copy (data/starters.yaml) as Markdown, with {plain} and {hm}
+       swapped for the guide's two starter names (e.g. vanilla and vanilla-hm).
+       partial "starter-md.html" (dict "page" $ "text" "…" "plain" "vanilla" "block" true)
+       Returns HTML: inline by default, or block (paragraphs, lists, code) with "block" true. */ -}}
+{{- $t := replace .text "{plain}" .plain -}}
+{{- $t = replace $t "{hm}" (printf "%s-hm" .plain) -}}
+{{- $display := cond (.block | default false) "block" "inline" -}}
+{{- return (.page.RenderString (dict "display" $display) $t) -}}

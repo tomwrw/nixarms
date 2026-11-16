@@ -1,0 +1,252 @@
+# Shared copy for the starter guides (content/brewhouse/starters/). Every guide
+# pulls these in, so all five say the same thing: change it here, not in each
+# guide. The method-specific parts live in each guide's front matter and body.
+#
+# In any text, {plain} becomes the guide's starter (e.g. vanilla) and {hm} its
+# Home Manager twin (vanilla-hm). Text is Markdown.
+
+repo: "https://github.com/tomwrw/nixarms-brewhouse"
+
+builds: >-
+  A KDE Plasma desktop with Firefox, LibreOffice, VLC and Steam, for one user
+  called `alice` on a computer called `snug`. Every starter builds that same
+  computer, so only the way the files are organised changes.
+
+# "Two starters on this tap": the plain starter and its Home Manager twin.
+kits:
+  intro: >-
+    Each method comes as a pair. Pick one, and pour the same one all the way
+    through this guide.
+  plain:
+    label: "Without Home Manager"
+    text: >-
+      Everything lives in NixOS, your own apps included. Fewer moving parts,
+      so it's the one to pick if you're not sure. You can add Home Manager later.
+  hm:
+    label: "With Home Manager"
+    text: >-
+      Your own apps, git and shell settings move into Home Manager, which looks
+      after your user the way NixOS looks after the system.
+
+# "Try it first": two routes, each a list of steps.
+try:
+  intro: >-
+    Two ways to taste a starter before it goes anywhere near your real setup.
+    Neither one changes anything on your computer.
+  routes:
+    - id: quick-look
+      title: "Quick look"
+      where: "Linux · one command"
+      text: "Boots the starter in a throwaway window. Close it and it's gone."
+    - id: dress-rehearsal
+      title: "Dress rehearsal"
+      where: "Windows or Linux · about an hour"
+      text: >-
+        Install NixOS in VirtualBox, then pour the starter onto it with this
+        guide's own steps, exactly as you would for real.
+
+  quickLook:
+    intro: >-
+      For Linux on an ordinary Intel or AMD PC, NixOS included. One command
+      downloads the starter and boots it in a window.
+    steps:
+      - title: "Install Nix"
+        time: "5 min"
+        text: |
+          Skip this on NixOS. On any other Linux, run the official installer and say yes to its questions:
+
+          ```sh
+          curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install \
+            | sh -s -- --daemon
+          ```
+
+          Then close the terminal and open a new one. Nix keeps to itself in `/nix`, and [the Nix manual](https://nix.dev/manual/nix/latest/installation/uninstall) explains how to remove it later. On Fedora, or anything else with SELinux switched on, read [nixos.org/download](https://nixos.org/download/) first.
+      - title: "Switch on flakes"
+        time: "1 min"
+        text: |
+          `nix run` is part of flakes, which Nix still labels experimental. This switches them on for you, once:
+
+          ```sh
+          mkdir -p ~/.config/nix
+          echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+          ```
+
+          Already using flakes? Skip it.
+      - title: "Pour a pint"
+        text: |
+          ```sh
+          nix run github:tomwrw/nixarms-brewhouse#{plain}
+          ```
+
+          Or end it with `#{hm}` for the Home Manager starter. A window opens with the desktop, logged in as `alice` (the password is `changeme`, if anything asks). Close the window when you're done. Nothing is saved.
+      - title: "Tidy up"
+        time: "1 min"
+        last: true
+        text: |
+          The downloads stay in `/nix/store` until you clear them away:
+
+          ```sh
+          nix-collect-garbage
+          ```
+    notes:
+      - "The first run downloads about 4 GB. The other starters reuse nearly all of it."
+      - >-
+        It needs about 4 GB of free memory, and it's far quicker with your CPU's
+        virtualisation switched on (VT-x, AMD-V or SVM, in your PC's firmware
+        settings). Without it the VM still works, slowly.
+      - "Steam installs, but don't expect games to run well in a VM."
+      - "It won't run on Windows or a Mac. On Windows, use the dress rehearsal instead."
+
+  rehearsal:
+    intro: >-
+      For Windows or Linux. You install NixOS in a virtual machine, then pour
+      the starter onto it with the steps in [Make it yours](#make-it-yours).
+      It's the real thing on a pretend computer, so every gotcha turns up where
+      it can't hurt.
+    steps:
+      - title: "Install VirtualBox"
+        time: "10 min"
+        text: >-
+          Download it from [virtualbox.org](https://www.virtualbox.org/wiki/Downloads)
+          and install it. On Linux, your distro's software centre will usually
+          have it too.
+      - title: "Download NixOS"
+        time: "10 min"
+        text: >-
+          From [nixos.org/download](https://nixos.org/download/), get the
+          **graphical ISO image** for Intel/AMD. It's one big file: leave it in
+          your Downloads folder.
+      - title: "Make the virtual machine"
+        time: "5 min"
+        text: |
+          In VirtualBox, click **New**. Give it a name and pick the NixOS ISO. If VirtualBox doesn't recognise it, set the type to **Linux** and pick the 64-bit "Other Linux" option. If it offers an unattended installation, untick it.
+
+          On the hardware page, give it at least **4096 MB** of memory, **2** processors and a **40 GB** disk, and tick **Use EFI**. The starters start up the way modern PCs do, so switching to one on a VM without EFI fails.
+
+          Once it's made, open its **Settings → Display** and set **Video Memory** to 128 MB.
+      - title: "Install NixOS in it"
+        time: "30 min"
+        text: |
+          Start the VM. When the NixOS desktop appears, open the installer (it may open by itself) and click through. Choose **KDE Plasma** as the desktop, and pick a name and password you'll remember: the starter uses that name.
+
+          On the disk page, **Erase disk** is safe here. It only erases the VM's empty virtual disk, and your real drive is out of its reach. Leave encryption off for a rehearsal.
+      - title: "Restart into your new NixOS"
+        time: "5 min"
+        text: >-
+          When it's done, restart. If the installer comes back instead of a
+          login screen, close the VM, open its **Settings → Storage**, remove
+          the NixOS disc, and start it again.
+      - title: "Pour the starter"
+        last: true
+        text: >-
+          Log in, open **Konsole** (press the Start key and type `konsole`),
+          and follow [Make it yours](#make-it-yours) below exactly as you would
+          on a real PC. Skip the step that tries it in a VM: a VM inside a VM
+          is painfully slow.
+    notes:
+      - "You'll want 40 GB of free disk space and a PC with at least 8 GB of memory."
+      - >-
+        On Windows 11, a green turtle in the VM window's status bar means
+        VirtualBox is in its slow mode, because Windows' own virtualisation is
+        in use (Memory integrity and WSL both use it). The VM still works, just
+        more slowly. Memory integrity is a security feature, so I'd leave it on.
+      - "If the mouse gets stuck inside the VM, press the right **Ctrl** key to let go."
+      - >-
+        The starters are built for Intel and AMD PCs, so neither route works on
+        an Apple Silicon Mac.
+      - >-
+        When you're done, right-click the VM in VirtualBox, choose **Remove**,
+        then **Delete all files**.
+
+# "Mind the step": shown on every guide, after the guide's own gotchas.
+gotchas:
+  intro: >-
+    The things that catch newcomers out. Read them before you pour: each one
+    turns up again in the steps where it matters.
+
+  # Every starter.
+  everyone:
+    - title: "Your old config has lines you need"
+      text: >-
+        The starter replaces your `configuration.nix`, and the installer put a
+        few things there that are yours alone: how your PC starts up (GRUB, on
+        older PCs), how it unlocks an encrypted disk (lines starting
+        `boot.initrd.luks` or `boot.initrd.secrets`), and any apps you've added.
+        Bring them across before you switch.
+    - title: "Use the account name you already have"
+      text: >-
+        Change `alice` to the name you picked in the installer. A name that
+        doesn't exist yet makes a new, empty account with the password
+        `changeme`. If that happens, change its password with `passwd` straight
+        away.
+    - title: "stateVersion isn't your version"
+      text: >-
+        It records the release you first installed, so NixOS doesn't change how
+        your existing data is stored. Copy it from your old `configuration.nix`
+        and never change it, even when you upgrade.
+    - title: "The placeholder stops you on purpose"
+      text: >-
+        Each starter ships a stand-in hardware file so the test VM works. A real
+        build stops with *still the Brewhouse placeholder* until you copy your
+        own over it. That's the reminder doing its job.
+
+  # The four flake starters (guides with `flake: true`).
+  flakes:
+    - title: "This folder is your config now"
+      text: >-
+        After your first switch, `/etc/nixos` stops counting. Always add
+        `--flake .#snug`: a plain `sudo nixos-rebuild switch` quietly builds the
+        old config in `/etc/nixos` instead.
+    - title: "Flakes only see what git knows about"
+      text: >-
+        Once your folder is a git repo, `git add` every new file before you
+        build, or Nix acts as if it isn't there. Git arrives with the starter,
+        so set the repo up after your first switch.
+    - title: "Flakes are off until your first switch"
+      text: >-
+        A fresh NixOS hasn't switched them on, so `nix flake init` and `nix run`
+        need `--extra-experimental-features "nix-command flakes"` until then.
+        The starter switches them on for good, and `nixos-rebuild` manages
+        without.
+
+  # The -hm starters.
+  homeManager:
+    - title: "Releases must match"
+      text: >-
+        Home Manager's release has to match NixOS's: 26.05 with 26.05. When you
+        move NixOS to a new release, move Home Manager with it.
+    - title: "Your old dotfiles become .backup"
+      text: >-
+        Home Manager renames files it takes over, such as `~/.bashrc`, to
+        `~/.bashrc.backup`. If that backup already exists, the switch stops with
+        *would be clobbered*: move the old backup somewhere else and switch
+        again.
+    - title: "Its files are read-only"
+      text: >-
+        Settings Home Manager writes, like your git config, are links into the
+        Nix store. Change them in your config: an app that tries to save over
+        one, such as `git config --global`, fails.
+    - title: "When it fails, ask its service"
+      text: >-
+        Home Manager runs as part of the switch. If the switch says
+        `home-manager-alice.service` failed (with your name in place of alice),
+        `journalctl -u home-manager-alice` shows why.
+
+# "If something goes wrong", at the end of every guide.
+goneWrong:
+  - title: "A failed build changes nothing"
+    text: >-
+      If the build stops with an error, your computer is exactly as it was. Fix
+      the file and run the same command again. The line that matters starts
+      with `error:`, near the bottom.
+  - title: "Go back a generation"
+    text: >-
+      If the new system misbehaves, restart and pick the previous generation
+      from the boot menu. Or, without restarting:
+      `sudo nixos-rebuild switch --rollback`.
+  - title: "Ask the regulars"
+    text: >-
+      Post on the [NixOS Discourse](https://discourse.nixos.org) with the
+      command you ran and the error. If a starter itself is wrong,
+      [open an issue](https://github.com/tomwrw/nixarms-brewhouse/issues) and
+      I'll fix it.
