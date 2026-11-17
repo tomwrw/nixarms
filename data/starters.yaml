@@ -246,7 +246,8 @@ goneWrong:
       `sudo nixos-rebuild switch --rollback`.
   - title: "Ask the regulars"
     text: >-
-      Post on the [NixOS Discourse](https://discourse.nixos.org) with the
-      command you ran and the error. If a starter itself is wrong,
+      Ask in the pub's own [Matrix room](https://matrix.to/#/%23the-nix-arms:matrix.org), or post on the
+      [NixOS Discourse](https://discourse.nixos.org) with the command you ran
+      and the error. If a starter itself is wrong,
       [open an issue](https://github.com/tomwrw/nixarms-brewhouse/issues) and
       I'll fix it.

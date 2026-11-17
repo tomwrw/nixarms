@@ -20,6 +20,9 @@ findMe:
   - name: "GitHub: tomwrw"
     url: "https://github.com/tomwrw"
     text: "My configs, including megadots, and this site."
+  - name: "The Nix Arms on Matrix"
+    url: "https://matrix.to/#/%23the-nix-arms:matrix.org"
+    text: "The pub's own chat room, for questions about the guides or a natter."
 # "Buy me a pint" panel, above the Pull up a stool button. The link is params.kofi in hugo.toml.
 pint:
   eyebrow: "Your round"

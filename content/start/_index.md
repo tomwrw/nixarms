@@ -10,4 +10,4 @@ lede: "Pick where you're coming from and I'll pour the guide that fits. If you'r
 - **Try it in a virtual machine first.** Nothing on your computer changes, and you can break it as much as you like.
 - **You don't need to learn the Nix language up front.** Most of a NixOS config reads like a settings file: `something.enable = true;`.
 - **Keep [search.nixos.org](https://search.nixos.org) open.** It lists every package and every setting.
-- **Stuck?** Ask on the [NixOS Discourse](https://discourse.nixos.org). Beginner questions are welcome there.
+- **Stuck?** Ask in the pub's own [Matrix room](https://matrix.to/#/%23the-nix-arms:matrix.org) or on the [NixOS Discourse](https://discourse.nixos.org). Beginner questions are welcome in both.

@@ -1,4 +1,7 @@
 # "Where the regulars drink": homepage Last orders section.
+- name: "The Nix Arms on Matrix"
+  url: "https://matrix.to/#/%23the-nix-arms:matrix.org"
+  text: "The pub's own chat room: questions about the guides, your setup or a natter."
 - name: "NixOS Discourse"
   url: "https://discourse.nixos.org"
   text: "The official forum. Beginner questions are welcome. Search first, then ask."

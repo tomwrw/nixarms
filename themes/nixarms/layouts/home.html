@@ -13,6 +13,10 @@
         <a class="btn btn--ghost-light" href="#specials">See what's possible</a>
       </div>
       <p class="hero__note">{{ $h.note }}</p>
+      {{- /* "Buy me a pint" (params.kofi): a plain link, one of the three places it appears. */}}
+      {{- with site.Params.kofi }}
+      <p class="hero__pint">{{ partial "icon.html" (dict "name" "pint" "size" 18) }}<span>If a guide here saves you an evening, <a href="{{ . }}">buy me a pint</a> on Ko-fi.</span></p>
+      {{- end }}
     </div>
     <div class="hero__aside">
       <div class="chalkboard chalkboard--shadow">
@@ -185,9 +189,6 @@
         {{- end }}
       </ul>
       <p class="rss">{{ partial "icon.html" (dict "name" "rss" "size" 18) }}<span>New guides and Regulars in your feed reader: <a href="{{ "index.xml" | relURL }}">RSS feed</a></span></p>
-      {{- with site.Params.kofi }}
-      <p class="rss">{{ partial "icon.html" (dict "name" "pint" "size" 18) }}<span>Saved you an evening? <a href="{{ . }}">Buy me a pint</a> on Ko-fi.</span></p>
-      {{- end }}
     </div>
   </div>
 </section>

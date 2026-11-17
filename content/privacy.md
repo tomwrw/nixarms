@@ -26,7 +26,7 @@ The site is hosted on [GitHub Pages](https://docs.github.com/en/pages). Like any
 
 ## Links to other sites
 
-Many pages link to other sites, such as GitHub, ProtonDB and the NixOS forums. Their own privacy policies apply once you're there.
+Many pages link to other sites, such as GitHub, ProtonDB, the NixOS forums and the pub's Matrix room. Their own privacy policies apply once you're there.
 
 "Buy me a pint" is a plain link to my page on [Ko-fi](https://ko-fi.com/tomwrw). Nothing from Ko-fi loads on this site, so it learns nothing about you unless you click through, and then [Ko-fi's privacy policy](https://more.ko-fi.com/privacy) applies.
 

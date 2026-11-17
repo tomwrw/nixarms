@@ -16,8 +16,11 @@ pluralizeListTitles = false
   footerBlurb = "A friendly local for anyone curious about Nix and NixOS. The content is open source. If you spot a mistake, open a pull request and the next round's on me."
   repo = "https://github.com/tomwrw/nixarms"
   # "Buy me a pint": a plain link to Ko-fi (no Ko-fi script or images load here). Used on The Landlord page and
-  # in Last orders; the footer link below repeats the address.
+  # at the bottom of the homepage hero; the footer link below repeats the address.
   kofi = "https://ko-fi.com/tomwrw"
+  # The pub's own Matrix room (#the-nix-arms:matrix.org). The # is written %23 so the link is a valid URL.
+  # Used by the footer button; content and data files repeat the address.
+  matrix = "https://matrix.to/#/%23the-nix-arms:matrix.org"
   # Order of filter chips on The Regulars (tags not listed here are hidden from the bar): what the config is
   # for, then how it's organised (the Brewhouse ladder, then Home Manager, which works with every step), then
   # the tools it uses (the Cocktail Bar, in its order).

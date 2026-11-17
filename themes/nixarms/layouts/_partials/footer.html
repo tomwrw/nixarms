@@ -5,6 +5,9 @@
       <div class="footer-about">
         <p class="serif name">{{ site.Title }}</p>
         <p>{{ site.Params.footerBlurb }}</p>
+        {{- with site.Params.matrix }}
+        <p class="footer-chat"><a class="btn btn--brass" href="{{ . }}">{{ partial "icon.html" (dict "name" "chat" "size" 20) }}Chat in the pub on Matrix</a></p>
+        {{- end }}
         <p class="addr">{{ site.Params.domain }}</p>
         {{- /* The day the site was last built, so readers can see it's kept up. Updates itself. */}}
         <p class="brewed">Last brewed <time datetime="{{ now.Format "2006-01-02" }}">{{ now.Format "2 Jan 2006" }}</time></p>
