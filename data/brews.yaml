@@ -1,7 +1,7 @@
 # "Which brew?" helper on /brewhouse/. Same shape as paths.yaml.
 - id: first
   label: "Just installed NixOS"
-  title: "Stick with the house pour."
+  title: "Stick with configuration.nix"
   pitch: "The `configuration.nix` the installer made is all you need for now. Learn to add apps, rebuild and roll back first."
   points:
     - "Nothing new to learn beyond your config file"
@@ -12,7 +12,7 @@
 
 - id: pinned
   label: "I want it reproducible"
-  title: "Bottle it with flakes."
+  title: "Move to flakes"
   pitch: "Flakes pin the exact version of everything you use, so a rebuild next month, or on another PC, gives you the same system."
   points:
     - "A `flake.lock` records every ingredient"
@@ -23,18 +23,18 @@
 
 - id: several
   label: "I have several machines"
-  title: "Try flake-parts, then the dendritic pattern."
+  title: "Try flake-parts, then the dendritic pattern"
   pitch: "Once a desktop, laptop and server share settings, a single flake file gets crowded. flake-parts splits it up; the dendritic pattern organises it by feature."
   points:
     - "Share one gaming or desktop module across machines"
-    - "Each machine says *what* it is, not how to build it"
+    - "Each machine is a short list of the features it wants"
     - "Worth the extra learning once you have three or more hosts"
   cta: "Read about the dendritic pattern"
   url: "/brewhouse/dendritic/"
 
 - id: everything
   label: "NixOS, Mac and Home Manager"
-  title: "Have a look at den."
+  title: "Have a look at den"
   pitch: "If you're managing NixOS, a Mac with nix-darwin and Home Manager users from one place, den gives you a framework built for exactly that."
   points:
     - "One \"aspect\" can configure the system, the Mac and your user"

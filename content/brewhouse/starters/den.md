@@ -6,7 +6,7 @@ weight: 50
 flake: true
 date: 2026-11-16
 checked: 2026-11-16
-lede: "The full brewery: you declare the computer and its user once, and den builds them from aspects such as desktop and gaming. Taste it in a throwaway VM, then make it yours in about forty minutes."
+lede: "The full brewery: you declare the computer and its user once, and den builds them from aspects such as desktop and gaming. Set aside about forty minutes to make it yours."
 description: "A beginner's guide to the den NixOS starter config, with and without Home Manager: try it in a VM, then make it your own."
 files:
   - path: "flake.nix"

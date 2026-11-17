@@ -1,0 +1,14 @@
+{{- /* "Fresh on tap": when the page was last checked, and on which NixOS release, in the page band under
+       the lede. Only on pages with `checked` in their front matter (set it only after re-verifying).
+       Once a newer release is listed in params.nixosReleases (hugo.toml), a page checked before it says
+       "Due a recheck" instead, until it's re-verified and its `checked` bumped. */ -}}
+{{- with .Params.checked }}
+{{- $date := time . }}
+{{- $on := partial "nixos-release.html" $date }}
+{{- $latest := (index site.Params.nixosReleases (sub (len site.Params.nixosReleases) 1)).name }}
+{{- $stale := ne $on $latest }}
+<p class="fresh{{ if $stale }} fresh--stale{{ end }}">
+  <span class="fresh__label">{{ if $stale }}Due a recheck{{ else }}Fresh on tap{{ end }}</span>
+  <span>Checked <time datetime="{{ $date.Format "2006-01-02" }}">{{ $date.Format "2 Jan 2006" }}</time>{{ with $on }} on NixOS {{ . }}{{ end }}{{ if $stale }}. {{ $latest }} is out, and this page hasn't been rechecked on it yet{{ end }}</span>
+</p>
+{{- end }}

@@ -5,7 +5,7 @@ repo: "mightyiam/infra"
 author: "mightyiam"
 level: "Top shelf"
 weight: 70
-tags: ["Dendritic", "flake-parts", "Multi-machine", "Flakes"]
+tags: ["Dendritic", "flake-parts", "Multi-machine", "Home Manager", "Flakes", "Stylix"]
 borrow: "The shape of it: a near-empty flake.nix, and every feature in a file of its own."
 ---
 

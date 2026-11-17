@@ -8,7 +8,7 @@
 </section>
 <div class="wrap section section--last">
   <div class="config-grid">
-    {{- range .Pages }}{{ partial "config-card.html" . }}{{ end }}
+    {{- range .Pages }}{{ partial "config-card.html" (dict "page" . "h" 2) }}{{ end }}
   </div>
 </div>
 {{ end }}

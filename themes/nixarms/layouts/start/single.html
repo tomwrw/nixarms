@@ -2,19 +2,17 @@
 {{ partial "page-band.html" . }}
 <article class="wrap prose">
 {{ .Content }}
-  {{- /* Previous / next follow the order of data/paths.yaml (the "What are you drinking?" picker),
-         so the last guide here leads on to the Gaming page. The ends link back to Start here. */}}
-  {{- $items := hugo.Data.paths }}
+  {{- /* Forward, not sideways: the guide's own `nextRound` (front matter) leads into the Brewhouse.
+         The other guides stay one click away, for anyone who picked the wrong order. */}}
+  {{ partial "next-round.html" . }}
   {{- $here := .RelPermalink }}
-  {{- $i := -1 }}
-  {{- range $k, $p := $items }}{{ if eq (relURL $p.url) $here }}{{ $i = $k }}{{ end }}{{ end }}
-  {{- if ge $i 0 }}
-  {{- $start := site.GetPage "/start" }}
-  <nav class="step-nav" aria-label="Start here guides">
-    {{- if gt $i 0 }}{{ with index $items (sub $i 1) }}<a class="card" href="{{ .url | relURL }}"><span class="eyebrow">← Previous</span><span class="serif">{{ .label }}</span></a>{{ end }}
-    {{- else }}<a class="card" href="{{ $start.RelPermalink }}"><span class="eyebrow">← Back to</span><span class="serif">{{ $start.Params.eyebrow }}</span></a>{{ end }}
-    {{- if lt (add $i 1) (len $items) }}{{ with index $items (add $i 1) }}<a class="card step-nav__next" href="{{ .url | relURL }}"><span class="eyebrow">Next →</span><span class="serif">{{ .label }}</span></a>{{ end }}
-    {{- else }}<a class="card step-nav__next" href="{{ $start.RelPermalink }}"><span class="eyebrow">Back to →</span><span class="serif">{{ $start.Params.eyebrow }}</span></a>{{ end }}
+  {{- $others := slice }}{{ range hugo.Data.paths }}{{ if ne (relURL .url) $here }}{{ $others = $others | append . }}{{ end }}{{ end }}
+  {{- with $others }}
+  <nav class="other-orders" aria-labelledby="other-orders">
+    <p class="eyebrow" id="other-orders">Not your order?</p>
+    <div class="pills">
+      {{- range . }}<a class="pill" href="{{ .url | relURL }}">{{ .label }}</a>{{ end }}
+    </div>
   </nav>
   {{- end }}
 </article>

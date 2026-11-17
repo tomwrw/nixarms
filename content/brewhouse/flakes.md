@@ -4,7 +4,7 @@ title: "Flakes"
 step: 2
 weight: 20
 style: "Bottle-conditioned"
-plain: "Your config plus a lock file that pins every input. Same pint, every time."
+plain: "Your config plus a lock file that pins every input, so it builds the same way every time."
 lede: "Flakes bottle your config: a `flake.nix` says which ingredients you use, and a `flake.lock` records the exact version of each one. Rebuild next month, or on another PC, and you get the same system."
 description: "NixOS flakes explained for beginners: flake.nix, flake.lock and pinned, reproducible configs."
 forWho: "Anyone keeping their config in git, and anyone reading other people's configs, since many of them use flakes."
@@ -36,7 +36,7 @@ docs:
     note: "templates to start your own"
 ---
 
-## The pour
+## Turning on Steam
 
 Your `configuration.nix` doesn't change at all. A `flake.nix` sits next to it and says where everything comes from:
 

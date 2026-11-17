@@ -1,0 +1,30 @@
+{{- /* "Mind the step": the gotchas on starter guides and Cocktail Bar pages. The heading sits above the box,
+       and the box holds the items on paper, which reads better than chalk once there are more than a few.
+       partial "gotchas.html" (dict "page" $ "intro" "…" "groups" (slice (dict "label" "…" "items" […])) "plain" "vanilla")
+       Each item: title, text (Markdown). A group with no label puts its items straight in the box.
+       `plain` (starter guides only) swaps {plain} and {hm} in the shared copy, via the starter-md partial. */ -}}
+{{- $page := .page }}{{ $plain := .plain | default "" }}
+<section class="gotchas" id="mind-the-step" aria-labelledby="mind-the-step-title">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Gotchas</p>
+      <h2 id="mind-the-step-title">Mind the step</h2>
+      {{- with .intro }}<p class="lede">{{ . }}</p>{{ end }}
+    </div>
+  </div>
+  <div class="panel gotchas__panel">
+    {{- range .groups }}
+    {{- if .items }}
+    {{- $h := 3 }}
+    {{- with .label }}{{ $h = 4 }}<h3 class="gotchas__group">{{ . }}</h3>{{ end }}
+    <div class="gotchas__grid">
+      {{- range .items }}
+      {{- $text := "" }}
+      {{- if $plain }}{{ $text = partial "starter-md.html" (dict "page" $page "text" .text "plain" $plain) }}{{ else }}{{ $text = .text | markdownify }}{{ end }}
+      <div class="gotcha">{{ if eq $h 4 }}<h4>{{ .title | markdownify }}</h4>{{ else }}<h3>{{ .title | markdownify }}</h3>{{ end }}<p>{{ $text }}</p></div>
+      {{- end }}
+    </div>
+    {{- end }}
+    {{- end }}
+  </div>
+</section>

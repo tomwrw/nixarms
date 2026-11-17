@@ -1,0 +1,64 @@
+{{ define "main" }}
+{{- /* One advanced tool. Every page has the same shape, drawn from its front matter:
+       level, lede, needIt, skipIt, mindTheStep[{title, text}], landlord{file, text}, regularsTag, docs[{name, url, note}], checked.
+       The page's own Markdown supplies "The recipe" and "Where it fits". */ -}}
+{{- $pages := .CurrentSection.Pages.ByWeight }}
+<section class="band on-dark">
+  <div class="wrap page-band">
+    {{ partial "crumbs.html" . }}
+    <p class="eyebrow">{{ .Params.level }}</p>
+    <h1>{{ .Title }}</h1>
+    <p class="lede">{{ .Params.lede | markdownify }}</p>
+    {{- partial "fresh.html" . }}
+  </div>
+</section>
+
+<article class="wrap prose">
+  <div class="brew-facts">
+    <div class="panel">
+      <p class="eyebrow">You need it when</p>
+      <p>{{ .Params.needIt | markdownify }}</p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">You can skip it if</p>
+      <p>{{ .Params.skipIt | markdownify }}</p>
+    </div>
+  </div>
+
+  {{ .Content }}
+
+  {{- with .Params.mindTheStep }}
+  {{ partial "gotchas.html" (dict "page" $ "groups" (slice (dict "items" .))) }}
+  {{- end }}
+
+  {{- with .Params.landlord }}
+  <div class="callout on-dark">
+    <div class="callout__copy">
+      <p class="eyebrow">In the landlord's config</p>
+      <h2>{{ path.Base .file }}</h2>
+      <p>{{ .text | markdownify }}</p>
+    </div>
+    <a class="btn btn--brass" href="https://github.com/tomwrw/megadots/blob/main/{{ .file }}">Read the file →</a>
+  </div>
+  {{- end }}
+
+  {{ partial "regulars-using.html" (dict "page" . "title" "Regulars using it" "none" "None of The Regulars use it yet." "tags" false) }}
+
+  {{- with .Params.docs }}
+  <h2>Further reading</h2>
+  <ul>{{ range . }}<li><a href="{{ .url }}">{{ .name }}</a>{{ with .note }} ({{ . }}){{ end }}</li>{{ end }}</ul>
+  {{- end }}
+
+  <p class="checked">Last checked against the project's own docs: {{ (time .Params.checked).Format "2 January 2006" }}. These tools move quickly; spotted something out of date? <a href="{{ site.Params.repo }}">Open a pull request</a>.</p>
+
+  {{- /* Previous and next cocktail; the ends lead back to the bar and on to the next room. */}}
+  {{- $i := 0 }}{{ range $k, $p := $pages }}{{ if eq $p.RelPermalink $.RelPermalink }}{{ $i = $k }}{{ end }}{{ end }}
+  {{- $bar := .CurrentSection }}
+  <nav class="step-nav" aria-label="Cocktails">
+    {{- if gt $i 0 }}{{ with index $pages (sub $i 1) }}<a class="card" href="{{ .RelPermalink }}"><span class="eyebrow">← Previous</span><span class="serif">{{ .Title }}</span></a>{{ end }}
+    {{- else }}<a class="card" href="{{ $bar.RelPermalink }}"><span class="eyebrow">← Back to</span><span class="serif">{{ $bar.LinkTitle }}</span></a>{{ end }}
+    {{- if lt (add $i 1) (len $pages) }}{{ with index $pages (add $i 1) }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Next →</span><span class="serif">{{ .Title }}</span></a>{{ end }}
+    {{- else }}<a class="card step-nav__next" href="{{ "/regulars/" | relURL }}"><span class="eyebrow">Next round →</span><span class="serif">The Regulars</span></a>{{ end }}
+  </nav>
+</article>
+{{ end }}

@@ -2,12 +2,12 @@
   {{< callout eyebrow="The landlord's rig" title="endgame" url="/regulars/megadots/" label="Read the config →" >}}Text{{< /callout >}}
   Optional second button: url2, label2. */ -}}
 <div class="callout on-dark">
-  <div style="flex: 1 1 420px; min-width: 0">
+  <div class="callout__copy">
     {{- with .Get "eyebrow" }}<p class="eyebrow">{{ . }}</p>{{ end }}
     <h2>{{ .Get "title" }}</h2>
     <p>{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
   </div>
-  <div style="display: flex; flex-wrap: wrap; gap: 12px">
+  <div class="callout__actions">
     {{- with .Get "url2" }}<a class="btn btn--ghost-light" href="{{ . | relURL }}">{{ $.Get "label2" }}</a>{{ end }}
     {{- with .Get "url" }}<a class="btn btn--brass" href="{{ . | relURL }}">{{ $.Get "label" }}</a>{{ end }}
   </div>

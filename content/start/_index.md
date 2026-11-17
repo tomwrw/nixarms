@@ -1,5 +1,6 @@
 ---
 title: "What are you drinking?"
+linkTitle: "Start here"
 eyebrow: "Start here"
 lede: "Pick where you're coming from and I'll pour the guide that fits. If you're not sure, order the Windows one. It assumes no Linux experience."
 ---

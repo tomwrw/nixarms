@@ -6,6 +6,8 @@
         <p class="serif name">{{ site.Title }}</p>
         <p>{{ site.Params.footerBlurb }}</p>
         <p class="addr">{{ site.Params.domain }}</p>
+        {{- /* The day the site was last built, so readers can see it's kept up. Updates itself. */}}
+        <p class="brewed">Last brewed <time datetime="{{ now.Format "2006-01-02" }}">{{ now.Format "2 Jan 2006" }}</time></p>
       </div>
       <nav class="footer-nav" aria-label="Footer">
         {{- range site.Params.footerNav }}

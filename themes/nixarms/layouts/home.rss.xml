@@ -1,0 +1,32 @@
+{{- /* The site's RSS feed (/index.xml): new guides, Brewhouse and Cocktail Bar pages, and Regulars.
+       Pages that aren't articles (The Landlord, The Library, Privacy) set `feed: false` and stay out.
+       Each item's text is the page's description, or for a Regular its first paragraph. */ -}}
+{{- $pages := where site.RegularPages "Params.feed" "!=" false }}
+{{- $pages = $pages.ByPublishDate.Reverse }}
+{{- $limit := site.Config.Services.RSS.Limit }}
+{{- if ge $limit 1 }}{{ $pages = $pages | first $limit }}{{ end }}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>New guides and Regulars from {{ site.Title }}: Nix and NixOS, explained in plain English.</description>
+    <generator>Hugo</generator>
+    <language>{{ site.Language.Locale }}</language>
+    {{- with $pages }}
+    <lastBuildDate>{{ (index .ByLastmod.Reverse 0).Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+    {{- end }}
+    {{- with .OutputFormats.Get "RSS" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ or .Description .Summary | plainify | htmlUnescape | strings.TrimSpace | transform.XMLEscape | safeHTML }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

@@ -1,18 +1,25 @@
 ---
-title: "Gaming on NixOS: get a round in."
+title: "Gaming on NixOS"
 eyebrow: "The Games Lounge"
 date: 2026-11-11
+checked: 2026-11-17
 band: dark
 lede: "Steam, Proton, Heroic and Lutris are all switched on from your config. Every change is a save point, so if a driver update hurts your frame rate you can boot the previous setup."
-description: "Gaming on NixOS: a complete Steam and Proton setup in one file, what runs, what doesn't, and graphics card setup."
+description: "Gaming on NixOS: a complete Steam and Proton setup in one file, what runs, what doesn't and graphics card setup."
+firstDay: "**New to NixOS?** This page assumes it's already installed. The [Windows guide](/start/windows/) gets you there first, even if you've never used Linux, and every [starter config](/brewhouse/starters/) comes with Steam switched on."
+nextRound:
+  url: "/brewhouse/starters/vanilla/"
+  title: "A gaming desktop, ready-made"
+  text: "Every starter in the Brewhouse is a KDE Plasma desktop with Steam already switched on. Try one in a VM first, then make it yours."
+  label: "Pour the vanilla starter →"
 actions:
   - label: "Will my games run?"
     url: "https://www.protondb.com"
 ---
 
-## The house pour
+## The whole setup, in one file
 
-This is a full gaming setup in one file. Save it as `gaming.nix`, import it from your `configuration.nix`, and rebuild.
+Save this as `gaming.nix` next to your `configuration.nix`, add `./gaming.nix` to the `imports` list in `configuration.nix`, and rebuild.
 
 ```nix
 { pkgs, ... }: {
@@ -33,10 +40,12 @@ This is a full gaming setup in one file. Save it as `gaming.nix`, import it from
 }
 ```
 
-1. **Steam** with Proton built in, plus ports opened for Remote Play.
-2. **gamemode** nudges your CPU into performance mode while you play.
-3. **gamescope** gives you a couch-friendly, Steam Deck-style session.
-4. **MangoHud** shows FPS and temperatures; **Heroic** covers Epic and GOG.
+1. **Steam**, with Proton built in, and the ports Remote Play needs opened in the firewall.
+2. **gamescope** adds a Steam Deck-style session you can pick at the login screen, for playing from the sofa.
+3. **gamemode** nudges your CPU into performance mode while a game runs, but only for games started through it. In Steam, right-click a game, choose **Properties** and set its launch options to `gamemoderun %command%`.
+4. **MangoHud** shows your frame rate and temperatures over the game. Switch it on the same way, with `mangohud %command%`, or use both at once: `gamemoderun mangohud %command%`.
+5. **hardware.graphics** switches on your graphics drivers. Steam turns them on anyway, with the 32-bit drivers many games need, but this way the file says so.
+6. **Heroic** covers Epic, GOG and Amazon, **Lutris** handles other launchers and **ProtonUp-Qt** installs extra Proton builds such as GE-Proton.
 
 ## Will my games run?
 
@@ -49,7 +58,7 @@ Most single-player and many multiplayer games via Proton, plus native Linux titl
 **e.g.** Counter-Strike 2, Baldur's Gate 3, Cyberpunk 2077, Elden Ring, Hades II
 {{< /status >}}
 {{< status kind="tweak" title="Needs a tweak" >}}
-Games that want a specific Proton version, a launch option, or a launcher like Heroic or Lutris.
+Games that want a launch option, a particular Proton version or another launcher, such as Heroic or Lutris.
 
 **Tip:** ProtonUp-Qt installs GE-Proton in two clicks.
 {{< /status >}}
@@ -72,7 +81,7 @@ hardware.nvidia.modesetting.enable = true;
 hardware.nvidia.open = true;
 ```
 
-Older cards (the GTX 900 and 1000 series) aren't supported by NVIDIA's newest driver, which NixOS 26.05 uses by default. They need the 580 driver, the last to support them, and the closed kernel module:
+Older cards (the GTX 900 and 1000 series) aren't supported by NVIDIA's newest driver, which NixOS uses by default. They need the 580 driver, the last to support them, and the closed kernel module:
 
 ```nix
 hardware.nvidia.open = false;

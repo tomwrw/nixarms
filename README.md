@@ -2,9 +2,9 @@
 
 **Nix on tap** · [nixarms.com](https://nixarms.com)
 
-A friendly local for anyone curious about Nix and NixOS. It has beginner guides for people leaving Windows, Arch and Ubuntu, a gaming page, and real configs explained in plain English.
+A friendly local for anyone curious about Nix and NixOS. It has beginner guides for people leaving Windows, Arch and Ubuntu, a gaming page and real configs explained in plain English.
 
-Built with [Hugo](https://gohugo.io), built reproducibly with Nix, and hosted on GitHub Pages.
+Built with [Hugo](https://gohugo.io), built reproducibly with Nix and hosted on GitHub Pages.
 
 ## Run it locally
 
@@ -33,16 +33,18 @@ content/              Markdown pages
   gaming.md
   brewhouse/          config styles, simplest first: vanilla, flakes, flake-parts, dendritic, den
     starters/         a hands-on guide to each style's starter configs (nixarms-brewhouse)
+  cocktail-bar/       The Cocktail Bar: one page per advanced tool (disko, sops-nix, Stylix...)
   regulars/           one file per featured config
-  menu.md, library.md
+  library.md          The Library: bookshelf, telly and the jargon buster
 data/
   paths.yaml          "What are you drinking?" picker
   specials.yaml       "What's on tap" tap list (homepage)
-  jargon.yaml         The Menu (glossary)
+  jargon.yaml         the jargon buster (The Library) and the homepage board
   tips.yaml           "One for the road" tips (homepage, one at random)
   community.yaml      "Where the regulars drink" links (homepage)
   brews.yaml          "Which brew?" helper (The Brewhouse)
   starters.yaml       copy shared by every starter guide: trying a starter, the gotchas
+  journey.yaml        the route through the site: the homepage map and each page's "Next round"
   library.yaml        The Library: the bookshelf (docs)
   telly.yaml          The Library: on the telly (videos)
 themes/nixarms/       the theme: layouts, shortcodes, CSS, JS, fonts, images
@@ -69,13 +71,17 @@ tools/brand/          scripts that generate the brand assets
 {{< callout eyebrow="…" title="…" url="/gaming/" label="Go →" >}}Text{{< /callout >}}
 ```
 
+### Keeping pages fresh
+
+Pages with commands carry a `checked` date in their front matter, shown under the title as "Fresh on tap: checked 17 Nov 2026 on NixOS 26.05". The release comes from the date, using the list in `params.nixosReleases` (`hugo.toml`). Only change `checked` once you've re-tested the page on the current release. When a new NixOS release comes out, I add it to that list, and every page checked before it shows "Due a recheck" until someone re-tests it.
+
 ## Submitting a config to The Regulars
 
-Copy any file in `content/regulars/`, fill in the front matter (`repo`, `author`, `level`, `tags`, `borrow`), and write a few plain-English lines. Put `<!--more-->` after the first paragraph, which becomes the card summary. Then open a pull request.
+Copy any file in `content/regulars/`, fill in the front matter (`repo`, `author`, `level`, `tags`, `borrow`) and write a few plain-English lines. Put `<!--more-->` after the first paragraph, which becomes the card summary. Then open a pull request.
 
 ## Licences
 
-- **Code** (the theme's templates, CSS and JavaScript, `flake.nix`, the workflow, and the scripts in `tools/`): [MIT](LICENSE).
+- **Code** (the theme's templates, CSS and JavaScript, `flake.nix`, the workflow and the scripts in `tools/`): [MIT](LICENSE).
 - **Written content** (everything in `content/` and `data/`): [CC BY 4.0](LICENSE-content). Reuse it freely; credit "The Nix Arms" with a link to [nixarms.com](https://nixarms.com).
 
 Not covered by either licence:

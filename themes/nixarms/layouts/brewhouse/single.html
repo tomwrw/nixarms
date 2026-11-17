@@ -3,9 +3,11 @@
 {{- $steps := (where .CurrentSection.Pages "Params.step" "!=" nil).ByParam "step" }}
 <section class="band on-dark">
   <div class="wrap page-band">
-    <p class="eyebrow">The Brewhouse · Step {{ .Params.step }} of {{ len $steps }} · {{ .Params.style }}</p>
+    {{ partial "crumbs.html" . }}
+    <p class="eyebrow">Step {{ .Params.step }} of {{ len $steps }} · {{ .Params.style }}</p>
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Params.lede | markdownify }}</p>
+    {{- partial "fresh.html" . }}
   </div>
 </section>
 
@@ -25,7 +27,7 @@
 
   <div class="pros-cons">
     <div class="status">
-      <h3>{{ partial "icon.html" (dict "name" "check" "stroke" "#1F4A39" "size" 26 "width" 2.2) }}Why people like it</h3>
+      <h3>{{ partial "icon.html" (dict "name" "check" "stroke" "#1F4A39" "size" 26 "width" 2.2) }}What it does well</h3>
       <ul>{{ range .Params.strengths }}<li>{{ . | markdownify }}</li>{{ end }}</ul>
     </div>
     <div class="status status--tweak">
@@ -37,24 +39,16 @@
   {{- /* The hands-on guide for this method, if there is one (content/brewhouse/starters/<this page's name>.md). */}}
   {{- with site.GetPage (printf "/brewhouse/starters/%s" .File.ContentBaseName) }}
   <div class="callout on-dark">
-    <div style="flex: 1 1 420px; min-width: 0">
+    <div class="callout__copy">
       <p class="eyebrow">The starter guide</p>
       <h2>{{ .Title }}</h2>
-      <p>A ready-made config in this style, with and without Home Manager. Try it in a throwaway VM first, then make it yours.</p>
+      <p>A ready-made config in this style, with and without Home Manager. Try it in a VM first, then make it yours.</p>
     </div>
     <a class="btn btn--brass" href="{{ .RelPermalink }}">Read the guide →</a>
   </div>
   {{- end }}
 
-  <h2>Regulars brewed this way</h2>
-  {{- $term := "" }}{{ with .Params.regularsTag }}{{ $term = site.GetPage (printf "/tags/%s" (urlize .)) }}{{ end }}
-  {{- if and $term $term.Pages }}
-  <div class="config-grid" style="margin-top: 20px">
-    {{- range $term.Pages }}{{ partial "config-card.html" . }}{{ end }}
-  </div>
-  {{- else }}
-  <p>None of The Regulars are brewed this way yet. Got one? <a href="{{ "/regulars/#submit" | relURL }}">Submit your config</a>.</p>
-  {{- end }}
+  {{ partial "regulars-using.html" (dict "page" . "title" "Regulars brewed this way" "none" "None of The Regulars are brewed this way yet.") }}
 
   {{- with .Params.docs }}
   <h2>Further reading</h2>
@@ -68,7 +62,7 @@
     {{- $prev := index (where $steps "Params.step" (sub $n 1)) 0 }}
     {{- $next := index (where $steps "Params.step" (add $n 1)) 0 }}
     {{- with $prev }}<a class="card" href="{{ .RelPermalink }}"><span class="eyebrow">← Step {{ .Params.step }}</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card" href="{{ "/brewhouse/" | relURL }}"><span class="eyebrow">← Back to</span><span class="serif">The Brewhouse</span></a>{{ end }}
-    {{- with $next }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Step {{ .Params.step }} →</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card step-nav__next" href="{{ "/brewhouse/" | relURL }}"><span class="eyebrow">Back to →</span><span class="serif">The Brewhouse</span></a>{{ end }}
+    {{- with $next }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Step {{ .Params.step }} →</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card step-nav__next" href="{{ "/cocktail-bar/" | relURL }}"><span class="eyebrow">Next round →</span><span class="serif">The Cocktail Bar</span></a>{{ end }}
   </nav>
 </article>
 {{- else }}

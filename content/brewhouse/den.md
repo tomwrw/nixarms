@@ -5,9 +5,9 @@ step: 5
 weight: 50
 style: "The full brewery"
 plain: "A framework for NixOS, nix-darwin and Home Manager together, organised into reusable \"aspects\"."
-lede: "den is a framework rather than a pattern. You declare your machines and users, then write **aspects** (gaming, Bluetooth, your shell) that can configure the system, a Mac and your user all at once."
+lede: "den is a framework rather than a pattern. You declare your machines and users, then write **aspects**, such as gaming or Bluetooth, and one aspect can set up NixOS, a Mac and your user together."
 description: "The den framework for Nix explained for beginners: aspects, hosts and users across NixOS, nix-darwin and Home Manager."
-forWho: "People managing several NixOS machines, a Mac with nix-darwin, or Home Manager users, who want one structure for all of it."
+forWho: "People managing several NixOS machines, a Mac with nix-darwin or Home Manager users, who want one structure for all of it."
 moveOn: "This is the top of the ladder. From here the work is tidying your own aspects, and perhaps sharing them."
 regularsTag: "den"
 checked: 2026-11-11
@@ -33,7 +33,7 @@ docs:
     url: "https://github.com/denful/den"
 ---
 
-## The pour
+## Turning on Steam
 
 Declare the machine and its user, then give the machine its aspects:
 
@@ -64,4 +64,4 @@ The `gaming` aspect is where Steam lives. It could set Mac or Home Manager optio
 
 den creates an aspect for every host and user you declare. Each aspect holds settings grouped by **class** (`nixos`, `darwin`, `homeManager`) and can include other aspects, so you build roles out of small, reusable pieces.
 
-den grew out of exploring the dendritic pattern, but it now stands on its own and no longer describes itself as dendritic. The landlord's own config, [tomwrw/megadots](/regulars/megadots/), runs on den.
+den grew out of exploring the dendritic pattern, but it now stands on its own and no longer describes itself as dendritic. My own config, [tomwrw/megadots](/regulars/megadots/), runs on den.

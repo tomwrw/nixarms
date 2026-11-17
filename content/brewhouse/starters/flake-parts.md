@@ -6,7 +6,7 @@ weight: 30
 flake: true
 date: 2026-11-16
 checked: 2026-11-16
-lede: "The flakes starter, split into modules: each job gets its own file, and each computer its own folder. Taste it in a throwaway VM, then make it yours in about half an hour."
+lede: "The flakes starter, split into modules: each job gets its own file, and each computer its own folder. Making your own copy takes about half an hour."
 description: "A beginner's guide to the flake-parts NixOS starter config, with and without Home Manager: try it in a VM, then make it your own."
 files:
   - path: "flake.nix"
@@ -70,7 +70,7 @@ It goes over the starter's placeholder, in `snug`'s own folder. Until you do thi
 {{< /round >}}
 {{< round title="Fill in your details" time="10 min" >}}
 
-Open the folder in Kate (KDE's text editor) and search for `CHANGE ME`. Most of your details are in the block at the top of `hosts/snug/configuration.nix`. With Home Manager, your git name and email are in `home.nix`. If you change the hostname from `snug`, rename it in `hosts/snug/default.nix` and `vm.nix` too, rename the `snug` folder, and update its path in `flake.nix`.
+Open the folder in Kate (KDE's text editor) and search for `CHANGE ME`. Most of your details are in the block at the top of `hosts/snug/configuration.nix`. With Home Manager, your git name and email are in `home.nix`. If you change the hostname from `snug`, rename it in `hosts/snug/default.nix` and `vm.nix` too, rename the `snug` folder and update its path in `flake.nix`.
 
 - **Use the account name you picked in the installer.** A new name makes a new, empty account.
 - **Copy `stateVersion` from your old file.** This shows it:

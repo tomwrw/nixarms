@@ -4,7 +4,16 @@
 {{- $tags := slice }}
 {{- range $pages }}{{ range .Params.tags }}{{ if not (in $tags .) }}{{ $tags = $tags | append . }}{{ end }}{{ end }}{{ end }}
 {{- $order := site.Params.regularsFilters | default (sort $tags) }}
-<div class="wrap section" style="padding-bottom: 24px">
+<div class="wrap section regulars-list">
+  {{- with .Params.howToRead }}
+  <div class="chalkboard chalkboard--lg how-to-read">
+    <h2>{{ .title }}</h2>
+    <ol>
+      {{- range .steps }}<li>{{ . | markdownify }}</li>{{ end }}
+    </ol>
+  </div>
+  {{- end }}
+  {{ partial "level-legend.html" (dict "levels" .Params.levels) }}
   <div class="filter-bar" data-filter>
     <div class="pills" role="group" aria-label="Filter configs">
       <a class="pill is-active" href="{{ .RelPermalink }}" data-tag="all">All</a>
@@ -15,10 +24,10 @@
     <p class="count" aria-live="polite" data-count>Showing {{ len $pages }} configs</p>
   </div>
   <div class="config-grid" data-filter-grid>
-    {{- range $pages }}{{ partial "config-card.html" . }}{{ end }}
+    {{- range $pages }}{{ partial "config-card.html" (dict "page" . "h" 2) }}{{ end }}
   </div>
 </div>
-<div class="wrap prose" style="padding-top: 24px">
+<div class="wrap prose regulars-after">
   {{ .Content }}
 </div>
 {{ end }}

@@ -16,6 +16,7 @@
     {{- end }}
     <div class="landlord__copy prose-flow">
       {{ .Content }}
+      {{ partial "tasting-notes-link.html" . }}
       {{- with .Params.findMe }}
       <h2>Where to find me</h2>
       <ul class="drink-list drink-list--light">
@@ -24,6 +25,14 @@
         {{- end }}
       </ul>
       {{- end }}
+      {{- /* "Buy me a pint": a plain link to Ko-fi (params.kofi), with the copy from front matter (pint). */}}
+      {{- with .Params.pint }}{{ $pint := . }}{{ with site.Params.kofi }}
+      <aside class="panel pint-panel" aria-label="Buy me a pint">
+        <p class="eyebrow">{{ $pint.eyebrow }}</p>
+        <p>{{ $pint.text }}</p>
+        <a class="btn btn--brass" href="{{ . }}">{{ partial "icon.html" (dict "name" "pint" "size" 20) }}Buy me a pint</a>
+      </aside>
+      {{- end }}{{ end }}
       <p class="landlord__stool"><a class="btn btn--green" href="{{ "/#last-orders" | relURL }}">Pull up a stool</a></p>
     </div>
   </div>

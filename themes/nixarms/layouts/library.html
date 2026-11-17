@@ -2,10 +2,12 @@
 {{ partial "page-band.html" . }}
 <div class="wrap prose">
   {{ .Content }}
+  {{- /* One legend for both shelves: the badges on the bookshelf and telly cards. */}}
+  {{ partial "level-legend.html" (dict "levels" .Params.levels) }}
   <section class="shelf" id="bookshelf" aria-labelledby="bookshelf-title">
     <p class="eyebrow">The bookshelf</p>
     <h2 id="bookshelf-title">If you'd rather read</h2>
-    <p>Pull up a chair by the fire. These are the official docs, the community guides I'd recommend, and the sites you'll keep open every day.</p>
+    <p>Sorted gentlest first, so the top of the shelf is the place to start.</p>
     <div class="grid grid--wide">
       {{- range partial "by-level.html" hugo.Data.library }}
       <a class="card" href="{{ .url }}">
@@ -34,5 +36,21 @@
       {{- end }}
     </div>
   </section>
+
+  {{- /* The jargon buster (data/jargon.yaml). It used to be its own room, The Menu; /menu/ now redirects here. */}}
+  <section class="shelf" id="jargon" aria-labelledby="jargon-title">
+    <p class="eyebrow">The jargon buster</p>
+    <h2 id="jargon-title">If a word's got you stuck</h2>
+    <p>The odd words you'll meet in your first month with Nix, with what each one means. If one is missing, add it to <code>data/jargon.yaml</code> and open a pull request.</p>
+    <div class="chalkboard chalkboard--lg jargon-board">
+      <div class="chalk-grid">
+        {{- range hugo.Data.jargon }}
+        <div class="chalk-item" id="{{ .term | urlize }}"><h3>{{ .term }}</h3><p>{{ .meaning | markdownify }}</p>{{ with .more }}<p class="chalk-more"><a href="{{ .url | relURL }}">{{ .label }} →</a></p>{{ end }}</div>
+        {{- end }}
+      </div>
+    </div>
+  </section>
+
+  {{ partial "next-round.html" . }}
 </div>
 {{ end }}

@@ -5,14 +5,14 @@
 - name: "Vimjoyer"
   url: "https://www.youtube.com/@vimjoyer"
   level: "First pint"
-  description: "Short, quick-fire videos on NixOS, flakes, Home Manager and the tools around them. Still posting regularly, so it's the place to see newer tools as they turn up."
+  description: "Short, quick-fire videos on NixOS, flakes, Home Manager and the tools around them, including some of the newer ones."
   start:
     title: "6 Popular NixOS Beginner Mistakes To Avoid"
     url: "https://www.youtube.com/watch?v=jQzPRYgJw04"
 - name: "LibrePhoenix"
   url: "https://www.youtube.com/@LibrePhoenix"
   level: "Second round"
-  description: "Longer walkthroughs on growing a config: splitting it into modules, Home Manager, and running stable and unstable side by side. No new videos since 2024, so some option names have moved on."
+  description: "Longer walkthroughs on growing a config: splitting it into modules, Home Manager and running stable and unstable side by side. No new videos since 2024, so some option names have moved on."
   start:
     title: "How to Start Adding Modularity to your NixOS Config"
     url: "https://www.youtube.com/watch?v=bV3hfalcSKs"

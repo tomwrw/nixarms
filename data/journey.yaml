@@ -1,0 +1,18 @@
+# The route through the pub, in order. The homepage's "Find your way round" map shows it, and each
+# room's "Next round" points at the next one unless a page sets its own `nextRound` in front matter.
+- name: "Start here"
+  url: "/start/"
+  text: "Pick the guide for where you're coming from, and get NixOS running."
+  cta: "Pick your guide"
+- name: "The Brewhouse"
+  url: "/brewhouse/"
+  text: "Ways to organise your config, simplest first, each with a starter config to try."
+  cta: "See the recipes"
+- name: "The Cocktail Bar"
+  url: "/cocktail-bar/"
+  text: "The advanced tools, one at a time, explained for beginners."
+  cta: "See the cocktails"
+- name: "The Regulars"
+  url: "/regulars/"
+  text: "Real configs, with notes on what's worth borrowing."
+  cta: "Meet the regulars"

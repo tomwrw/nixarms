@@ -6,7 +6,7 @@ weight: 10
 flake: false
 date: 2026-11-16
 checked: 2026-11-16
-lede: "The whole computer in `configuration.nix`, the shape the installer gives you, filled in for a full desktop. Taste it in a throwaway VM, then make it yours in about half an hour."
+lede: "The whole computer in `configuration.nix`, the shape the installer gives you, filled in for a full desktop. You can test it without changing your system, and making it yours takes about half an hour."
 description: "A beginner's guide to the vanilla NixOS starter config, with and without Home Manager: try it in a VM, then make it your own."
 files:
   - path: "configuration.nix"

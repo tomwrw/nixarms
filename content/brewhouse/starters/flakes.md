@@ -6,7 +6,7 @@ weight: 20
 flake: true
 date: 2026-11-16
 checked: 2026-11-16
-lede: "The same `configuration.nix`, bottled: a `flake.nix` names your ingredients and a lock file pins the exact version of each. Taste it in a throwaway VM, then make it yours in about half an hour."
+lede: "The same `configuration.nix`, bottled: a `flake.nix` names your ingredients and a lock file pins the exact version of each. Allow about half an hour to make it yours."
 description: "A beginner's guide to the flakes NixOS starter config, with and without Home Manager: try it in a VM, then make it your own."
 files:
   - path: "flake.nix"

@@ -1,0 +1,21 @@
+{{- /* "Regulars brewed this way" (Brewhouse steps) and "Regulars using it" (the Cocktail Bar): up to three
+       Regulars whose tags include the page's `regularsTag`, with a link to the rest on the tag's page.
+       partial "regulars-using.html" (dict "page" . "title" "Regulars using it" "none" "None of The Regulars use it yet." "tags" false)
+       "tags" false leaves the tag badges off the cards. */ -}}
+{{- $page := .page }}{{ $tags := true }}{{ if isset . "tags" }}{{ $tags = .tags }}{{ end }}
+{{- $term := "" }}{{ with $page.Params.regularsTag }}{{ $term = site.GetPage (printf "/tags/%s" (urlize .)) }}{{ end }}
+<div class="section-head">
+  <div>
+    <h2>{{ .title }}</h2>
+  </div>
+  {{- if and $term (gt (len $term.Pages) 3) }}
+  <a class="more" href="{{ $term.RelPermalink }}">All {{ len $term.Pages }} tagged {{ $term.LinkTitle }} →</a>
+  {{- end }}
+</div>
+{{- if and $term $term.Pages }}
+<div class="config-grid">
+  {{- range first 3 $term.Pages }}{{ partial "config-card.html" (dict "page" . "tags" $tags) }}{{ end }}
+</div>
+{{- else }}
+<p>{{ .none }} Got a config that does? <a href="{{ "/regulars/#submit" | relURL }}">Submit it</a>.</p>
+{{- end }}

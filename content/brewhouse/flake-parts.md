@@ -30,7 +30,7 @@ docs:
     note: "the official docs and module list"
 ---
 
-## The pour
+## Turning on Steam
 
 `flake.nix` hands over to flake-parts, and each machine becomes its own module:
 

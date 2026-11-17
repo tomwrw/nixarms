@@ -1,20 +1,27 @@
-{{- /* A Regulars config card. Context: a page in content/regulars/ */ -}}
-{{- $slugs := slice }}{{ range .Params.tags }}{{ $slugs = $slugs | append (urlize .) }}{{ end }}
+{{- /* A Regulars config card. Context: a page in content/regulars/, or a dict:
+       (dict "page" $page "h" 2 "tags" false)
+       "h" 2 where the cards sit straight under the page's h1 (The Regulars and tag pages), so the headings
+       don't skip a level; "tags" false leaves out the tag badges (the Cocktail Bar doesn't show them). */ -}}
+{{- $p := . }}{{ $h := 3 }}{{ $showTags := true }}
+{{- if reflect.IsMap . }}{{ $p = .page }}{{ $h = .h | default 3 }}{{ if isset . "tags" }}{{ $showTags = .tags }}{{ end }}{{ end }}
+{{- $slugs := slice }}{{ range $p.Params.tags }}{{ $slugs = $slugs | append (urlize .) }}{{ end }}
 <article class="card config-card" data-tags="{{ delimit $slugs " " }}">
   <div class="card-top">
     <div>
-      <h3 class="repo">{{ .Params.repo }}</h3>
-      <div class="who">{{ .Params.author }}</div>
+      {{ if eq $h 2 }}<h2 class="repo">{{ $p.Params.repo }}</h2>{{ else }}<h3 class="repo">{{ $p.Params.repo }}</h3>{{ end }}
+      <div class="who">{{ $p.Params.author }}</div>
     </div>
-    {{- with .Params.level }}{{ partial "level-badge.html" . }}{{ end }}
+    {{- with $p.Params.level }}{{ partial "level-badge.html" . }}{{ end }}
   </div>
-  <p>{{ .Summary | plainify }}</p>
-  {{- with .Params.borrow }}<div class="borrow"><strong>Worth borrowing:</strong> {{ . }}</div>{{ end }}
+  <p>{{ $p.Summary | plainify }}</p>
+  {{- with $p.Params.borrow }}<div class="borrow"><strong>Worth borrowing:</strong> {{ . }}</div>{{ end }}
+  {{- if $showTags }}
   <div class="tags">
-    {{- range .GetTerms "tags" }}<a class="badge" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+    {{- range $p.GetTerms "tags" }}<a class="badge" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
   </div>
+  {{- end }}
   <div class="actions">
-    <a href="{{ .RelPermalink }}">Read the notes</a>
-    <a href="https://github.com/{{ .Params.repo }}">View on GitHub →</a>
+    <a href="{{ $p.RelPermalink }}">Read the notes</a>
+    <a href="https://github.com/{{ $p.Params.repo }}">View on GitHub →</a>
   </div>
 </article>

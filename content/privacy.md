@@ -1,9 +1,11 @@
 ---
 title: "Privacy"
+# Not an article, so it stays out of the RSS feed (home.rss.xml).
+feed: false
 date: 2026-11-11
 eyebrow: "The small print"
 lede: "What this site collects about you, which isn't much."
-description: "How The Nix Arms handles visitor data: no cookies, no accounts, and what is counted."
+description: "How The Nix Arms handles visitor data: no cookies, no accounts and what is counted."
 ---
 
 ## Cookies and accounts
@@ -25,6 +27,8 @@ The site is hosted on [GitHub Pages](https://docs.github.com/en/pages). Like any
 ## Links to other sites
 
 Many pages link to other sites, such as GitHub, ProtonDB and the NixOS forums. Their own privacy policies apply once you're there.
+
+"Buy me a pint" is a plain link to my page on [Ko-fi](https://ko-fi.com/tomwrw). Nothing from Ko-fi loads on this site, so it learns nothing about you unless you click through, and then [Ko-fi's privacy policy](https://more.ko-fi.com/privacy) applies.
 
 ## Questions
 

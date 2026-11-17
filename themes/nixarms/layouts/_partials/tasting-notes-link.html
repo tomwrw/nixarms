@@ -1,0 +1,11 @@
+{{- /* A pointer to the landlord's tasting notes (content/brewhouse/tasting-notes.md). It only appears once
+       that page is published (draft: false), so it's safe to place now. Used on megadots, The Landlord
+       and the Cocktail Bar. */ -}}
+{{- with site.GetPage "/brewhouse/tasting-notes" }}
+{{- if not .Draft }}
+<aside class="panel tasting-link" aria-label="The landlord's tasting notes">
+  <p class="eyebrow">The landlord's tasting notes</p>
+  <p><a href="{{ .RelPermalink }}">{{ .Title }}</a>: {{ or .Params.lede .Summary | plainify }}</p>
+</aside>
+{{- end }}
+{{- end }}

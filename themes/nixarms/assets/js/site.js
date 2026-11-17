@@ -23,7 +23,7 @@
         toggle.focus();
       }
     });
-    // Close after following a same-page link (e.g. "Pull up a stool" on the homepage).
+    // Close after following a link, in case it only moves within the page.
     nav.querySelectorAll(".nav-links a").forEach(function (a) {
       a.addEventListener("click", function () { setOpen(false); });
     });

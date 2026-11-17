@@ -4,7 +4,8 @@
 <section class="band on-dark">
   <div class="wrap hero">
     <div class="hero__copy">
-      <p class="eyebrow">{{ $h.eyebrow }}</p>
+      {{- /* Each part of the eyebrow stays on one line, so on phones it breaks at the dot, not mid-phrase. */}}
+      <p class="eyebrow">{{ range $i, $part := split $h.eyebrow " · " }}{{ if $i }} · {{ end }}<span class="nowrap">{{ $part }}</span>{{ end }}</p>
       <h1>{{ $h.title }}</h1>
       <p class="lede">{{ $h.lede | markdownify }}</p>
       <div class="hero__actions">
@@ -16,17 +17,59 @@
     <div class="hero__aside">
       <div class="chalkboard chalkboard--shadow">
         <p class="chalk-label">{{ $h.boardTitle }}</p>
-        {{ transform.Highlight $h.code "nix" "" }}
+        {{- /* <wbr> after each dot lets long option names wrap at a dot on phones (see .hero__aside pre). */}}
+        {{ replace (transform.Highlight $h.code "nix" "") "." ".<wbr>" | safeHTML }}
         <div class="chalk-footer"><span>$ sudo nixos-rebuild switch</span><span class="ok">✓ served</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PATH PICKER -->
+<section class="wrap section section--first" id="bar">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Pick your guide</p>
+      <h2>What are you drinking?</h2>
+      <p class="lede">Say where you're coming from and you'll get the right guide.</p>
+    </div>
+  </div>
+  <div class="panel">
+    {{ partial "picker.html" (dict "items" hugo.Data.paths "id" "path" "label" "Choose where you're coming from") }}
+  </div>
+</section>
+
+<!-- FIND YOUR WAY ROUND: the route through the pub, from data/journey.yaml -->
+<section class="wrap section" id="rounds">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Find your way round</p>
+      <h2>Four rounds, at your own pace</h2>
+      <p class="lede">Start with the first. Each room leads on to the next, and you can stop after any of them.</p>
+    </div>
+  </div>
+  <ol class="journey">
+    {{- range $i, $r := hugo.Data.journey }}
+    <li>
+      <a class="card journey__step" href="{{ $r.url | relURL }}">
+        <span class="round__n" aria-hidden="true">{{ add $i 1 }}</span>
+        <h3>{{ $r.name }}</h3>
+        <p>{{ $r.text }}</p>
+        <span class="more">{{ $r.cta }} →</span>
+      </a>
+    </li>
+    {{- end }}
+  </ol>
+</section>
+
 <!-- HOUSE RULES -->
-<section class="wrap section section--first">
-  <p class="eyebrow">House rules</p>
-  <h2 style="max-width: 720px; margin-bottom: 40px">{{ .Params.rulesTitle }}</h2>
+<section class="wrap section">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">House rules</p>
+      <h2>{{ .Params.rulesTitle }}</h2>
+    </div>
+  </div>
   <div class="grid">
     {{- range .Params.rules }}
     <div class="card">
@@ -35,20 +78,6 @@
       <p>{{ .text | markdownify }}</p>
     </div>
     {{- end }}
-  </div>
-</section>
-
-<!-- PATH PICKER -->
-<section class="wrap section" id="bar">
-  <div class="section-head">
-    <div>
-      <p class="eyebrow">At the bar</p>
-      <h2>What are you drinking?</h2>
-      <p class="lede">Say where you're coming from and you'll get the right guide.</p>
-    </div>
-  </div>
-  <div class="panel">
-    {{ partial "picker.html" (dict "items" hugo.Data.paths "id" "path" "label" "Choose where you're coming from") }}
   </div>
 </section>
 
@@ -77,27 +106,13 @@
   </div>
 </section>
 
-<!-- JARGON -->
-<section class="wrap section">
-  <div class="chalkboard chalkboard--lg">
-    <h2>Nix jargon, translated</h2>
-    <p style="margin: 6px 0 0">Chalked up for newcomers. No computer science degree required.</p>
-    <div class="chalk-grid">
-      {{- range first 6 hugo.Data.jargon }}
-      <div class="chalk-item"><h3>{{ .term }}</h3><p>{{ .meaning | markdownify }}</p></div>
-      {{- end }}
-    </div>
-    <p style="margin: 28px 0 0"><a href="{{ "/menu/" | relURL }}">See the full menu →</a></p>
-  </div>
-</section>
-
 <!-- REGULARS -->
 <section class="wrap section">
   <div class="section-head">
     <div>
-      <p class="eyebrow">Propping up the bar</p>
+      <p class="eyebrow">Real configs</p>
       <h2>The Regulars</h2>
-      <p class="lede">Real configs worth reading, each with notes on what to borrow.</p>
+      <p class="lede">Configs worth reading, each with notes on what to borrow.</p>
     </div>
     <a class="more" href="{{ "/regulars/" | relURL }}">All regulars →</a>
   </div>
@@ -105,6 +120,20 @@
     {{- range first 3 (where (where site.RegularPages "Section" "regulars") "Params.featured" true) }}
     {{ partial "config-card.html" . }}
     {{- end }}
+  </div>
+</section>
+
+<!-- JARGON: the first six terms (four on phones), then a link to the whole jargon buster -->
+<section class="wrap section">
+  <div class="chalkboard chalkboard--lg">
+    <h2>Nix jargon, translated</h2>
+    <p class="chalk-intro">The words you'll meet first, in plain English.</p>
+    <div class="chalk-grid chalk-grid--teaser">
+      {{- range first 6 hugo.Data.jargon }}
+      <div class="chalk-item"><h3>{{ .term }}</h3><p>{{ .meaning | markdownify }}</p></div>
+      {{- end }}
+    </div>
+    <p class="chalk-cta"><a href="{{ "/library/#jargon" | relURL }}">Every term, in the jargon buster →</a></p>
   </div>
 </section>
 
@@ -128,8 +157,12 @@
 
 <!-- LAST ORDERS -->
 <section class="wrap section section--last" id="last-orders">
-  <p class="eyebrow">Last orders</p>
-  <h2 style="margin-bottom: 32px">Before you head home</h2>
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Last orders</p>
+      <h2>Before you head home</h2>
+    </div>
+  </div>
   <div class="last-orders">
     <div class="chalkboard tip" data-tips>
       <p class="chalk-label">One for the road</p>
@@ -143,7 +176,7 @@
       <button type="button" class="btn btn--ghost-light tip__next" data-tip-next hidden>Another round</button>
     </div>
     <div class="panel panel--green on-dark regulars-drink">
-      <p class="eyebrow eyebrow--brass">Pull up a stool</p>
+      <p class="eyebrow eyebrow--brass">Community</p>
       <h3 class="serif">Where the regulars drink</h3>
       <p>Questions, setups and the odd friendly argument. Come and say hello.</p>
       <ul class="drink-list">
@@ -152,6 +185,9 @@
         {{- end }}
       </ul>
       <p class="rss">{{ partial "icon.html" (dict "name" "rss" "size" 18) }}<span>New guides and Regulars in your feed reader: <a href="{{ "index.xml" | relURL }}">RSS feed</a></span></p>
+      {{- with site.Params.kofi }}
+      <p class="rss">{{ partial "icon.html" (dict "name" "pint" "size" 18) }}<span>Saved you an evening? <a href="{{ . }}">Buy me a pint</a> on Ko-fi.</span></p>
+      {{- end }}
     </div>
   </div>
 </section>

@@ -1,0 +1,49 @@
+{{ define "main" }}
+{{- /* /cocktail-bar/: the advanced tools, each a page in content/cocktail-bar/. */ -}}
+{{ partial "page-band.html" . }}
+<div class="wrap prose">
+
+  {{- with .Params.firstDay }}
+  <div class="first-day panel">
+    <p class="eyebrow">Before you read on</p>
+    <p class="first-day__line">{{ . | markdownify }}</p>
+  </div>
+  {{- end }}
+
+  {{ .Content }}
+  {{ partial "tasting-notes-link.html" . }}
+
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">One tool per page</p>
+      <h2 id="cocktails">The cocktails</h2>
+    </div>
+  </div>
+  {{ partial "level-legend.html" (dict "levels" .Params.levels) }}
+  {{- /* One grid while the bar is small. Past six cocktails, they're grouped by each page's `group`
+         (Installing, Secrets, Looks...), in the order each group first appears by weight. */}}
+  {{- $cocktails := .Pages.ByWeight }}
+  {{- $groups := slice }}
+  {{- if gt (len $cocktails) 6 }}
+    {{- range $cocktails }}{{ $g := .Params.group | default "More" }}{{ if not (in $groups $g) }}{{ $groups = $groups | append $g }}{{ end }}{{ end }}
+  {{- else }}
+    {{- $groups = slice "" }}
+  {{- end }}
+  {{- range $groups }}
+  {{- $g := . }}
+  {{- with $g }}<h3 class="cocktail-group">{{ . }}</h3>{{ end }}
+  <div class="grid grid--wide">
+    {{- range $cocktails }}{{ if or (not $g) (eq (.Params.group | default "More") $g) }}
+    <a class="card cocktail-card" href="{{ .RelPermalink }}">
+      {{ partial "level-badge.html" .Params.level }}
+      {{ if $g }}<h4>{{ .Title }}</h4>{{ else }}<h3>{{ .Title }}</h3>{{ end }}
+      <p>{{ .Params.plain }}</p>
+      <span class="more">What it's for →</span>
+    </a>
+    {{- end }}{{ end }}
+  </div>
+  {{- end }}
+
+  {{ partial "next-round.html" . }}
+</div>
+{{ end }}

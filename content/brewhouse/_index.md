@@ -1,7 +1,8 @@
 ---
-title: "Five ways to brew the same pint"
+title: "Five ways to organise your config"
+linkTitle: "The Brewhouse"
 eyebrow: "The Brewhouse"
-lede: "Every NixOS config ends up describing a computer. What changes is how the recipe is organised: one file, a pinned flake, or a whole brewery of modules. Here's each method, simplest first, with the same order poured every way."
+lede: "Every NixOS config describes a computer. What changes is how its files are organised, from the one file the installer gives you up to a framework built from small modules. Here's each method, simplest first, with the same example in each."
 description: "NixOS config styles explained for beginners: vanilla configuration.nix, flakes, flake-parts, the dendritic pattern and den."
 
 firstDay: "**You don't need any of this on day one.** Start with the house pour, which is the `configuration.nix` the installer gives you, and come back when you've got more than one machine, or when your one file starts to feel crowded."

@@ -7,7 +7,7 @@
 <div class="chalkboard{{ if $lg }} chalkboard--lg{{ end }}">
 {{- with .Get "label" }}<p class="chalk-label">{{ . }}</p>{{ end }}
 {{- with .Get "title" }}<h2>{{ . }}</h2>{{ end }}
-{{- with .Get "intro" }}<p style="margin: 6px 0 0">{{ . | markdownify }}</p>{{ end }}
+{{- with .Get "intro" }}<p class="chalk-intro">{{ . | markdownify }}</p>{{ end }}
 {{- if eq (.Get "grid") "true" }}
 <div class="chalk-grid">{{ .Inner }}</div>
 {{- else }}

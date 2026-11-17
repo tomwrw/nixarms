@@ -12,11 +12,28 @@ pluralizeListTitles = false
   # The homepage <title> and social-share title. Mention NixOS so searches find it.
   homeTitle = "The Nix Arms - a friendly guide to Nix and NixOS"
   domain = "nixarms.com"
-  description = "A friendly local for anyone curious about Nix and NixOS: beginner guides, gaming on Linux, and real configs explained in plain English."
+  description = "A friendly local for anyone curious about Nix and NixOS: beginner guides, gaming on Linux and real configs explained in plain English."
   footerBlurb = "A friendly local for anyone curious about Nix and NixOS. The content is open source. If you spot a mistake, open a pull request and the next round's on me."
   repo = "https://github.com/tomwrw/nixarms"
-  # Order of filter chips on The Regulars (tags not listed here are hidden from the bar).
-  regularsFilters = ["Beginner", "Gaming", "niri", "Laptop", "Multi-machine", "Servers", "Flakes", "flake-parts", "Dendritic", "den"]
+  # "Buy me a pint": a plain link to Ko-fi (no Ko-fi script or images load here). Used on The Landlord page and
+  # in Last orders; the footer link below repeats the address.
+  kofi = "https://ko-fi.com/tomwrw"
+  # Order of filter chips on The Regulars (tags not listed here are hidden from the bar): what the config is
+  # for, then how it's organised (the Brewhouse ladder, then Home Manager, which works with every step), then
+  # the tools it uses (the Cocktail Bar, in its order).
+  # A chip only shows once at least one Regular has that tag.
+  regularsFilters = ["Beginner", "Gaming", "niri", "Laptop", "Multi-machine", "Servers", "Flakes", "flake-parts", "Dendritic", "den", "Home Manager", "disko", "nixos-anywhere", "impermanence", "sops-nix", "lanzaboote", "Stylix"]
+
+  # NixOS releases, oldest first, each with the day it came out (from its nixos.org announcement).
+  # A page's `checked` date shows which release it was checked on ("Fresh on tap" in the page band).
+  # When a new release is out, add it at the end: every page checked before that day then says
+  # "Due a recheck" until you re-verify it and bump its `checked`.
+  [[params.nixosReleases]]
+    name = "25.11"
+    date = "2025-11-30"
+  [[params.nixosReleases]]
+    name = "26.05"
+    date = "2026-05-30"
 
   # Analytics: GoatCounter (cookieless). Set `code` to your GoatCounter site code,
   # the part before .goatcounter.com (e.g. "nixarms" for nixarms.goatcounter.com).
@@ -25,6 +42,8 @@ pluralizeListTitles = false
   [params.goatcounter]
     code = "nixarms"
 
+  # The rooms in route order: the header has the same ones, minus Start here (the header button) and
+  # The Landlord (an "about" page, so footer only).
   [[params.footerNav]]
     title = "The bar"
     [[params.footerNav.links]]
@@ -34,14 +53,14 @@ pluralizeListTitles = false
       name = "The Games Lounge"
       url = "/gaming/"
     [[params.footerNav.links]]
-      name = "The Regulars"
-      url = "/regulars/"
-    [[params.footerNav.links]]
       name = "The Brewhouse"
       url = "/brewhouse/"
     [[params.footerNav.links]]
-      name = "The Menu"
-      url = "/menu/"
+      name = "The Cocktail Bar"
+      url = "/cocktail-bar/"
+    [[params.footerNav.links]]
+      name = "The Regulars"
+      url = "/regulars/"
     [[params.footerNav.links]]
       name = "The Library"
       url = "/library/"
@@ -63,21 +82,22 @@ pluralizeListTitles = false
       name = "Source on GitHub"
       url = "https://github.com/tomwrw/nixarms"
     [[params.footerNav.links]]
+      name = "Buy me a pint"
+      url = "https://ko-fi.com/tomwrw"
+    [[params.footerNav.links]]
       name = "Credits"
       url = "https://github.com/tomwrw/nixarms/blob/main/THIRD_PARTY.md"
     [[params.footerNav.links]]
       name = "Privacy"
       url = "/privacy/"
 
-# Header links. `sub` is the plain-English line under each pub name, saying what the page is.
-# Keep it to two or three short words.
+# Header links, in the order of the route through the pub (data/journey.yaml): The Games Lounge
+# for gamers, organise your config (The Brewhouse), add the advanced tools (The Cocktail Bar), read
+# real configs (The Regulars), then The Library (docs, videos and the jargon buster). Five links at
+# most: the header has to stay uncluttered. "Start here" is the button in the top row, and The
+# Landlord lives in the footer.
+# `sub` is the plain-English line under each pub name, saying what the page is. Keep it short.
 [menus]
-  [[menus.main]]
-    name = "Start here"
-    pageRef = "/start"
-    weight = 10
-    [menus.main.params]
-      sub = "Pick your guide"
   [[menus.main]]
     name = "The Games Lounge"
     pageRef = "/gaming"
@@ -85,35 +105,29 @@ pluralizeListTitles = false
     [menus.main.params]
       sub = "Steam & Proton"
   [[menus.main]]
-    name = "The Regulars"
-    pageRef = "/regulars"
-    weight = 30
-    [menus.main.params]
-      sub = "Real configs"
-  [[menus.main]]
     name = "The Brewhouse"
     pageRef = "/brewhouse"
-    weight = 35
+    weight = 30
     [menus.main.params]
       sub = "Config recipes to try"
   [[menus.main]]
-    name = "The Menu"
-    pageRef = "/menu"
+    name = "The Cocktail Bar"
+    pageRef = "/cocktail-bar"
     weight = 40
     [menus.main.params]
-      sub = "Jargon buster"
+      sub = "Advanced, explained"
+  [[menus.main]]
+    name = "The Regulars"
+    pageRef = "/regulars"
+    weight = 50
+    [menus.main.params]
+      sub = "Real configs"
   [[menus.main]]
     name = "The Library"
     pageRef = "/library"
-    weight = 50
+    weight = 70
     [menus.main.params]
-      sub = "Docs & videos"
-  [[menus.main]]
-    name = "The Landlord"
-    pageRef = "/landlord"
-    weight = 60
-    [menus.main.params]
-      sub = "About me"
+      sub = "Docs, videos, jargon"
 
 [taxonomies]
   tag = "tags"

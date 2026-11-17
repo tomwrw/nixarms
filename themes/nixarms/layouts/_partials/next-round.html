@@ -1,0 +1,25 @@
+{{- /* "Next round": the forward step at the end of a page, as a green banner.
+       Uses the page's own `nextRound` front matter ({url, title, text, label}) if it has one;
+       otherwise the next room in data/journey.yaml after the one this page belongs to.
+       partial "next-round.html" . */ -}}
+{{- $n := .Params.nextRound }}
+{{- if not $n }}
+  {{- $rooms := hugo.Data.journey }}
+  {{- $here := printf "/%s/" .Section }}
+  {{- range $i, $r := $rooms }}
+    {{- if and (eq $r.url $here) (lt (add $i 1) (len $rooms)) }}
+      {{- $next := index $rooms (add $i 1) }}
+      {{- $n = dict "url" $next.url "title" $next.name "text" $next.text "label" (printf "%s →" $next.cta) }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- with $n }}
+<div class="callout on-dark next-round">
+  <div class="callout__copy">
+    <p class="eyebrow">Next round</p>
+    <h2>{{ .title }}</h2>
+    <p>{{ .text | markdownify }}</p>
+  </div>
+  <a class="btn btn--brass" href="{{ .url | relURL }}">{{ .label }}</a>
+</div>
+{{- end }}

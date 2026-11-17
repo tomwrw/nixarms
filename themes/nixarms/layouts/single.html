@@ -1,6 +1,13 @@
 {{ define "main" }}
 {{ partial "page-band.html" . }}
 <article class="wrap prose">
+{{- with .Params.firstDay }}
+<div class="first-day panel">
+  <p class="eyebrow">Before you read on</p>
+  <p class="first-day__line">{{ . | markdownify }}</p>
+</div>
+{{- end }}
 {{ .Content }}
+{{ partial "next-round.html" . }}
 </article>
 {{ end }}

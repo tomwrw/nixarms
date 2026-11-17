@@ -5,9 +5,9 @@ step: 1
 weight: 10
 style: "The house pour"
 plain: "One file in /etc/nixos, exactly what the installer gives you."
-lede: "The house pour: one file, `configuration.nix`, describing your whole machine. It's what the installer creates, what the official manual teaches, and the right place to start."
+lede: "One file, `configuration.nix`, describing your whole machine. The installer creates it and the NixOS manual is written around it, so it's the place to start."
 description: "Vanilla NixOS configuration with configuration.nix and channels, explained for beginners."
-forWho: "Everyone, to begin with. Plenty of people with one machine never need more."
+forWho: "Everyone, to begin with. With one machine, you may never need more."
 moveOn: "You want your config in git with exact versions pinned, or you've got a second machine to set up."
 regularsTag: "Vanilla"
 checked: 2026-11-11
@@ -33,7 +33,7 @@ docs:
     note: "every setting you can put in it"
 ---
 
-## The pour
+## Turning on Steam
 
 The installer writes two files to `/etc/nixos/`. You edit `configuration.nix`; `hardware-configuration.nix` describes your disks and drivers and is best left alone.
 

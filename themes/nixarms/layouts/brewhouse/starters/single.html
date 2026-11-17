@@ -13,9 +13,11 @@
 {{- $tree := printf "%s/tree/main/templates" $d.repo }}
 <section class="band on-dark">
   <div class="wrap page-band">
-    <p class="eyebrow">The Brewhouse · Starter guide · Step {{ .Params.step }} of {{ len $guides }}</p>
+    {{ partial "crumbs.html" . }}
+    <p class="eyebrow">Step {{ .Params.step }} of {{ len $guides }}</p>
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Params.lede | markdownify }}</p>
+    {{- partial "fresh.html" . }}
   </div>
 </section>
 
@@ -46,13 +48,13 @@
 
   <h2 id="whats-in-the-box">What's in the box</h2>
   <div class="table-wrap">
-    <table class="files-table">
+    <table class="files-table stack">
       <thead><tr><th scope="col">File</th><th scope="col">What it does</th></tr></thead>
       <tbody>
         {{- range .Params.files }}
         <tr>
-          <td><code>{{ .path }}</code>{{ if .hm }} <span class="badge badge--amber">{{ $hm }} only</span>{{ end }}</td>
-          <td>{{ .what | markdownify }}</td>
+          <td data-label="File"><code>{{ .path }}</code>{{ if .hm }} <span class="badge badge--amber">{{ $hm }} only</span>{{ end }}</td>
+          <td data-label="What it does">{{ .what | markdownify }}</td>
         </tr>
         {{- end }}
       </tbody>
@@ -85,25 +87,11 @@
   </ul>
   {{- end }}
 
-  <div class="chalkboard chalkboard--lg mind-the-step" id="mind-the-step">
-    <p class="chalk-label">Before you pour</p>
-    <h2>Mind the step</h2>
-    <p style="margin: 6px 0 0">{{ $d.gotchas.intro }}</p>
-    {{- $groups := slice (dict "label" "With this starter" "items" (.Params.gotchas | default slice)) }}
-    {{- if .Params.flake }}{{ $groups = $groups | append (dict "label" "With any flake" "items" $d.gotchas.flakes) }}{{ end }}
-    {{- $groups = $groups | append (dict "label" "Whichever you pour" "items" $d.gotchas.everyone) }}
-    {{- $groups = $groups | append (dict "label" (printf "With Home Manager (%s)" $hm) "items" $d.gotchas.homeManager) }}
-    {{- range $groups }}
-    {{- if .items }}
-    <h3 class="mind-the-step__group">{{ .label }}</h3>
-    <div class="chalk-grid">
-      {{- range .items }}
-      <div class="chalk-item"><h4>{{ .title | markdownify }}</h4><p>{{ partial "starter-md.html" (dict "page" $ "text" .text "plain" $plain) }}</p></div>
-      {{- end }}
-    </div>
-    {{- end }}
-    {{- end }}
-  </div>
+  {{- $groups := slice (dict "label" "With this starter" "items" (.Params.gotchas | default slice)) }}
+  {{- if .Params.flake }}{{ $groups = $groups | append (dict "label" "With any flake" "items" $d.gotchas.flakes) }}{{ end }}
+  {{- $groups = $groups | append (dict "label" "Whichever you pour" "items" $d.gotchas.everyone) }}
+  {{- $groups = $groups | append (dict "label" (printf "With Home Manager (%s)" $hm) "items" $d.gotchas.homeManager) }}
+  {{ partial "gotchas.html" (dict "page" $ "intro" $d.gotchas.intro "groups" $groups "plain" $plain) }}
 
   {{ .Content }}
 
@@ -131,14 +119,14 @@
     </div>
   </aside>
 
-  <p class="checked">Last checked against <a href="{{ $d.repo }}">nixarms-brewhouse</a> on NixOS 26.05: {{ (time .Params.checked).Format "2 January 2006" }}. Spotted something out of date? <a href="{{ $d.repo }}/issues">Open an issue</a>.</p>
+  <p class="checked">Last checked against <a href="{{ $d.repo }}">nixarms-brewhouse</a>{{ with partial "nixos-release.html" .Params.checked }} on NixOS {{ . }}{{ end }}: {{ (time .Params.checked).Format "2 January 2006" }}. Spotted something out of date? <a href="{{ $d.repo }}/issues">Open an issue</a>.</p>
 
   <nav class="step-nav" aria-label="Starter guides">
     {{- $prev := index (where $guides "Params.step" (sub $n 1)) 0 }}
     {{- $next := index (where $guides "Params.step" (add $n 1)) 0 }}
     {{- $all := .CurrentSection }}
     {{- with $prev }}<a class="card" href="{{ .RelPermalink }}"><span class="eyebrow">← Step {{ .Params.step }}</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card" href="{{ $all.RelPermalink }}"><span class="eyebrow">← Back to</span><span class="serif">{{ $all.Title }}</span></a>{{ end }}
-    {{- with $next }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Step {{ .Params.step }} →</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card step-nav__next" href="{{ $all.RelPermalink }}"><span class="eyebrow">Back to →</span><span class="serif">{{ $all.Title }}</span></a>{{ end }}
+    {{- with $next }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Step {{ .Params.step }} →</span><span class="serif">{{ .Title }}</span></a>{{ else }}<a class="card step-nav__next" href="{{ "/cocktail-bar/" | relURL }}"><span class="eyebrow">Next round →</span><span class="serif">The Cocktail Bar</span></a>{{ end }}
   </nav>
 </article>
 {{ end }}

@@ -1,13 +1,16 @@
+{{- /* Markdown tables. On phones the `stack` class turns each row into a block of its own, with every cell
+       labelled by its column heading (data-label), so nothing is cropped off the side of the screen. */ -}}
+{{- $heads := slice }}{{ with .THead }}{{ range index . 0 }}{{ $heads = $heads | append (.Text | plainify | htmlUnescape) }}{{ end }}{{ end }}
 <div class="table-wrap">
-<table>
+<table class="stack">
   <thead>
     {{- range .THead }}
-    <tr>{{ range . }}<th scope="col"{{ with .Alignment }} style="text-align: {{ . }}"{{ end }}>{{ .Text }}</th>{{ end }}</tr>
+    <tr>{{ range . }}<th scope="col"{{ with .Alignment }} class="align-{{ . }}"{{ end }}>{{ .Text }}</th>{{ end }}</tr>
     {{- end }}
   </thead>
   <tbody>
     {{- range .TBody }}
-    <tr>{{ range . }}<td{{ with .Alignment }} style="text-align: {{ . }}"{{ end }}>{{ .Text }}</td>{{ end }}</tr>
+    <tr>{{ range $i, $c := . }}<td data-label="{{ index $heads $i }}"{{ with $c.Alignment }} class="align-{{ . }}"{{ end }}>{{ $c.Text }}</td>{{ end }}</tr>
     {{- end }}
   </tbody>
 </table>

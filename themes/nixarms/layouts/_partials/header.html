@@ -3,21 +3,23 @@
     <a class="brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} home">
       <img src="{{ "img/brand/nixarms-lockup-on-dark.svg" | relURL }}" alt="{{ site.Title }} - {{ site.Params.tagline }}" width="273" height="56">
     </a>
-    {{- /* Desktop: the button sits opposite the logo and the links get the row below. Phones use the copy at
-           the end of the link list instead; CSS shows exactly one of the two at any width. */}}
-    <a class="btn btn--brass nav-cta" href="{{ "/#last-orders" | relURL }}">Pull up a stool</a>
-    {{- /* Phone-width toggle. Hidden until site.js enables it, so without JavaScript the links simply show. */}}
-    <button class="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Open site navigation" data-nav-toggle hidden>
-      <svg class="nav-toggle__open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
-      <svg class="nav-toggle__close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
+    {{- /* The top row's tools, opposite the logo: "Start here" on desktop or the menu toggle on
+           phones. Phones get "Start here" at the end of the link list instead; CSS shows one copy at a time. */}}
+    <div class="nav-tools">
+      <a class="btn btn--brass nav-cta" href="{{ "/start/" | relURL }}">Start here</a>
+      {{- /* Phone-width toggle. Hidden until site.js enables it, so without JavaScript the links simply show. */}}
+      <button class="nav-toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Open site navigation" data-nav-toggle hidden>
+        <svg class="nav-toggle__open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+        <svg class="nav-toggle__close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
     <ul class="nav-links" id="nav-links">
       {{- $page := . }}
       {{- range site.Menus.main }}
       {{- $active := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}
       <li><a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}><span class="nav-label">{{ .Name }}</span>{{ with .Params.sub }}<span class="nav-sub">{{ . }}</span>{{ end }}</a></li>
       {{- end }}
-      <li class="nav-links__cta"><a class="btn btn--brass" href="{{ "/#last-orders" | relURL }}">Pull up a stool</a></li>
+      <li class="nav-links__cta"><a class="btn btn--brass" href="{{ "/start/" | relURL }}">Start here</a></li>
     </ul>
   </nav>
 </header>

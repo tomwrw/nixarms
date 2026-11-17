@@ -6,7 +6,7 @@ weight: 40
 flake: true
 date: 2026-11-16
 checked: 2026-11-16
-lede: "No `configuration.nix` any more: each feature has a file of its own, and the computer is a list of features. Taste it in a throwaway VM, then make it yours in about forty minutes."
+lede: "No `configuration.nix` any more: each feature has a file of its own, and the computer is a list of features. Give it about forty minutes to make it yours."
 description: "A beginner's guide to the dendritic-pattern NixOS starter config, with and without Home Manager: try it in a VM, then make it your own."
 files:
   - path: "flake.nix"
@@ -83,7 +83,7 @@ It goes over the starter's placeholder, in `snug`'s own folder. Keep the `_` at 
 Open the folder in Kate (KDE's text editor) and search for `CHANGE ME`. Your details are spread out on purpose, each one in the feature it belongs to:
 
 - **Language and keyboard** are in `modules/base.nix`.
-- **Your account** is in `modules/users/alice.nix`, with your git name and email if you poured Home Manager. Use the account name you picked in the installer: a new name makes a new, empty account. Rename `alice` throughout that file, the file itself, and in `modules/vm.nix` and `snug`'s list.
+- **Your account** is in `modules/users/alice.nix`, with your git name and email if you poured Home Manager. Use the account name you picked in the installer: a new name makes a new, empty account. Rename `alice` throughout that file, rename the file itself, and change it in `modules/vm.nix` and `snug`'s list.
 - **The hostname and `stateVersion`** are in `modules/hosts/snug/default.nix`. If you change the hostname, rename the `snug` folder and the name in `modules/vm.nix` too. Copy `stateVersion` from your old file. This shows it:
 
 ```sh

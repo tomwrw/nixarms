@@ -213,7 +213,7 @@ gotchas:
   homeManager:
     - title: "Releases must match"
       text: >-
-        Home Manager's release has to match NixOS's: 26.05 with 26.05. When you
+        Home Manager's release number has to match NixOS's. When you
         move NixOS to a new release, move Home Manager with it.
     - title: "Your old dotfiles become .backup"
       text: >-

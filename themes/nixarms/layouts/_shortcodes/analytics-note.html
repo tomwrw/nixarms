@@ -1,7 +1,7 @@
 {{- /* Describes the site's analytics, matching params.goatcounter.code in hugo.toml. */ -}}
 {{- $code := "" }}{{ with site.Params.goatcounter }}{{ $code = .code }}{{ end }}
 {{- if $code }}
-<p>The site counts visits with <a href="https://www.goatcounter.com">GoatCounter</a>, an open-source analytics service. It records the page you visited, the site that linked you here, your browser and screen size, and your country (worked out from your IP address, which isn't stored). It doesn't use cookies and doesn't track you across other sites. The numbers are only used to see which pages are useful, never for advertising.</p>
+<p>The site counts visits with <a href="https://www.goatcounter.com">GoatCounter</a>, an open-source analytics service. It records the page you visited, the site that linked you here, your browser, your screen size and your country (worked out from your IP address, which isn't stored). It doesn't use cookies and doesn't track you across other sites. The numbers are only used to see which pages are useful, never for advertising.</p>
 <p>To stop your visits being counted, block <code>gc.zgo.at</code> with any content blocker, or open <a href="/#toggle-goatcounter">this link</a> once. That saves a small "don't count me" setting in your browser. Open it again to turn counting back on.</p>
 {{- else }}
 <p>The site doesn't use any analytics or visitor tracking.</p>

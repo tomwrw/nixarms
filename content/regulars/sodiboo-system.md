@@ -5,7 +5,7 @@ repo: "sodiboo/system"
 author: "sodiboo"
 level: "Top shelf"
 weight: 60
-tags: ["niri", "Home Manager", "Laptop", "Multi-machine", "Servers", "Flakes"]
+tags: ["niri", "Home Manager", "Laptop", "Multi-machine", "Servers", "Flakes", "disko", "impermanence", "sops-nix", "Stylix"]
 borrow: "niri's settings written as Nix in one file, and checked against niri when you build."
 ---
 

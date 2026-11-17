@@ -37,16 +37,16 @@
   <h2 id="all-ten">All ten starters</h2>
   <p>{{ partial "starter-md.html" (dict "page" . "text" $d.builds "plain" "") }}</p>
   <div class="table-wrap">
-    <table>
+    <table class="stack">
       <thead><tr><th scope="col">Step</th><th scope="col">Method</th><th scope="col">{{ $d.kits.plain.label }}</th><th scope="col">{{ $d.kits.hm.label }}</th></tr></thead>
       <tbody>
         {{- range $guides }}
         {{- $method := site.GetPage (printf "/brewhouse/%s" .Params.starter) }}
         <tr>
-          <td>{{ .Params.step }}</td>
-          <td><a href="{{ .RelPermalink }}">{{ $method.Title }}</a></td>
-          <td><a href="{{ $tree }}/{{ .Params.starter }}"><code>{{ .Params.starter }}</code></a></td>
-          <td><a href="{{ $tree }}/{{ .Params.starter }}-hm"><code>{{ .Params.starter }}-hm</code></a></td>
+          <td data-label="Step">{{ .Params.step }}</td>
+          <td data-label="Method"><a href="{{ .RelPermalink }}">{{ $method.Title }}</a></td>
+          <td data-label="{{ $d.kits.plain.label }}"><a href="{{ $tree }}/{{ .Params.starter }}"><code>{{ .Params.starter }}</code></a></td>
+          <td data-label="{{ $d.kits.hm.label }}"><a href="{{ $tree }}/{{ .Params.starter }}-hm"><code>{{ .Params.starter }}-hm</code></a></td>
         </tr>
         {{- end }}
       </tbody>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="callout on-dark">
-    <div style="flex: 1 1 420px; min-width: 0">
+    <div class="callout__copy">
       <p class="eyebrow">The brewhouse itself</p>
       <h2>nixarms-brewhouse</h2>
       <p>All ten starters, checked on every change, with a weekly job that tries the newest versions. Take what's useful: the code is MIT.</p>

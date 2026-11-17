@@ -1,0 +1,13 @@
+{{- /* What the level badges mean, as a short legend: each badge with a line beside it.
+       partial "level-legend.html" (dict "label" "What the badges mean" "levels" .Params.levels)
+       Each level: name (one of the level-badge names), text. */ -}}
+{{- with .levels }}
+<div class="level-legend">
+  <p class="eyebrow">{{ $.label | default "What the badges mean" }}</p>
+  <dl>
+    {{- range . }}
+    <div><dt>{{ partial "level-badge.html" .name }}</dt><dd>{{ .text | markdownify }}</dd></div>
+    {{- end }}
+  </dl>
+</div>
+{{- end }}

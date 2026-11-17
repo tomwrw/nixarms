@@ -1,0 +1,11 @@
+{{- /* Breadcrumbs for pages below a section ("The Brewhouse › Starter guides"), shown in the green band
+       above the eyebrow. Section pages give their short name as `linkTitle`. Nothing on top-level pages. */ -}}
+{{- $trail := slice }}
+{{- range .Ancestors.Reverse }}{{ if not .IsHome }}{{ $trail = $trail | append . }}{{ end }}{{ end }}
+{{- with $trail }}
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    {{- range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+  </ol>
+</nav>
+{{- end }}

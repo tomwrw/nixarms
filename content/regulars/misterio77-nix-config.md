@@ -5,7 +5,7 @@ repo: "Misterio77/Foundry"
 author: "Gabriel Fontes"
 level: "Second round"
 weight: 30
-tags: ["Multi-machine", "Servers", "Flakes"]
+tags: ["Multi-machine", "Servers", "Home Manager", "Flakes", "disko", "impermanence", "sops-nix", "lanzaboote"]
 borrow: "How it splits system settings from per-user Home Manager settings."
 ---
 

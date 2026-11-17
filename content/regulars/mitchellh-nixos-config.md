@@ -5,7 +5,7 @@ repo: "mitchellh/nixos-config"
 author: "Mitchell Hashimoto"
 level: "Second round"
 weight: 50
-tags: ["Flakes", "Laptop"]
+tags: ["Laptop", "Home Manager", "Flakes"]
 borrow: "The idea that your dev environment can live in a VM you rebuild at will."
 ---
 

@@ -25,7 +25,7 @@
   url: "https://nixos.org/manual/nixos/stable/"
   short: "installation and configuration"
   level: "Top shelf"
-  description: "The official manual: installing NixOS, configuration options, and upgrading between releases."
+  description: "The official manual: installing NixOS, configuration options and upgrading between releases."
 - name: "NixOS Wiki"
   url: "https://wiki.nixos.org"
   short: "community how-tos"

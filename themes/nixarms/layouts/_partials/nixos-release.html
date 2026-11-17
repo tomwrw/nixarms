@@ -1,0 +1,9 @@
+{{- /* The NixOS release that was current on a date: the newest in params.nixosReleases (hugo.toml) that
+       came out on or before it. Returns "" for a date before every listed release.
+       partial "nixos-release.html" .Params.checked */ -}}
+{{- $on := time . }}
+{{- $name := "" }}
+{{- range site.Params.nixosReleases }}
+  {{- if not ((time .date).After $on) }}{{ $name = .name }}{{ end }}
+{{- end }}
+{{- return $name }}

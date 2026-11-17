@@ -3,8 +3,8 @@ date: 2026-11-11
 title: "The dendritic pattern"
 step: 4
 weight: 40
-style: "Grown, not built"
-plain: "Organise by feature, not by machine: every file is a module, and they're all loaded automatically."
+style: "Branching out"
+plain: "Organised by feature instead of by machine. Every file is a module, and they're all loaded automatically."
 lede: "The dendritic pattern turns a config inside out. Instead of each machine listing everything it needs, each *feature* (gaming, a desktop, your shell) lives in one file, and machines pick the features they want."
 description: "The dendritic Nix pattern explained for beginners: feature-first modules, usually with flake-parts and import-tree."
 forWho: "People with three or more machines, or anyone tired of hunting through host folders to find where a setting lives."
@@ -21,7 +21,7 @@ strengths:
   - "Adding a machine is a few lines: pick its features, done."
   - "No hand-maintained `imports` lists: drop a file in the folder and it's loaded."
 tradeoffs:
-  - "It's a *pattern*, not a product: there's no single right way, so configs that follow it can still look quite different."
+  - "There's nothing to install: it's a *pattern*, so there's no single right way, and configs that follow it can look quite different."
   - "Hard to follow until it clicks, and hard to read someone else's at first."
   - "Usually built on flake-parts, so you're learning that too."
 docs:
@@ -33,7 +33,7 @@ docs:
     note: "the community discussion"
 ---
 
-## The pour
+## Turning on Steam
 
 `flake.nix` shrinks to almost nothing: it loads every file under `modules/` with [import-tree](https://github.com/denful/import-tree), and each file is a flake-parts module.
 

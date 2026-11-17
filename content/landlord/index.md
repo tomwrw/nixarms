@@ -1,12 +1,14 @@
 ---
 title: "The Landlord"
+# Not an article, so it stays out of the RSS feed (home.rss.xml).
+feed: false
 eyebrow: "Behind the bar"
 layout: landlord
 date: 2026-11-11
 build:
   publishResources: false
 lede: "Every local needs someone behind the bar. At The Nix Arms, that's me."
-description: "About Tom, who runs The Nix Arms: why the pub exists, what runs on his machines, and where to find him."
+description: "About me, Tom: why I opened The Nix Arms, what runs on my machines and where to find me."
 photo:
   src: "landlord.jpg"
   alt: "Tom, the landlord, in sunglasses and a checked shirt, holding a bottle of beer in a garden"
@@ -18,6 +20,10 @@ findMe:
   - name: "GitHub: tomwrw"
     url: "https://github.com/tomwrw"
     text: "My configs, including megadots, and this site."
+# "Buy me a pint" panel, above the Pull up a stool button. The link is params.kofi in hugo.toml.
+pint:
+  eyebrow: "Your round"
+  text: "If a guide here saved you an evening, you can stand me a pint. No pressure: it's all free to read either way."
 ---
 
 I'm Tom, and I run The Nix Arms.

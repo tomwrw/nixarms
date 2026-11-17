@@ -1,20 +1,40 @@
-# The Menu: Nix jargon, translated. The first six appear on the homepage chalkboard.
+# The jargon buster: Nix jargon, translated, on The Library page (/library/#jargon). The first six
+# appear on the homepage chalkboard.
+# `more` (optional) links a term to the page that explains it properly: {url, label}.
 - term: "Generation"
   meaning: "A save point for your whole system. You can boot into any of them."
+  more:
+    url: "/start/windows/#your-first-evening"
+    label: "Roll back, to see that you can"
 - term: "Rebuild"
   meaning: "\"Apply my changes.\" You edit the file, then rebuild to make it real."
 - term: "nixpkgs"
   meaning: "The cellar. Where every package lives, and the place you search for apps."
+  more:
+    url: "https://search.nixos.org/packages"
+    label: "Search nixpkgs"
 - term: "Flake"
-  meaning: "A recipe with the exact version of every ingredient written on it. Same pint, every time."
+  meaning: "A recipe with the exact version of every ingredient written on it, so it comes out the same every time."
+  more:
+    url: "/brewhouse/flakes/"
+    label: "Flakes, in the Brewhouse"
 - term: "Home Manager"
   meaning: "The same idea, for your own apps and dotfiles rather than the whole system."
+  more:
+    url: "/brewhouse/#home-manager"
+    label: "Home Manager, in the Brewhouse"
 - term: "Declarative"
-  meaning: "Saying *what* you want, not the steps to get there. Like ordering, not brewing."
+  meaning: "Saying *what* you want and leaving the steps to Nix. You order the pint, and Nix does the brewing."
 - term: "configuration.nix"
   meaning: "The main file that describes your machine. On a fresh install it lives in `/etc/nixos/`."
+  more:
+    url: "/brewhouse/vanilla/"
+    label: "The house pour, in the Brewhouse"
 - term: "Channel"
-  meaning: "Which barrel you're pouring from: a stable release (like 26.05) or unstable, which updates continuously."
+  meaning: "Which barrel you're pouring from: a stable release (there's a new one every May and November) or unstable, which updates continuously."
+  more:
+    url: "/brewhouse/vanilla/#how-it-works"
+    label: "How channels work"
 - term: "Nix store"
   meaning: "The cellar floor, at `/nix/store`. Every package version sits in its own folder, so nothing overwrites anything else."
 - term: "Derivation"
@@ -22,7 +42,10 @@
 - term: "Overlay"
   meaning: "A way to swap or tweak packages in nixpkgs. Your own house brew on the same tap."
 - term: "Module"
-  meaning: "A chunk of configuration you can switch on with one line, like `programs.steam.enable = true;`."
+  meaning: "A file of settings that your config pulls in with `imports`. NixOS itself is made of thousands of them, which is why `programs.steam.enable = true;` is all it takes to add Steam."
+  more:
+    url: "/brewhouse/vanilla/#how-it-works"
+    label: "Splitting a config into modules"
 - term: "nix-shell / nix shell"
   meaning: "A temporary room with extra tools in it. Leave the room and the tools are gone."
 - term: "Garbage collection"

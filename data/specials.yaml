@@ -1,5 +1,5 @@
 # "What's on tap" on the homepage: a chalkboard tap list of six things NixOS does well.
-# Each special has a name, a line of text, and `pour`: the one line of config or the command that does it.
+# Each special has a name, a line of text and `pour`: the one line of config or the command that does it.
 # Check every `pour` still works on current NixOS (search.nixos.org) before publishing.
 - title: "A desktop that's entirely yours"
   text: "Bars, themes, keybinds and wallpapers all live in your config, so your setup survives a reinstall."
@@ -18,9 +18,9 @@
   pour: "services.jellyfin.enable = true;"
 
 - title: "Try any app without installing it"
-  text: "Run something once, close the terminal, and it's gone. No leftovers, no clutter."
+  text: "Run it once, close the terminal and it's gone. The download waits in the Nix store until your next clear-out."
   pour: "nix-shell -p cowsay"
 
-- title: "Fearless experimenting"
+- title: "Experiments you can undo"
   text: "Try a new desktop tonight. Don't like it? Yesterday's system is one command away, or still in the boot menu."
   pour: "sudo nixos-rebuild switch --rollback"

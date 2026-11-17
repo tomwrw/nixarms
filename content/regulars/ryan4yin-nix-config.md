@@ -6,7 +6,7 @@ author: "Ryan Yin"
 level: "Top shelf"
 featured: true
 weight: 40
-tags: ["niri", "Multi-machine", "Servers", "Flakes"]
+tags: ["niri", "Multi-machine", "Servers", "Home Manager", "Flakes", "disko", "lanzaboote"]
 borrow: "Read it next to the book: the chapters map onto real code here."
 ---
 

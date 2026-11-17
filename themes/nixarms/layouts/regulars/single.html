@@ -1,8 +1,9 @@
 {{ define "main" }}
 <section class="band on-dark">
   <div class="wrap page-band">
-    <p class="eyebrow">The Regulars · {{ .Params.level }}</p>
-    <h1 class="mono" style="font-family: var(--mono); font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.8rem); overflow-wrap: anywhere">{{ .Params.repo }}</h1>
+    {{ partial "crumbs.html" . }}
+    <p class="eyebrow">{{ .Params.level }}</p>
+    <h1 class="repo-title">{{ .Params.repo }}</h1>
     <p class="lede">By {{ .Params.author }}{{ with .Params.hardware }} · {{ . }}{{ end }}</p>
     <div class="band-actions">
       <a class="btn btn--brass" href="https://github.com/{{ .Params.repo }}">View on GitHub →</a>
@@ -12,11 +13,47 @@
 </section>
 <div class="wrap prose">
   {{- with .Params.borrow }}
-  <div class="panel" style="margin: 0 0 40px; max-width: 780px"><p class="eyebrow">Worth borrowing</p><p style="margin: 0; font-size: 1.15rem">{{ . }}</p></div>
+  <div class="panel borrow-panel"><p class="eyebrow">Worth borrowing</p><p>{{ . }}</p></div>
+  {{- end }}
+
+  {{- /* Where it fits: the Brewhouse step for its method (the most advanced one its tags match) and the
+         Cocktail Bar tools it uses, both found through each page's regularsTag. */}}
+  {{- $tags := .Params.tags | default slice }}
+  {{- $methods := slice }}
+  {{- with site.GetPage "/brewhouse" }}{{ range where .Pages "Params.step" "!=" nil }}{{ if in $tags .Params.regularsTag }}{{ $methods = $methods | append . }}{{ end }}{{ end }}{{ end }}
+  {{- $cocktails := slice }}
+  {{- with site.GetPage "/cocktail-bar" }}{{ range .Pages.ByWeight }}{{ if in $tags .Params.regularsTag }}{{ $cocktails = $cocktails | append . }}{{ end }}{{ end }}{{ end }}
+  {{- if or $methods $cocktails }}
+  <div class="brew-facts">
+    {{- with $methods }}{{ with index (sort . "Params.step" "desc") 0 }}
+    <div class="panel">
+      <p class="eyebrow">Brewed with</p>
+      <p><a href="{{ .RelPermalink }}">{{ .Title }}</a>, step {{ .Params.step }} on the Brewhouse ladder.</p>
+    </div>
+    {{- end }}{{ end }}
+    {{- with $cocktails }}
+    <div class="panel">
+      <p class="eyebrow">Cocktails in it</p>
+      <p>{{ range $k, $c := . }}{{ if $k }} · {{ end }}<a href="{{ $c.RelPermalink }}">{{ $c.Title }}</a>{{ end }}</p>
+    </div>
+    {{- end }}
+  </div>
   {{- end }}
   {{ .Content }}
-  <p style="max-width: 780px">
-    {{- range .GetTerms "tags" }}<a class="badge" style="margin-right: 6px" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+  {{- if .Params.tastingNotes }}{{ partial "tasting-notes-link.html" . }}{{ end }}
+  <p class="tag-row">
+    {{- range .GetTerms "tags" }}<a class="badge" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
   </p>
+
+  {{- /* Previous and next regular, in the same order as the list. The Regulars are the end of the route,
+         so the last one invites the reader to submit their own. */}}
+  {{- $all := .CurrentSection.Pages.ByWeight }}
+  {{- $i := 0 }}{{ range $k, $p := $all }}{{ if eq $p.RelPermalink $.RelPermalink }}{{ $i = $k }}{{ end }}{{ end }}
+  <nav class="step-nav" aria-label="The Regulars">
+    {{- if gt $i 0 }}{{ with index $all (sub $i 1) }}<a class="card" href="{{ .RelPermalink }}"><span class="eyebrow">← Previous</span><span class="serif">{{ .Params.repo }}</span></a>{{ end }}
+    {{- else }}<a class="card" href="{{ .CurrentSection.RelPermalink }}"><span class="eyebrow">← Back to</span><span class="serif">The Regulars</span></a>{{ end }}
+    {{- if lt (add $i 1) (len $all) }}{{ with index $all (add $i 1) }}<a class="card step-nav__next" href="{{ .RelPermalink }}"><span class="eyebrow">Next →</span><span class="serif">{{ .Params.repo }}</span></a>{{ end }}
+    {{- else }}<a class="card step-nav__next" href="{{ "/regulars/#submit" | relURL }}"><span class="eyebrow">Your turn →</span><span class="serif">Submit your config</span></a>{{ end }}
+  </nav>
 </div>
 {{ end }}

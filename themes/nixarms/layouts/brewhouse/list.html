@@ -14,16 +14,22 @@
   <h2 id="the-ladder">The ladder, simplest first</h2>
   <ol class="ladder">
     {{- range $steps }}
+    {{- /* Each rung shows both halves of the step: the page that explains the method, and its starter guide. */}}
     <li>
-      <a class="ladder__step card" href="{{ .RelPermalink }}">
+      <div class="ladder__step card">
         <span class="round__n" aria-hidden="true">{{ .Params.step }}</span>
-        <span class="ladder__body">
+        <div class="ladder__body">
           <span class="ladder__style">{{ .Params.style }}</span>
-          <span class="ladder__name">{{ .Title }}</span>
+          <a class="ladder__name" href="{{ .RelPermalink }}">{{ .Title }}</a>
           <span class="ladder__plain">{{ .Params.plain }}</span>
-        </span>
-        <span class="ladder__more" aria-hidden="true">{{ partial "icon.html" (dict "name" "arrow" "size" 20) }}</span>
-      </a>
+          <span class="ladder__links">
+            <a href="{{ .RelPermalink }}">Read about it →</a>
+            {{- with site.GetPage (printf "/brewhouse/starters/%s" .File.ContentBaseName) }}
+            <a href="{{ .RelPermalink }}">Try the starter →</a>
+            {{- end }}
+          </span>
+        </div>
+      </div>
     </li>
     {{- end }}
   </ol>
@@ -31,9 +37,9 @@
   <!-- TASTING BOARD -->
   <div class="chalkboard chalkboard--lg tasting-board">
     <h2>The tasting board</h2>
-    <p style="margin: 6px 0 0">Five ways to brew the same pint, side by side.</p>
+    <p class="chalk-intro">The five methods, side by side.</p>
     <div class="tasting-wrap">
-      <table class="tasting">
+      <table class="tasting stack">
         <thead>
           <tr>
             <th scope="col">Method</th>
@@ -47,10 +53,10 @@
           {{- range $steps }}
           <tr>
             <th scope="row"><a href="{{ .RelPermalink }}">{{ .Title }}</a></th>
-            <td>{{ .Params.board.beginner }}</td>
-            <td>{{ .Params.board.flakes }}</td>
-            <td>{{ .Params.board.machines }}</td>
-            <td>{{ .Params.board.curve }}</td>
+            <td data-label="Good first brew?">{{ .Params.board.beginner }}</td>
+            <td data-label="Needs flakes?">{{ .Params.board.flakes }}</td>
+            <td data-label="Several machines">{{ .Params.board.machines }}</td>
+            <td data-label="Learning curve">{{ .Params.board.curve }}</td>
           </tr>
           {{- end }}
         </tbody>
@@ -59,19 +65,23 @@
   </div>
 
   <!-- WHICH BREW? -->
-  <h2 id="which-brew">Which brew?</h2>
-  <p>Pick the one that sounds most like you.</p>
-  <div class="panel" style="margin-top: 20px">
+  <div class="section-head">
+    <div>
+      <h2 id="which-brew">Which brew?</h2>
+      <p class="lede">Pick the one that sounds most like you.</p>
+    </div>
+  </div>
+  <div class="panel">
     {{ partial "picker.html" (dict "items" hugo.Data.brews "id" "brew" "label" "Choose the situation that sounds most like you") }}
   </div>
 
   <!-- STARTER GUIDES -->
   {{- with site.GetPage "/brewhouse/starters" }}
   <div class="callout on-dark">
-    <div style="flex: 1 1 420px; min-width: 0">
+    <div class="callout__copy">
       <p class="eyebrow">Starter guides</p>
       <h2>{{ .Title }}</h2>
-      <p>Every method above as a ready-made config, with and without Home Manager. Taste one in a throwaway VM, then make it yours.</p>
+      <p>Every method above as a ready-made config, with and without Home Manager, and a step-by-step guide to each.</p>
     </div>
     <a class="btn btn--brass" href="{{ .RelPermalink }}">See the starters →</a>
   </div>
@@ -82,7 +92,7 @@
   <aside class="side-tap" aria-labelledby="home-manager">
     <div class="section-head">
       <div>
-        <p class="eyebrow">A separate tap</p>
+        <p class="eyebrow">Works with every step</p>
         <h2 id="home-manager">{{ .title }}</h2>
       </div>
     </div>
@@ -96,7 +106,7 @@
   {{- with site.GetPage "/brewhouse/tasting-notes" }}
   {{- if not .Draft }}
   <div class="callout on-dark">
-    <div style="flex: 1 1 420px; min-width: 0">
+    <div class="callout__copy">
       <p class="eyebrow">The landlord's tasting notes</p>
       <h2>{{ .Title }}</h2>
       <p>{{ or .Params.lede .Summary | plainify }}</p>
@@ -105,5 +115,7 @@
   </div>
   {{- end }}
   {{- end }}
+
+  {{ partial "next-round.html" . }}
 </div>
 {{ end }}
